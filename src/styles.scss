@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: block;
+}
+
+article.support-index section.sp-section h4, article.support-list section.sp-section h4, article.support-search-result section.sp-section h4, article.support-list-video section.sp-section h4, article.support-content section.sp-section h4 {
+  display: block;
+}
+.categories .category-item {
+  width: 100%;
+  background-color: #00ADEF;
+  color: #fff;
+  display: block;
+  text-align: center;
+  margin: auto;
+  font-size: 22px;
+  font-weight:100;
+}
+
+.vt-section-title {
+  color: #000;
+  display: block;
+  border-bottom: 1px solid #000;
+}
+
+.videos-section {
+  margin-top: 40px;
+}
