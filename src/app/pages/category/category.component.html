@@ -1,0 +1,56 @@
+<section class="sp-section category-section">
+    <div class="container breadcrumbs">
+      <a [routerLink]="['/']">Home</a> > {{ category | ucfirst }}
+    </div>
+</section>
+<section class="sp-section latest category" style='padding-top: 0px;'>
+  <div class="container">
+    <h4>
+      <span class="vt-section-title category">Tutorials of {{ category | ucfirst }}<span class="video-count">Total: {{courses.length}} videos</span></span>
+    </h4>
+    <div class="col-md-12">
+      <div class="row videos-section">
+        <div class="col-md-5 video-item" *ngFor="let course of courses; let i = index;" [ngClass]="{'offset-md-1': (i % 2) === 0}">
+          <div class="video-card">
+            <div class="video-card-body">
+              <div class="video-card-picture">
+                <img alt="" src="{{'//img.youtube.com/vi/' + course.youtube_ref + '/mqdefault.jpg'}}">
+                <a href="#"></a>
+                <div class="video-stats clearfix">
+                  <!-- <div class="thumb-stats pull-left">
+                      <h6>HD</h6>
+                  </div> -->
+                  <div class="thumb-stats pull-left">
+                      <i class="fa fa-heart"></i>
+                      <span>{{course.like}}</span>
+                  </div>
+                  <div class="thumb-stats pull-right">
+                      <span>{{course.duration | momentDuration}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="video-card-content">
+                <div class="video-card-content-header">
+                  <div class="header-info">
+                    {{course.title}}
+                  </div>
+                  <div class="header-stats">
+                    <div class="header-stats-number">
+                      {{course.watched}}
+                    </div>
+                    <div class="header-stats-comment">
+                      Watched
+                    </div>
+                  </div>
+                </div>
+                <div class="video-card-content-body">
+                    {{course.desc}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

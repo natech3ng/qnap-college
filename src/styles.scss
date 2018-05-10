@@ -36,14 +36,7 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 }
 
 .video-item {
-  width:100%;
-  padding: 10px;
-  height: 100px;
-}
-
-.video-item div {
-  border: 1px solid #cccccc;
-  // border-radius: 3px;
+  margin-top: 30px;
 }
 
 .video-card {
@@ -87,11 +80,12 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   font-size: 1rem;
   font-weight: 500;
   color: #575962;
+  line-height: 1.2rem;
+  padding-right: 5px
 }
 .video-card-content > .video-card-content-header > .header-info > .header-info-text { 
   display: block;
   word-wrap: break-word;
-  line-height: 1rem;
 }
 
 .video-card-content > .video-card-content-header > .header-stats {
@@ -154,4 +148,20 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   color: #fff;
   font-size: 11px;
   display: inline-block;
+}
+.latest.category .video-count {
+  float: right;
+}
+
+.sp-section.category-section {
+  padding: 20px 0 !important;
+}
+
+.breadcrumbs > a, 
+.breadcrumbs > a:visited, 
+.breadcrumbs > a:link,
+.breadcrumbs > a:hover,
+.breadcrumbs > a:active {
+  color: #535a63;
+  text-decoration: none;
 }
