@@ -1,4 +1,4 @@
-<div id="main" class="row">
+<div id="main" class="row" [ngClass]="{'loaded': !loading, 'loading': loading}">
   <article class="support-index">
     <header>
       <div class="container">
@@ -27,6 +27,18 @@
         </section>
       </div>
     </header>
+    <div class="containloader">
+      <div class="background"></div> 
+      <div class="zgroup"> 
+        <div class="bigSqr">
+          <div class="square first"></div>
+          <div class="square second"></div>
+          <div class="square third"></div>
+          <div class="square fourth"></div>
+        </div>
+        
+      </div>
+    </div>
     <router-outlet></router-outlet>
   </article>
 </div>

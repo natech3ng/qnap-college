@@ -11,9 +11,215 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
+a, a:hover, a:visited, a:focus {
+  text-decoration: none;
+}
+
+/* Loader */
+
+.loading .containloader {
+  display: block;
+}
+
+.loaded .containloader {
+  display: none;
+}
+
+.containloader > .background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+  opacity: .5;
+}
+
+.containloader {
+  background: #fff;
+  text-align: center;
+  line-height: 100vh;
+}
+
+.zgroup {
+  position: fixed;
+  display: inline-block;
+  line-height: 16px;
+  z-index: 1050;
+}
+
+.bigSqr {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  -webkit-transform-origin: bottom left;
+      -ms-transform-origin: bottom left;
+          transform-origin: bottom left;
+  -webkit-animation: bigSqrShrink 1s linear infinite;
+          animation: bigSqrShrink 1s linear infinite;
+}
+
+.square {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: #00ADEF;
+}
+
+.first {
+  left: 0px;
+  top: 20px;
+}
+
+.second {
+  left: 20px;
+  top: 20px;
+  -webkit-animation: drop2 1s linear infinite;
+          animation: drop2 1s linear infinite;
+}
+
+.third {
+  left: 0px;
+  top: 0px;
+  -webkit-animation: drop3 1s linear infinite;
+          animation: drop3 1s linear infinite;
+}
+
+.fourth {
+  left: 20px;
+  top: 0px;
+  -webkit-animation: drop4 1s linear infinite;
+          animation: drop4 1s linear infinite;
+}
+
+@-webkit-keyframes bigSqrShrink {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  90% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+
+@keyframes bigSqrShrink {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  90% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+@-webkit-keyframes drop2 {
+  0% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  25% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+@keyframes drop2 {
+  0% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  25% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+@-webkit-keyframes drop3 {
+  0% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  50% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+@keyframes drop3 {
+  0% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  50% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+@-webkit-keyframes drop4 {
+  0% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  75% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+@keyframes drop4 {
+  0% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  75% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+
+/* End of Loader */
+@media (min-width: 1000px) {
+  section.sp-search.no-h3 {  
+    padding-top: 30px 20px 60px !important;
+  }
+}
+
 article.support-index section.sp-section h4, article.support-list section.sp-section h4, article.support-search-result section.sp-section h4, article.support-list-video section.sp-section h4, article.support-content section.sp-section h4 {
   display: block;
 }
+
 .categories .category-item {
   width: 100%;
   background-color: #00ADEF;
@@ -132,6 +338,7 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   border-radius: 3px;
+  color: #fff;
 }
 .video-stats .thumb-stats:first-of-type {
   margin-right: 5px;
