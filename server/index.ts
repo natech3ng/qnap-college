@@ -37,16 +37,16 @@ const httpServer = http.createServer(app);
 console.log('Listen: ' + port);
 httpServer.listen(port);
 
-// if (config.ssl_enable) {
-//   const ssl_port = config.ssl_port || 9000;
-//   const credentials = {
-//     key: fs.readFileSync('/root/twca/qnap_com.key', 'utf8'),
-//     cert: fs.readFileSync('/root/twca/qnap_com.cer', 'utf8'),
-//     ca: fs.readFileSync('/root/twca/uca.cer', 'utf8')
-//   };
+if (config[env].ssl_enable) {
+  const ssl_port = config[env].ssl_port || 9000;
+  const credentials = {
+    key: fs.readFileSync('/root/twca/qnap_com.key', 'utf8'),
+    cert: fs.readFileSync('/root/twca/qnap_com.cer', 'utf8'),
+    ca: fs.readFileSync('/root/twca/uca.cer', 'utf8')
+  };
 
-//   const httpsServer = https.createServer(credentials, app);
-//   console.log('CORS-enabled for all origins.  Listen: ' + ssl_port);
-//   httpsServer.listen(ssl_port);
+  const httpsServer = https.createServer(credentials, app);
+  console.log('CORS-enabled for all origins.  Listen: ' + ssl_port);
+  httpsServer.listen(ssl_port);
 
-// }
+}

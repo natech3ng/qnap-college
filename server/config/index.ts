@@ -1,8 +1,10 @@
 export const config = {
   development: {
-    port: 3000
+    port: 3000,
+    ssl_enable: false
   },
   production: {
-    port: 80
+    port: 443,
+    ssl_enable: true
   }
 };
