@@ -1,6 +1,6 @@
 <div id="main" class="row" [ngClass]="{'loaded': !loading, 'loading': loading}">
   <article class="support-index">
-    <header>
+    <header #header>
       <div class="container">
         <!-- <script>
         var localeString = {
@@ -119,3 +119,5 @@
     Copyright ©2018 Qnap Systems, Inc.&nbsp;All Rights Reserved.
   </div>
 </footer>
+
+<div href="#main" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="500" id="go-to-top" class="icon-angle-up" [ngClass]="{'show': goToTop, 'hide': !goToTop}"></div>

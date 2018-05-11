@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgPipesModule } from 'ngx-pipes';
 import { MomentModule } from 'ngx-moment';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 import { AppComponent } from './app.component';
 import { CategoryService } from './_services/category.service';
@@ -33,7 +34,8 @@ import { SearchService } from './_services/search.service';
     AppRoutingModule,
     NgPipesModule,
     MomentModule,
-    FormsModule
+    FormsModule,
+    NgxPageScrollModule
   ],
   providers: [CategoryResolver, CategoryService, CourseService, CourseResolver, CatCourseResolver, SearchResolver, SearchService],
   bootstrap: [AppComponent]

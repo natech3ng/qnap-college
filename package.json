@@ -29,6 +29,7 @@
     "moment": "^2.22.1",
     "moment-duration-format": "^2.2.2",
     "ngx-moment": "^2.0.0",
+    "ngx-page-scroll": "^4.0.2",
     "ngx-pipes": "^2.1.7",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

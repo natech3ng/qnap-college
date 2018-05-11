@@ -2,6 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700,300);
 @import 'variables';
 @import '../node_modules/font-awesome/scss/font-awesome';
+@import "./assets/scss/font-icons";
 
 body {
   display: block;
@@ -392,4 +393,44 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   -moz-transition: width 0.3s ease, margin 0.3s ease;
   -o-transition: width 0.3s ease, margin 0.3s ease;
   transition: width 0.3s ease, margin 0.3s ease;
+}
+
+#go-to-top {
+  z-index: 299;
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  background-color: #333;
+  background-color: rgba(0,0,0,.3);
+  font-size: 20px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  top: auto;
+  left: auto;
+  right: 30px;
+  bottom: 50px;
+  cursor: pointer;
+  border-radius: 2px;
+  opacity: 1;
+  -webkit-transition: background-color .5s ease, opacity 1s ease;
+  -moz-transition: background-color .5s ease, opacity 1s ease;
+  -o-transition: background-color .5s ease, opacity 1s ease;
+  transition: background-color .5s ease, opacity 1s ease;
+}
+
+#go-to-top.show {
+  opacity: 1;
+}
+
+#go-to-top.hide {
+  opacity: 0;
+}
+
+#go-to-top:hover {
+  background-color: #00ADEF;
+  -webkit-transition: background-color 1s ease;
+  -moz-transition: background-color 1s ease;
+  -o-transition: background-color 1s ease;
+  transition: background-color 1s ease;
 }
