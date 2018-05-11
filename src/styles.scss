@@ -462,7 +462,7 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 }
 #modal-container.pop .modal-background .modal {
   transform: scale(0);
-  animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  animation: zoomIn 0.5s 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 #modal-container.pop.out {
   transform: scale(1);
@@ -509,6 +509,52 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   stroke-dasharray: 778;
   stroke-dashoffset: 778;
 }
+
+
+// #modal-container.pop .modal {
+//   position: fixed;
+//   display: inline-block;
+//   line-height: 16px;
+//   z-index: 1050;
+//   transform: scale(0);
+//   animation: zoomIn 0.5s 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+// }
+
+// #modal-container.pop.out .modal {
+//   animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+// }
+
+// #modal-container .modal {
+//   background: white;
+//   padding: 50px;
+//   display: inline-block;
+//   border-radius: 3px;
+//   font-weight: 300;
+//   position: relative;
+// }
+// #modal-container .modal h2 {
+//   font-size: 25px;
+//   line-height: 25px;
+//   margin-bottom: 15px;
+// }
+// #modal-container .modal p {
+//   font-size: 18px;
+//   line-height: 22px;
+// }
+// #modal-container .modal .modal-svg {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   height: 100%;
+//   width: 100%;
+//   border-radius: 3px;
+// }
+// #modal-container .modal .modal-svg rect {
+//   stroke: #fff;
+//   stroke-width: 2px;
+//   stroke-dasharray: 778;
+//   stroke-dashoffset: 778;
+// }
 
 .content {
   min-height: 100%;

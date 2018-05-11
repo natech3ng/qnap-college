@@ -20,6 +20,7 @@ import { CatCourseResolver } from './pages/category/cat.course.resolver';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { SearchService } from './_services/search.service';
+import { SafePipe } from './_pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SearchService } from './_services/search.service';
     IndexComponent,
     DurationToTimePipe,
     CategoryComponent,
-    SearchComponent
+    SearchComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
