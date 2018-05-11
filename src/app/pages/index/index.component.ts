@@ -12,13 +12,22 @@ import { Course } from '../../_models/course';
 export class IndexComponent implements OnInit, AfterViewInit {
 
   @ViewChild('cElement', {read: ElementRef}) cElement: ElementRef;
-  categories: Category [] = [];
-  courses: Course [] = [];
-  cGridWidth: Number = 0;
+  categories: Category [];
+  courses: Course [];
+  cGridWidth: Number;
+  gridCol: Number;
+  gridClass: String;
 
   constructor(
     private _categoryService: CategoryService,
-    private _route: ActivatedRoute) {}
+    private _route: ActivatedRoute) {
+      const localColSetting = localStorage.getItem('grid-col');
+      this.cGridWidth = 0;
+      this.categories = [];
+      this.courses = [];
+      this.gridCol = localColSetting ? + localColSetting : 2;
+      this.gridCol === 2 ? this.gridClass = 'col-md-5' : this.gridClass = 'col-md-4';
+    }
 
   ngOnInit() {
     this._route.data.subscribe(
@@ -39,5 +48,10 @@ export class IndexComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+  }
+
+  onGridSelect(grid: number) {
+    this.gridCol = grid;
+    localStorage.setItem('grid-col', this.gridCol.toString());
   }
 }

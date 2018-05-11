@@ -2,7 +2,7 @@
   <article class="support-index">
     <header>
       <div class="container">
-        <script>
+        <!-- <script>
         var localeString = {
           heading : "Search for topics",
           title: "Welcome to QNAP Support",
@@ -13,16 +13,16 @@
           locale: "en-us",
           apikey: "f21e41604f14e3b7d765950b64f38b640ca6e03f",
         }
-        </script>
+        </script> -->
         <h2><a href="#">QNAP College</a></h2>
         <section id="sp_search" class="sp-search no-h3 ">
-          <div data-reactid=".0">
-            <h3 data-reactid=".0.0">Search for topics</h3>
-            <div class="title" data-reactid=".0.1">Welcome to QNAP College</div>
-            <div class="description" data-reactid=".0.2">The place that you can get the most out of QNAP</div>
-            <div class="search-input" data-reactid=".0.3">
-              <input id="search_input" type="text" placeholder="Search by keyword" value="" data-reactid=".0.3.0">
-            </div>
+          <div>
+            <h3>Search for topics</h3>
+            <div class="title">Welcome to QNAP College</div>
+            <div class="description">The place that you can get the most out of QNAP</div>
+            <form class="search-input" (ngSubmit)="onSubmit(f);"#f="ngForm">
+              <input id="search_input" type="text" name="keywords" [ngModel]="keywords" placeholder="Search by keyword" value="">
+            </form>
           </div>
         </section>
       </div>
@@ -39,7 +39,7 @@
         
       </div>
     </div>
-    <router-outlet></router-outlet>
+    <router-outlet (search)="onSearch($event);"></router-outlet>
   </article>
 </div>
 <footer class="mainFooter"><div class="ftrBlock"><aside class="new-stations">

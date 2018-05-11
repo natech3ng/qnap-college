@@ -358,7 +358,21 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 }
 .latest.category .video-count {
   float: right;
+  margin-right:10px;
 }
+
+.vt-section-title .grid-options {
+  float: right;
+}
+.vt-section-title > .grid-options > span > i {
+  margin: 0px 3px;
+  color: #05749e;
+}
+
+.vt-section-title > .grid-options > span {
+  cursor: pointer;
+}
+
 
 .sp-section.category-section {
   padding: 20px 0 !important;
@@ -371,4 +385,11 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 .breadcrumbs > a:active {
   color: #535a63;
   text-decoration: none;
+}
+
+.row div {
+  -webkit-transition: width 0.3s ease, margin 0.3s ease;
+  -moz-transition: width 0.3s ease, margin 0.3s ease;
+  -o-transition: width 0.3s ease, margin 0.3s ease;
+  transition: width 0.3s ease, margin 0.3s ease;
 }

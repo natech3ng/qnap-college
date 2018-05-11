@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { NgPipesModule } from 'ngx-pipes';
 import { MomentModule } from 'ngx-moment';
 
@@ -14,22 +15,27 @@ import { CategoryResolver } from './pages/index/category.resolver';
 import { DurationToTimePipe } from './_pipes/moment.duration.pipe';
 import { CategoryComponent } from './pages/category/category.component';
 import { CatCourseResolver } from './pages/category/cat.course.resolver';
+import { SearchComponent } from './pages/search/search.component';
+import { SearchResolver } from './pages/search/search.resolver';
+import { SearchService } from './_services/search.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     DurationToTimePipe,
-    CategoryComponent
+    CategoryComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     NgPipesModule,
-    MomentModule
+    MomentModule,
+    FormsModule
   ],
-  providers: [CategoryResolver, CategoryService, CourseService, CourseResolver, CatCourseResolver],
+  providers: [CategoryResolver, CategoryService, CourseService, CourseResolver, CatCourseResolver, SearchResolver, SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

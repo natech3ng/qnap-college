@@ -28,4 +28,13 @@ export class CourseService {
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.httpClient.get<Course>(api_query, {headers: headers});
   }
+
+  search(query: String): Observable<Course []> {
+    if (!query) {
+      query = '';
+    }
+    const api_query = 'https://go.qnap.com/api/courses/search?query=' + query;
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+    return this.httpClient.get<Course []>(api_query, {headers: headers});
+  }
 }
