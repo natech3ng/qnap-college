@@ -1,3 +1,4 @@
+import { ModalService } from './_services/modal.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { CategoryService } from './_services/category.service';
 import { Category } from './_models/category';
@@ -16,9 +17,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('header') headerEl: ElementRef;
   private sub: any;
   private routeSub: any;
+  private modalPopSub: any;
+  private modalCloseSub: any;
   loading: Boolean;
   keywords: String;
   goToTop: Boolean;
+  modalOpen: Boolean;
 
   @HostListener('window:scroll', ['$event'])
   currentPosition() {
@@ -30,15 +34,32 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  constructor(private _router: Router, private _searchService: SearchService) {
+  constructor(
+    private _router: Router,
+    private _searchService: SearchService,
+    private _modalService: ModalService) {
     this.loading = true;
     this.goToTop = false;
+    this.modalOpen = false;
   }
 
   ngOnInit() {
     this.sub = this._searchService.search.subscribe(
       (keywords) => {
         setTimeout(() => { this.keywords = keywords; }, 0);
+      }
+    );
+
+    this.modalPopSub = this._modalService.pop.subscribe(
+      (youtubeRef: String) => {
+        console.log(youtubeRef);
+        this.modalOpen = true;
+      }
+    );
+
+    this.modalCloseSub = this._modalService.close.subscribe(
+      () => {
+        this.modalOpen = false;
       }
     );
   }
@@ -65,9 +86,14 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
     this.routeSub.unsubscribe();
+    this.modalPopSub.unsubscribe();
   }
 
   onSubmit(f: NgForm) {
     this._router.navigate(['/search', f.value.keywords]);
+  }
+
+  onCloseModal() {
+    this._modalService.closeModal();
   }
 }

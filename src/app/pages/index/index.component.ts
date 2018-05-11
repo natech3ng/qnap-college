@@ -1,3 +1,4 @@
+import { ModalService } from './../../_services/modal.service';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Category } from '../../_models/category';
 import { CategoryService } from '../../_services/category.service';
@@ -21,7 +22,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private _categoryService: CategoryService,
-    private _route: ActivatedRoute) {
+    private _route: ActivatedRoute,
+    private _modalService: ModalService) {
       const localColSetting = localStorage.getItem('grid-col');
       this.cGridWidth = 0;
       this.categories = [];
@@ -58,5 +60,9 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   onGridSelect(grid: number) {
     this.gridCol = grid;
     localStorage.setItem('grid-col', this.gridCol.toString());
+  }
+
+  onModalPop(youtubeRef: String) {
+    this._modalService.popModal(youtubeRef);
   }
 }

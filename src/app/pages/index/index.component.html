@@ -38,7 +38,7 @@
         <div class="video-item" *ngFor="let course of courses; let i = index;" [ngClass]="{'offset-md-1': ((i % 2) === 0 && gridCol === 2), 'col-md-5':gridCol===2, 'col-md-4':gridCol===3}">
           <div class="video-card">
             <div class="video-card-body">
-              <div class="video-card-picture">
+              <div class="video-card-picture" (click)="onModalPop(course.youtube_ref)">
                 <img alt="" src="{{'//img.youtube.com/vi/' + course.youtube_ref + '/mqdefault.jpg'}}">
                 <a href="#"></a>
                 <div class="video-stats clearfix">

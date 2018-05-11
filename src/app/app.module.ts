@@ -1,3 +1,4 @@
+import { ModalService } from './_services/modal.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,7 +38,15 @@ import { SearchService } from './_services/search.service';
     FormsModule,
     NgxPageScrollModule
   ],
-  providers: [CategoryResolver, CategoryService, CourseService, CourseResolver, CatCourseResolver, SearchResolver, SearchService],
+  providers: [
+    CategoryResolver,
+    CategoryService,
+    CourseService,
+    CourseResolver,
+    CatCourseResolver,
+    SearchResolver,
+    SearchService,
+    ModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
