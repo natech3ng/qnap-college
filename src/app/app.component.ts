@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { CategoryService } from './_services/category.service';
 import { Category } from './_models/category';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel } from '@angular/router';
@@ -11,7 +11,9 @@ import { NgForm } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+  private sub: any;
+  private routeSub: any;
   loading: Boolean;
   keywords: String;
   constructor(private _router: Router, private _searchService: SearchService) {
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this._searchService.search.subscribe(
+    this.sub = this._searchService.search.subscribe(
       (keywords) => {
         setTimeout(() => { this.keywords = keywords; }, 0);
       }
@@ -27,7 +29,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
 
-    this._router.events
+    this.routeSub = this._router.events
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
             this.loading = true;
@@ -38,6 +40,11 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.loading = false;
         }
     });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+    this.routeSub.unsubscribe();
   }
 
   onSubmit(f: NgForm) {

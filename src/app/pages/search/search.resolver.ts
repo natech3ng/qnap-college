@@ -11,6 +11,7 @@ export class SearchResolver implements Resolve<Course []> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Course []> | Promise<Course []> | Course [] {
+    console.log('search resolver');
     return this._courseService.search(route.params.keywords);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { Course } from '../../_models/course';
 import { ActivatedRoute, Data } from '@angular/router';
 import { SearchService } from '../../_services/search.service';
+import { CourseService } from '../../_services/course.service';
 
 @Component({
   selector: 'app-search',
@@ -10,13 +11,17 @@ import { SearchService } from '../../_services/search.service';
 })
 export class SearchComponent implements OnInit, OnDestroy {
   private sub: any;
+  private routeSub: any;
   // @Output() search: EventEmitter<any> = new EventEmitter();
   courses: Course [];
   func: String;
   gridCol: Number;
   gridClass: String;
 
-  constructor(private _route: ActivatedRoute, private _searchService: SearchService) {
+  constructor(
+    private _route: ActivatedRoute,
+    private _searchService: SearchService,
+    private _courseService: CourseService) {
     this.func = 'search';
     this.courses = [];
     const localColSetting = localStorage.getItem('grid-col');
@@ -25,16 +30,26 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('ngOnInit');
     this.sub = this._route.params.subscribe(params => {
+      console.log('emit');
       this._searchService.emit(params['keywords']);
       // this.search.emit(params['keywords']);
     });
 
-    this._route.data.subscribe(
+    this.routeSub = this._route.data.subscribe(
       (data: Data) => {
+        console.log(data);
         if (data.courses) {
           // console.log(data.courses);
           this.courses = data.courses;
+          for (let course of this.courses) {
+            this._courseService.getYoutubeInfo(course.youtube_ref).subscribe(
+              (res_course: Course) => {
+                course = res_course;
+              }
+            );
+          }
         }
       }
     );
@@ -42,6 +57,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.routeSub.unsubscribe();
   }
 
   onGridSelect(grid: number) {

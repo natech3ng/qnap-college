@@ -33,6 +33,7 @@ export class CourseService {
     if (!query) {
       query = '';
     }
+    console.log('search');
     const api_query = 'https://go.qnap.com/api/courses/search?query=' + query;
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.httpClient.get<Course []>(api_query, {headers: headers});

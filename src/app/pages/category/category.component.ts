@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class CategoryComponent implements OnInit, OnDestroy {
 
   private sub: any;
+  private routeSub: any;
   courses: Course [] = [];
   category: String = '';
   func: String;
@@ -31,7 +32,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
       this.category = params['name'];
     });
 
-   this._route.data.subscribe(
+   this.routeSub = this._route.data.subscribe(
     (data: Data) => {
       if (data.courses) {
         this.courses = data.courses;
@@ -49,6 +50,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.routeSub .unsubscribe();
   }
 
   onGridSelect(grid: number) {
