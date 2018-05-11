@@ -1,6 +1,6 @@
 <section class="sp-section category-section">
     <div class="container breadcrumbs">
-      <a [routerLink]="['/']">Home</a> > {{ category ? category : 'Search Result' | ucfirst }}
+      <a [routerLink]="['/']">Home</a> > {{ !category ? 'Search Result' : category | ucfirst }}
     </div>
 </section>
 <section class="sp-section latest category" style='padding-top: 0px;'>
