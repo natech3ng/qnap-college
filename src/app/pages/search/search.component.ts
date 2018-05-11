@@ -3,6 +3,7 @@ import { Course } from '../../_models/course';
 import { ActivatedRoute, Data } from '@angular/router';
 import { SearchService } from '../../_services/search.service';
 import { CourseService } from '../../_services/course.service';
+import { ModalService } from '../../_services/modal.service';
 
 @Component({
   selector: 'app-search',
@@ -22,7 +23,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(
     private _route: ActivatedRoute,
     private _searchService: SearchService,
-    private _courseService: CourseService) {
+    private _courseService: CourseService,
+    private _modalService: ModalService) {
     this.func = 'search';
     this.courses = [];
     const localColSetting = localStorage.getItem('grid-col');
@@ -64,5 +66,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   onGridSelect(grid: number) {
     this.gridCol = grid;
     localStorage.setItem('grid-col', this.gridCol.toString());
+  }
+
+  onModalPop(youtubeRef: String) {
+    this._modalService.popModal(youtubeRef);
   }
 }

@@ -59,6 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modalPopSub = this._modalService.pop.subscribe(
       (youtubeRef: String) => {
         this.youtubeSrc = 'https://www.youtube.com/embed/' + youtubeRef;
+        console.log(youtubeRef);
         this.modalOpen = true;
         this.firstOpened = true;
       }
@@ -101,6 +102,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onCloseModal() {
-    // this._modalService.closeModal();
+    this._modalService.closeModal();
   }
 }
