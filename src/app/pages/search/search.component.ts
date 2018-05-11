@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   func: String;
   gridCol: Number;
   gridClass: String;
+  category: String = null;
 
   constructor(
     private _route: ActivatedRoute,
