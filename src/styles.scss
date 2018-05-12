@@ -52,52 +52,52 @@ a, a:hover, a:visited, a:focus {
   display: inline-block;
   line-height: 16px;
   z-index: 1050;
-}
 
-.bigSqr {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  -webkit-transform-origin: bottom left;
-      -ms-transform-origin: bottom left;
-          transform-origin: bottom left;
-  -webkit-animation: bigSqrShrink 1s linear infinite;
-          animation: bigSqrShrink 1s linear infinite;
-}
-
-.square {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: #00ADEF;
-}
-
-.first {
-  left: 0px;
-  top: 20px;
-}
-
-.second {
-  left: 20px;
-  top: 20px;
-  -webkit-animation: drop2 1s linear infinite;
-          animation: drop2 1s linear infinite;
-}
-
-.third {
-  left: 0px;
-  top: 0px;
-  -webkit-animation: drop3 1s linear infinite;
-          animation: drop3 1s linear infinite;
-}
-
-.fourth {
-  left: 20px;
-  top: 0px;
-  -webkit-animation: drop4 1s linear infinite;
-          animation: drop4 1s linear infinite;
+  .bigSqr {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    -webkit-transform-origin: bottom left;
+        -ms-transform-origin: bottom left;
+            transform-origin: bottom left;
+    -webkit-animation: bigSqrShrink 1s linear infinite;
+            animation: bigSqrShrink 1s linear infinite;
+  }
+  
+  .square {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #00ADEF;
+  }
+  
+  .first {
+    left: 0px;
+    top: 20px;
+  }
+  
+  .second {
+    left: 20px;
+    top: 20px;
+    -webkit-animation: drop2 1s linear infinite;
+            animation: drop2 1s linear infinite;
+  }
+  
+  .third {
+    left: 0px;
+    top: 0px;
+    -webkit-animation: drop3 1s linear infinite;
+            animation: drop3 1s linear infinite;
+  }
+  
+  .fourth {
+    left: 20px;
+    top: 0px;
+    -webkit-animation: drop4 1s linear infinite;
+            animation: drop4 1s linear infinite;
+  }
 }
 
 @-webkit-keyframes bigSqrShrink {

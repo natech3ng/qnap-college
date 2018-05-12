@@ -1,3 +1,6 @@
+import { AdminModule } from './admin/admin.module';
+import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
 import { ModalService } from './_services/modal.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -54,9 +57,10 @@ const cookieConfig: NgcCookieConsentConfig = {
     AppRoutingModule,
     NgPipesModule,
     MomentModule,
-    FormsModule,
-    NgxPageScrollModule,
-    NgcCookieConsentModule.forRoot(cookieConfig)
+    NgcCookieConsentModule.forRoot(cookieConfig),
+    AuthModule,
+    PagesModule,
+    AdminModule
   ],
   providers: [
     CategoryResolver,
@@ -69,4 +73,4 @@ const cookieConfig: NgcCookieConsentConfig = {
     ModalService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

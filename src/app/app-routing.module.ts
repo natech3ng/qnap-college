@@ -10,16 +10,16 @@ import { SearchResolver } from './pages/search/search.resolver';
 
 const routes: Routes = [
   {
-    path: '', component: IndexComponent,
-    resolve: { courses: CourseResolver, categories: CategoryResolver }
+    path: '', loadChildren: './pages/pages.module#PagesModule',
   },
   {
-    path: 'category/:name', component: CategoryComponent,
-    resolve: { courses: CatCourseResolver }
+    path: 'login', loadChildren: './auth/auth.module#AuthModule'
   },
   {
-    path: 'search/:keywords', component: SearchComponent,
-    resolve: { courses: SearchResolver }
+    path: 'admin', loadChildren: './admin/admin.module#AdminModule'
+  },
+  {
+    path: '**', loadChildren: './pages/pages.module#PagesModule'
   }
 ];
 
