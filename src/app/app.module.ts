@@ -21,6 +21,23 @@ import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { SearchService } from './_services/search.service';
 import { SafePipe } from './_pipes/safe.pipe';
+import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
+
+const cookieConfig: NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'localhost:4200'
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  revokable: true
+};
+
 
 @NgModule({
   declarations: [
@@ -38,7 +55,8 @@ import { SafePipe } from './_pipes/safe.pipe';
     NgPipesModule,
     MomentModule,
     FormsModule,
-    NgxPageScrollModule
+    NgxPageScrollModule,
+    NgcCookieConsentModule.forRoot(cookieConfig)
   ],
   providers: [
     CategoryResolver,

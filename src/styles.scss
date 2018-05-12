@@ -263,10 +263,60 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 .video-card-picture {
   position: relative;
 }
-.video-card-picture > img {
-  width: 100%;
-  
+
+.video-card-picture > a {
+  cursor: pointer;
 }
+
+.video-card-picture > a > img {
+  width: 100%;
+}
+
+.video-card-picture > a > .play-icon > span {
+  color: #fff;
+  position: absolute;
+  margin: auto;
+  bottom: 35%;
+  left: 41%;
+  opacity: 0;
+  transition: all .5s ease;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+}
+
+.video-card-picture:hover > a > .play-icon > span {
+  opacity: 1;
+  transition: all .5s ease;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+}
+
+.video-card-picture:before {
+  transition: all .5s ease;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(34,34,34,0.6);
+  // background: -moz-linear-gradient(top,transparent 0%,rgba(34,34,34,0.9) 100%);
+  // background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,transparent),color-stop(100%,rgba(34,34,34,0.9)));
+  // background: -webkit-linear-gradient(top,transparent 0%,rgba(34,34,34,0.9) 100%);
+  // background: -o-linear-gradient(top,transparent 0%,rgba(34,34,34,0.9) 100%);
+  // background: -ms-linear-gradient(top,transparent 0%,rgba(34,34,34,0.9) 100%);
+  // background: linear-gradient(to bottom,transparent 0%,rgba(34,34,34,0.9) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000',endColorstr='#292929',GradientType=0);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.video-card-picture:hover:before {
+  opacity: 1;
+}
+
 .video-card-content {
   display: block;
   padding: 0 1.2rem 1.2rem 1.2rem;
@@ -441,6 +491,16 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 
 /* Modal Class */
 
+.modal-close {
+  float: right;
+  cursor: pointer;
+}
+
+.modal-close svg {
+  width: 24px;
+  height: 24px;
+}
+
 .modal-container {
   display: none;
 }
@@ -469,7 +529,7 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   // height: 100%;
   transform: scale(0);
   animation: zoomIn 0.5s 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  padding: 20px;
+  padding: 10px 20px;
   border-radius: 0.3rem;
   position: fixed;
   left: 42%;
@@ -495,158 +555,6 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   width: 100%;
   position: relative;
 }
-
-// #modal-container {
-//   position: fixed;
-//   display: table;
-//   height: 100%;
-//   width: 100%;
-//   top: 0;
-//   left: 0;
-//   transform: scale(0);
-//   z-index: 1;
-// }
-
-// #modal-container.pop {
-//   transform: scaleY(0.01) scaleX(0);
-//   animation: unfoldIn .5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-// }
-// #modal-container.pop .modal-background .modal {
-//   transform: scale(0);
-//   animation: zoomIn 0.5s 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-// }
-// #modal-container.pop.out {
-//   transform: scale(1);
-//   animation: unfoldOut .5s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-// }
-// #modal-container.pop.out .modal-background .modal {
-//   animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-// }
-
-// #modal-container .modal-background {
-//   display: table-cell;
-//   background: rgba(0, 0, 0, 0.8);
-//   text-align: center;
-//   vertical-align: middle;
-// }
-// #modal-container .modal-background .modal {
-//   background: white;
-//   padding: 50px;
-//   display: inline-block;
-//   border-radius: 3px;
-//   font-weight: 300;
-//   position: relative;
-// }
-// #modal-container .modal-background .modal h2 {
-//   font-size: 25px;
-//   line-height: 25px;
-//   margin-bottom: 15px;
-// }
-// #modal-container .modal-background .modal p {
-//   font-size: 18px;
-//   line-height: 22px;
-// }
-// #modal-container .modal-background .modal .modal-svg {
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   height: 100%;
-//   width: 100%;
-//   border-radius: 3px;
-// }
-// #modal-container .modal-background .modal .modal-svg rect {
-//   stroke: #fff;
-//   stroke-width: 2px;
-//   stroke-dasharray: 778;
-//   stroke-dashoffset: 778;
-// }
-
-// .modal {
-//   position: fixed;
-//   left: 0;
-//   top: 0;
-//   width: 100%;
-//   height: 100%;
-//   background-color: rgba(0, 0, 0, 0.5);
-//   opacity: 0;
-//   visibility: hidden;
-//   transform: scale(1.1);
-//   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-// }
-// .modal-content {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   background-color: white;
-//   padding: 1rem 1.5rem;
-//   width: 24rem;
-//   border-radius: 0.5rem;
-// }
-// .close-button {
-//   float: right;
-//   width: 1.5rem;
-//   line-height: 1.5rem;
-//   text-align: center;
-//   cursor: pointer;
-//   border-radius: 0.25rem;
-//   background-color: lightgray;
-// }
-// .close-button:hover {
-//   background-color: darkgray;
-// }
-// .show-modal {
-//   opacity: 1;
-//   visibility: visible;
-//   transform: scale(1.0);
-//   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-// }
-
-
-// // #modal-container.pop .modal {
-// //   position: fixed;
-// //   display: inline-block;
-// //   line-height: 16px;
-// //   z-index: 1050;
-// //   transform: scale(0);
-// //   animation: zoomIn 0.5s 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-// // }
-
-// .content {
-//   min-height: 100%;
-//   height: 100%;
-//   background: white;
-//   position: relative;
-//   z-index: 0;
-// }
-// .content h1 {
-//   padding: 75px 0 30px 0;
-//   text-align: center;
-//   font-size: 30px;
-//   line-height: 30px;
-// }
-// .content .buttons {
-//   max-width: 800px;
-//   margin: 0 auto;
-//   padding: 0;
-//   text-align: center;
-// }
-// .content .buttons .button {
-//   display: inline-block;
-//   text-align: center;
-//   padding: 10px 15px;
-//   margin: 10px;
-//   background: red;
-//   font-size: 18px;
-//   background-color: #efefef;
-//   border-radius: 3px;
-//   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-//   cursor: pointer;
-// }
-// .content .buttons .button:hover {
-//   color: white;
-//   background: #009bd5;
-// }
 
 @keyframes unfoldIn {
   0% {
@@ -687,3 +595,5 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
     transform: scale(0);
   }
 }
+
+/* End of Modal */

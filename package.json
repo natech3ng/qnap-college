@@ -24,14 +24,17 @@
     "@fortawesome/fontawesome": "^1.1.7",
     "@types/moment-duration-format": "^2.2.0",
     "bootstrap": "^4.1.1",
+    "cookieconsent": "^3.0.6",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "moment": "^2.22.1",
     "moment-duration-format": "^2.2.2",
+    "ngx-cookieconsent": "^1.0.1",
     "ngx-moment": "^2.0.0",
     "ngx-page-scroll": "^4.0.2",
     "ngx-pipes": "^2.1.7",
     "rxjs": "^6.0.0",
+    "rxjs-compat": "^6.1.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

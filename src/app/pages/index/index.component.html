@@ -39,8 +39,13 @@
           <div class="video-card">
             <div class="video-card-body">
               <div class="video-card-picture" (click)="onModalPop(course.youtube_ref)">
-                <img alt="" src="{{'//img.youtube.com/vi/' + course.youtube_ref + '/mqdefault.jpg'}}">
-                <a href="#"></a>
+                <a>
+                  <img alt="" src="{{'//img.youtube.com/vi/' + course.youtube_ref + '/mqdefault.jpg'}}">
+                  <div class="play-icon">
+                    <span><i class="fa fa-4x fa-play-circle-o"></i></span>
+                  </div>
+                </a>
+                
                 <div class="video-stats clearfix">
                   <div class="thumb-stats pull-left">
                       <span>{{course.code_name}}</span>
