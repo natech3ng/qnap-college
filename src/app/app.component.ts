@@ -10,6 +10,8 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NgcCookieConsentService, NgcInitializeEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 
+import reframe from 'reframe.js';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,11 +25,17 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   private modalPopSub: any;
   private modalCloseSub: any;
   loading: Boolean;
-  keywords: String;
+  keywords: string;
   goToTop: Boolean;
   modalOpen: Boolean;
   firstOpened: Boolean;
   youtubeSrc: any;
+  youtubeRef: string;
+
+  public YT: any;
+  public video: any;
+  public player: any;
+  public reframed: Boolean = false;
 
   // keep refs to subscriptions to be able to unsubscribe later
   private popupOpenSubscription: Subscription;
@@ -59,14 +67,18 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private _router: Router,
     private _searchService: SearchService,
     private _modalService: ModalService,
-    private _ccService: NgcCookieConsentService) {
+    private _ccService: NgcCookieConsentService) {}
+
+  ngOnInit() {
+    const tag = document.createElement('script');
+    tag.src = '//www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
     this.loading = true;
     this.goToTop = false;
     this.modalOpen = false;
     this.firstOpened = false;
-      }
-
-  ngOnInit() {
     this.youtubeSrc = 'https://www.youtube.com/embed/ShnVe3QReRk';
 
     this.sub = this._searchService.search.subscribe(
@@ -76,17 +88,28 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
     this.modalPopSub = this._modalService.pop.subscribe(
-      (youtubeRef: String) => {
+      (youtubeRef: string) => {
+        this.youtubeRef = youtubeRef;
         this.youtubeSrc = 'https://www.youtube.com/embed/' + youtubeRef;
         this.modalOpen = true;
         this.firstOpened = true;
+
+        let startTime = 0;
+        if (localStorage.getItem(this.youtubeRef)) {
+          startTime = +localStorage.getItem(this.youtubeRef);
+        }
+        this.player.loadVideoById(this.youtubeRef, startTime);
       }
     );
 
     this.modalCloseSub = this._modalService.close.subscribe(
       () => {
+        console.log(this.player.getCurrentTime());
+        localStorage.setItem(this.youtubeRef.toString(), this.cleanTime().toString());
         this.modalOpen = false;
         this.youtubeSrc = '';
+        this.youtubeRef = '';
+        this.player.stopVideo();
       }
     );
 
@@ -120,10 +143,30 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         // you can use this._ccService.getConfig() to do stuff...
         console.log(`revokeChoice: ${JSON.stringify(event)}`);
       });
+
+    window['onYouTubeIframeAPIReady'] = (e) => {
+      this.YT = window['YT'];
+      this.reframed = true;
+      this.player = new window['YT'].Player('player', {
+        videoId: this.youtubeRef,
+        width: 853,
+        height: 480,
+        events: {
+          'onStateChange': this.onPlayerStateChange.bind(this),
+          'onError': this.onPlayerError.bind(this),
+          'onReady': (event) => {
+            if (!this.reframed) {
+              this.reframed = true;
+              reframe(event.target.a);
+            }
+          }
+        }
+      });
+    };
   }
   ngAfterViewInit() {
 
-    console.log(this._ccService.getConfig());
+    // console.log(this._ccService.getConfig());
     this.routeSub = this._router.events
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
@@ -161,5 +204,42 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onCloseModal() {
     this._modalService.closeModal();
+  }
+
+  onPlayerStateChange(event) {
+    // console.log(event);
+    switch (event.data) {
+      case window['YT'].PlayerState.PLAYING:
+        if (this.cleanTime() === 0) {
+          // console.log('started ' + this.cleanTime());
+        } else {
+          // console.log('playing ' + this.cleanTime());
+        }
+        break;
+      case window['YT'].PlayerState.PAUSED:
+        if (this.player.getDuration() - this.player.getCurrentTime() !== 0) {
+          // console.log('paused' + ' @ ' + this.cleanTime());
+        }
+        break;
+      case window['YT'].PlayerState.ENDED:
+        // console.log('ended ');
+        break;
+    }
+  }
+
+  // utility
+  cleanTime() {
+    return Math.round(this.player.getCurrentTime());
+  }
+  onPlayerError(event) {
+    switch (event.data) {
+      case 2:
+        // console.log('' + this.video);
+        break;
+      case 100:
+        break;
+      case 101 || 150:
+        break;
+    }
   }
 }
