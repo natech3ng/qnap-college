@@ -20,7 +20,7 @@
       "pre-setup": "",
       "post-setup": "npm install --unsafe-perm",
       "pre-deploy-local" : "echo 'This is a local executed command'",
-      "pre-deploy" : "ng build --aot --prod; ./node_modules/.bin/tsc -p tsconfig.json --module commonjs --sourceMap --target ES5; ",
+      "pre-deploy" : "ng build --aot --prod; ./node_modules/.bin/tsc -p ./server --module commonjs --sourceMap --target ES5; ",
       "post-deploy" : "sudo pm2 startOrRestart ecosystem.json --env production; sudo chown -R deploy:deploy node_modules",
       "env"  : {
         "NODE_ENV": "production"
