@@ -1,0 +1,30 @@
+{
+  "apps" : [{
+    "name"      : "qnapcollege",
+    "script"    : "dist/server/index.js",
+    "env": {
+      "COMMON_VARIABLE": "true"
+    },
+    "env_production" : {
+      "NODE_ENV": "production"
+    }
+  }],
+  "deploy" : {
+    "production" : {
+      "key": "~/.ssh/id_rsa_deploy_google_cloud",
+      "user" : "deploy",
+      "host" : ["blog.qnap.com"],
+      "ref"  : "origin/master",
+      "repo" : "git@github.com:qqnc/qnap-college.git",
+      "path" : "/var/www/qnapcollege",
+      "pre-setup": "",
+      "post-setup": "npm install --unsafe-perm",
+      "pre-deploy-local" : "echo 'This is a local executed command'",
+      "pre-deploy" : "./node_modules/.bin/tsc -p tsconfig.json --module commonjs --sourceMap --target ES5; ng build --aot --prod",
+      "post-deploy" : "sudo pm2 startOrRestart ecosystem.json --env production; sudo chown -R deploy:deploy node_modules",
+      "env"  : {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}

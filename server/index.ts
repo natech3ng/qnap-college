@@ -11,6 +11,7 @@ import * as path from 'path';
 import * as morgan from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import { config } from './config';
+
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 
@@ -23,20 +24,24 @@ app.use(morgan('combined'));
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-const static_dist = express.static(path.join(__dirname, '../dist'));
+// console.log(env);
+
+let static_dist;
+
+if (env === 'development') {
+  static_dist = express.static(path.join(__dirname, '../dist'));
+} else {
+  static_dist = express.static(path.join(__dirname, '../../dist'));
+}
+// console.log(path.join(__dirname, '../dist'));
 app.use(static_dist);
-// app.use(['/login', '/register'], function(req, res, next) {
-//   // Just send the index.html for other files to support HTML5Mode
-//   res.sendFile('/index.html', { root: path.join(__dirname, '../dist') });
-// });
 
 const httpServer = http.createServer(app);
 
-// app.use(express.static(__dirname + '../dist'));
-// app.get("/register", express.static(path.join(__dirname, '../dist/register')));
 console.log('Listen: ' + port);
 httpServer.listen(port);
 
+console.log(config[env]);
 if (config[env].ssl_enable) {
   const ssl_port = config[env].ssl_port || 9000;
   const credentials = {
