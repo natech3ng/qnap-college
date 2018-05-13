@@ -83,7 +83,6 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _ssService: NgxScreensizeService) {
       console.log('Pages Component Constructor...');
 
-      console.log('hello `Home` component');
       this.deviceInfo = this._deviceService.getDeviceInfo();
       console.log(this.deviceInfo);
     }
@@ -136,31 +135,31 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.popupOpenSubscription = this._ccService.popupOpen$.subscribe(
       () => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log('popupOpen');
+        // console.log('popupOpen');
       });
 
     this.popupCloseSubscription = this._ccService.popupClose$.subscribe(
       () => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log('popuClose');
+        // console.log('popuClose');
       });
 
     this.initializeSubscription = this._ccService.initialize$.subscribe(
       (event: NgcInitializeEvent) => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log(`initialize: ${JSON.stringify(event)}`);
+        // console.log(`initialize: ${JSON.stringify(event)}`);
       });
 
     this.statusChangeSubscription = this._ccService.statusChange$.subscribe(
       (event: NgcStatusChangeEvent) => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log(`statusChange: ${JSON.stringify(event)}`);
+        // console.log(`statusChange: ${JSON.stringify(event)}`);
       });
 
     this.revokeChoiceSubscription = this._ccService.revokeChoice$.subscribe(
       () => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log(`revokeChoice: ${JSON.stringify(event)}`);
+        // console.log(`revokeChoice: ${JSON.stringify(event)}`);
       });
   }
   ngAfterViewInit() {

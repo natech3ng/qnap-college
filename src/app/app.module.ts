@@ -32,7 +32,7 @@ import { SafePipe } from './_pipes/safe.pipe';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
-    domain: 'localhost:4200'
+    domain: 'college.qnap.com'
   },
   palette: {
     popup: {
