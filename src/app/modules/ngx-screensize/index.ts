@@ -13,7 +13,7 @@ import { NgxScreensizeService } from './_services/ngx-screensize.service';
   ]
 })
 
-export class NgxScreeensizeModule {
+export class NgxScreensizeModule {
   constructor() {
   }
 

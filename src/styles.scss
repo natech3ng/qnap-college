@@ -598,10 +598,16 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 
 /* End of Modal */
 
-.video-container {
-}
-  
-.video-container iframe,
-.video-container object,
-.video-container embed {
+.xs, .sm {
+  .v-modal-content {
+    margin-left: 0px !important;
+    left: 0px !important;
+    top: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .category-item {
+    margin-top: 5px;
+  }
 }

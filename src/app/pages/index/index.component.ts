@@ -4,6 +4,8 @@ import { Category } from '../../_models/category';
 import { CategoryService } from '../../_services/category.service';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Course } from '../../_models/course';
+import { NgxScreensizeModule } from '../../modules/ngx-screensize';
+import { NgxScreensizeService } from '../../modules/ngx-screensize/_services/ngx-screensize.service';
 
 @Component({
   selector: 'app-index',
@@ -23,7 +25,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private _categoryService: CategoryService,
     private _route: ActivatedRoute,
-    private _modalService: ModalService) {
+    private _modalService: ModalService,
+    private _ssService: NgxScreensizeService) {
       const localColSetting = localStorage.getItem('grid-col');
       this.cGridWidth = 0;
       this.categories = [];
@@ -38,9 +41,14 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
         if (data.courses) {
           this.courses = data.courses;
           setTimeout( () => {
-            this.cGridWidth = this.cElement.nativeElement.offsetWidth;
+            const screenClass = this._ssService.sizeClass();
+            if (screenClass === 'xs' || screenClass === 'sm') {
+              this.cGridWidth = this.cElement.nativeElement.offsetWidth / 3;
+            } else {
+              this.cGridWidth = this.cElement.nativeElement.offsetWidth;
+            }
             // console.log(this.cElement.nativeElement.offsetWidth);
-          }, 100);
+            }, 100);
         }
 
         if (data.categories) {

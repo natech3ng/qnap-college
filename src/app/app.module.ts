@@ -1,4 +1,4 @@
-import { NgxScreeensizeModule } from './modules/ngx-screensize/index';
+import { NgxScreensizeModule } from './modules/ngx-screensize/index';
 import { AuthService } from './auth/_services/auth.service';
 import { AdminModule } from './admin/admin.module';
 import { PagesModule } from './pages/pages.module';
@@ -66,7 +66,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     PagesModule,
     AdminModule,
     DeviceDetectorModule.forRoot(),
-    NgxScreeensizeModule
+    NgxScreensizeModule
   ],
   providers: [
     CategoryResolver,

@@ -12,6 +12,7 @@ import { NgcCookieConsentService, NgcInitializeEvent, NgcStatusChangeEvent } fro
 
 import reframe from 'reframe.js';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { NgxScreensizeService } from '../modules/ngx-screensize/_services/ngx-screensize.service';
 
 @Component({
   selector: 'app-pages',
@@ -38,7 +39,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   public player: any;
   public reframed = false;
   youtubeVideoWidth = 853;
-  youtubeVideoheight = 480;
+  youtubeVideoHeight = 480;
 
   deviceInfo: any = null;
 
@@ -59,6 +60,11 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  @HostListener('window:orientationchange', ['$event'])
+  handleOC() {
+    this.youtubeVideoWidth = this._ssService.getScreensize().x;
+  }
+
   @HostListener('window:scroll', ['$event'])
   currentPosition() {
     if (window.pageYOffset > this.headerEl.nativeElement.offsetHeight) {
@@ -73,11 +79,12 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _searchService: SearchService,
     private _modalService: ModalService,
     private _ccService: NgcCookieConsentService,
-    private deviceService: DeviceDetectorService) {
+    private _deviceService: DeviceDetectorService,
+    private _ssService: NgxScreensizeService) {
       console.log('Pages Component Constructor...');
 
       console.log('hello `Home` component');
-      this.deviceInfo = this.deviceService.getDeviceInfo();
+      this.deviceInfo = this._deviceService.getDeviceInfo();
       console.log(this.deviceInfo);
     }
 
@@ -155,6 +162,13 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
         // you can use this._ccService.getConfig() to do stuff...
         console.log(`revokeChoice: ${JSON.stringify(event)}`);
       });
+  }
+  ngAfterViewInit() {
+
+    if (this._ssService.getScreensize().x <= 768 ) {
+      this.youtubeVideoWidth = this._ssService.getScreensize().x;
+      this.youtubeVideoHeight = Math.trunc(this.youtubeVideoWidth * (480 / 853));
+    }
 
     window['onYouTubeIframeAPIReady'] = (e) => {
       this.YT = window['YT'];
@@ -162,7 +176,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
       this.player = new window['YT'].Player('player', {
         videoId: this.youtubeRef,
         width: this.youtubeVideoWidth,
-        height: this.youtubeVideoWidth,
+        height: this.youtubeVideoHeight,
         playsinline: 0,
         events: {
           'onStateChange': this.onPlayerStateChange.bind(this),
@@ -176,9 +190,6 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     };
-  }
-  ngAfterViewInit() {
-
     // console.log(this._ccService.getConfig());
     this.routeSub = this._router.events
       .subscribe((event) => {
