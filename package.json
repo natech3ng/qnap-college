@@ -6,8 +6,8 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "node dist/server/index.js",
-    "build": "ng build",
+    "start": "ng serve --aot",
+    "build": "ng build --aot",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
