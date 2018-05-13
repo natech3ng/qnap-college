@@ -10,12 +10,12 @@ import * as path from 'path';
 
 import * as morgan from 'morgan';
 import * as cookieParser from 'cookie-parser';
-import { config } from './config';
+// import { config } from './config';
 
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 
-const port = process.env.port || 8080;
+const port = process.env.port || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
