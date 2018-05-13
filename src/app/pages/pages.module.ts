@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule } from '@angular/forms';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     PagesRoutingModule
   ],
   declarations: [
-    PagesComponent
+    PagesComponent,
+    NotFoundComponent
   ]
 })
 export class PagesModule { }

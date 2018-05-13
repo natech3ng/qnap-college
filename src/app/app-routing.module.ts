@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthComponent } from './auth/auth.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AdminComponent } from './admin/admin.component';
@@ -14,51 +15,55 @@ import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 
 const routes: Routes = [
+  // {
+  //   path: '', component: PagesComponent,
+  //   children: [
+  //     {
+  //       path: '', component: IndexComponent,
+  //       resolve: { courses: CourseResolver, categories: CategoryResolver}
+  //     },
+  //     {
+  //       path: 'category/:name', component: CategoryComponent,
+  //       resolve: { courses: CatCourseResolver }
+  //     },
+  //     {
+  //       path: 'search/:keywords', component: SearchComponent,
+  //       resolve: { courses: SearchResolver }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: 'admin', component: AdminComponent,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: DashboardComponent, canActivate: [AuthGuard]
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: 'login', component: AuthComponent
+  // },
+  // {
+  //   path: 'signup', component: AuthComponent
+  // },
+  // {
+  //   path: '**',
+  //   component: NotFoundComponent
+  // },
   {
-    path: '', component: PagesComponent,
-    children: [
-      {
-        path: '', component: IndexComponent,
-        resolve: { courses: CourseResolver, categories: CategoryResolver}
-      },
-      {
-        path: 'category/:name', component: CategoryComponent,
-        resolve: { courses: CatCourseResolver }
-      },
-      {
-        path: 'search/:keywords', component: SearchComponent,
-        resolve: { courses: SearchResolver }
-      }
-    ]
+    path: '', loadChildren: './pages/pages.module#PagesModule',
   },
   {
-    path: 'admin', component: AdminComponent,
-    children: [
-      {
-        path: '',
-        component: DashboardComponent, canActivate: [AuthGuard]
-      }
-    ]
+    path: 'login', loadChildren: './auth/auth.module#AuthModule'
   },
   {
-    path: 'login', component: AuthComponent
+    path: 'admin', loadChildren: './admin/admin.module#AdminModule',
+    canActivate: [AuthGuard]
   },
   {
-    path: 'signup', component: AuthComponent
+    path: '**', loadChildren: './pages/pages.module#PagesModule'
   }
-  // {
-  //   path: '', loadChildren: './pages/pages.module#PagesModule',
-  // },
-  // {
-  //   path: 'login', loadChildren: './auth/auth.module#AuthModule'
-  // },
-  // {
-  //   path: 'admin', loadChildren: './admin/admin.module#AdminModule',
-  //   canActivate: [AuthGuard]
-  // },
-  // {
-  //   path: '**', loadChildren: './pages/pages.module#PagesModule'
-  // }
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(routes, {});

@@ -15,7 +15,7 @@ import { config } from './config';
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 
-const port = config[env].port || 3000;
+const port = config[env].port || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -36,23 +36,32 @@ if (env === 'development') {
 // console.log(path.join(__dirname, '../dist'));
 app.use(static_dist);
 
+app.use(['/', '/login', '/admin'], function(req, res, next) {
+  // Just send the index.html for other files to support HTML5Mode
+  if (env === 'dev') {
+    res.sendFile('/index.html', { root: path.join(__dirname, '../dist') });
+  } else {
+    res.sendFile('/index.html', { root: path.join(__dirname, '../../dist') });
+  }
+});
+
 const httpServer = http.createServer(app);
 
 console.log('Listen: ' + port);
 httpServer.listen(port);
 
-console.log(config[env]);
-if (config[env].ssl_enable) {
-  const ssl_port = config[env].ssl_port || 9000;
-  const credentials = {
-    key: fs.readFileSync('/root/twca/qnap_com.key', 'utf8'),
-    cert: fs.readFileSync('/root/twca/qnap_com.cer', 'utf8'),
-    ca: fs.readFileSync('/root/twca/uca.cer', 'utf8')
-  };
+// console.log(config[env]);
+// if (config[env].ssl_enable) {
+//   const ssl_port = config[env].ssl_port || 9000;
+//   const credentials = {
+//     key: fs.readFileSync('/root/twca/qnap_com.key', 'utf8'),
+//     cert: fs.readFileSync('/root/twca/qnap_com.cer', 'utf8'),
+//     ca: fs.readFileSync('/root/twca/uca.cer', 'utf8')
+//   };
 
-  const httpsServer = https.createServer(credentials, app);
-  console.log('CORS-enabled for all origins.  Listen: ' + ssl_port);
-  httpsServer.listen(ssl_port);
+//   const httpsServer = https.createServer(credentials, app);
+//   console.log('CORS-enabled for all origins.  Listen: ' + ssl_port);
+//   httpsServer.listen(ssl_port);
 
-}
+// }
 // process.send('ready');
