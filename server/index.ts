@@ -17,6 +17,9 @@ const env = process.env.NODE_ENV || 'development';
 
 const port = process.env.port || 3000;
 
+console.log(env);
+console.log(port);
+console.log(process.env);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
