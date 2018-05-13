@@ -9,6 +9,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CommonModule,
     AdminRoutingModule
   ],
-  declarations: [DashboardComponent, AdminComponent]
+  declarations: [DashboardComponent, AdminComponent],
+  providers: [
+  ]
 })
 export class AdminModule { }

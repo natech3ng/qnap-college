@@ -1,3 +1,5 @@
+import { NgxScreeensizeModule } from './modules/ngx-screensize/index';
+import { AuthService } from './auth/_services/auth.service';
 import { AdminModule } from './admin/admin.module';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
@@ -9,6 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { NgPipesModule } from 'ngx-pipes';
 import { MomentModule } from 'ngx-moment';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
+import { ResponsiveModule } from 'ngx-responsive';
 
 import { AppComponent } from './app.component';
 import { CategoryService } from './_services/category.service';
@@ -24,7 +29,6 @@ import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { SearchService } from './_services/search.service';
 import { SafePipe } from './_pipes/safe.pipe';
-import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -60,7 +64,9 @@ const cookieConfig: NgcCookieConsentConfig = {
     NgcCookieConsentModule.forRoot(cookieConfig),
     AuthModule,
     PagesModule,
-    AdminModule
+    AdminModule,
+    DeviceDetectorModule.forRoot(),
+    NgxScreeensizeModule
   ],
   providers: [
     CategoryResolver,
@@ -70,7 +76,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     CatCourseResolver,
     SearchResolver,
     SearchService,
-    ModalService],
+    ModalService,
+    AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

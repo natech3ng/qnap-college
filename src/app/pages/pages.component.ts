@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { NgcCookieConsentService, NgcInitializeEvent, NgcStatusChangeEvent } from 'ngx-cookieconsent';
 
 import reframe from 'reframe.js';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-pages',
@@ -24,18 +25,22 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   private routeSub: any;
   private modalPopSub: any;
   private modalCloseSub: any;
-  loading: Boolean;
+  loading: boolean;
   keywords: string;
-  goToTop: Boolean;
-  modalOpen: Boolean;
-  firstOpened: Boolean;
+  goToTop: boolean;
+  modalOpen: boolean;
+  firstOpened: boolean;
   youtubeSrc: any;
   youtubeRef: string;
 
   public YT: any;
   public video: any;
   public player: any;
-  public reframed: Boolean = false;
+  public reframed = false;
+  youtubeVideoWidth = 853;
+  youtubeVideoheight = 480;
+
+  deviceInfo: any = null;
 
   // keep refs to subscriptions to be able to unsubscribe later
   private popupOpenSubscription: Subscription;
@@ -49,7 +54,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     // console.log(event);
     const x = event.keyCode;
     if (x === 27) {
-      // console.log('Escape!');
+      // Escape/ESC button;
       this.onCloseModal();
     }
   }
@@ -67,8 +72,13 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _router: Router,
     private _searchService: SearchService,
     private _modalService: ModalService,
-    private _ccService: NgcCookieConsentService) {
+    private _ccService: NgcCookieConsentService,
+    private deviceService: DeviceDetectorService) {
       console.log('Pages Component Constructor...');
+
+      console.log('hello `Home` component');
+      this.deviceInfo = this.deviceService.getDeviceInfo();
+      console.log(this.deviceInfo);
     }
 
   ngOnInit() {
@@ -151,8 +161,9 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
       this.reframed = true;
       this.player = new window['YT'].Player('player', {
         videoId: this.youtubeRef,
-        width: 853,
-        height: 480,
+        width: this.youtubeVideoWidth,
+        height: this.youtubeVideoWidth,
+        playsinline: 0,
         events: {
           'onStateChange': this.onPlayerStateChange.bind(this),
           'onError': this.onPlayerError.bind(this),

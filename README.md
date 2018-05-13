@@ -10,9 +10,11 @@ Clone this repo to your desktop and run `npm install` to install all the depende
 
 ## Usage
 
-Once the dependencies are installed, you can run `npm start` to start the application.
+Once the dependencies are installed, you can run `ng serve --aot` to start the application.
 
 App will be live at `localhost:4200`
+
+* ng serve has some prolem with module outing
 
 ---
 

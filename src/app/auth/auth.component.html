@@ -10,8 +10,8 @@
       </div>
     </div>
 		<form class="form" (ngSubmit)="onSignin(f)" #f='ngForm'>
-			<input type="text" placeholder="Username">
-			<input type="password" placeholder="Password">
+			<input type="text" placeholder="Email" ngModel name="email">
+			<input type="password" placeholder="Password" ngModel name="password">
 			<button type="submit" id="login-button">Login</button>
 		</form>
 	</div>
