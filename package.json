@@ -1,9 +1,12 @@
 {
   "name": "qc-ng6",
   "version": "0.0.0",
+  "engines": {
+    "node": "9.7.1"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node dist/server/index.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -25,7 +28,7 @@
     "@angular/router": "^6.0.0",
     "@fortawesome/fontawesome": "^1.1.7",
     "@types/moment-duration-format": "^2.2.0",
-    "@types/node": "^8.10.14",
+    "@types/node": "^10.0.8",
     "@types/youtube": "0.0.32",
     "bootstrap": "^4.1.1",
     "cookie-parser": "^1.4.3",
