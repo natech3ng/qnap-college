@@ -15,7 +15,7 @@ import { config } from './config';
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 
-const port = config[env].port || 8080;
+const port = process.env.port || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
