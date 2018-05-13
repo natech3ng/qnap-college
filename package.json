@@ -13,7 +13,7 @@
     "e2e": "ng e2e",
     "server": "./server/node_modules/.bin/nodemon --exec ./server/node_modules/.bin/ts-node -- ./server/index.ts",
     "build:prod": "npm i; cd ./server; npm i; cd ../; ng build --aot --prod; ./node_modules/.bin/tsc -p ./server; ",
-    "postinstall": "ng build --aot --prod; ./node_modules/.bin/tsc -p ./server;"
+    "postinstall": "npm install; ng build --aot --prod; ./node_modules/.bin/tsc -p ./server;"
   },
   "private": true,
   "dependencies": {
