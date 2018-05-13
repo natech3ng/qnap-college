@@ -55,4 +55,4 @@ if (config[env].ssl_enable) {
   httpsServer.listen(ssl_port);
 
 }
-process.send('ready');
+// process.send('ready');

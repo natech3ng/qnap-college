@@ -4,7 +4,7 @@ export const config = {
     ssl_enable: false
   },
   production: {
-    ssl_port: 445,
-    ssl_enable: true
+    ssl_port: 443,
+    ssl_enable: false
   }
 };
