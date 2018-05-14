@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SafePipe } from '../_pipes/safe.pipe';
 
 @NgModule({
   imports: [

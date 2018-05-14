@@ -1,4 +1,4 @@
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ModalService } from '../_services/modal.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { CategoryService } from '../_services/category.service';
@@ -44,7 +44,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deviceInfo: any = null;
 
-  headerHTML = '';
+  _headerHTML = '';
   // keep refs to subscriptions to be able to unsubscribe later
   private popupOpenSubscription: Subscription;
   private popupCloseSubscription: Subscription;
@@ -83,7 +83,8 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _ccService: NgcCookieConsentService,
     private _deviceService: DeviceDetectorService,
     private _ssService: NgxScreensizeService,
-    private _httpClient: HttpClient) {
+    private _httpClient: HttpClient,
+    private _sanitizer: DomSanitizer) {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
       console.log(this.deviceInfo);
@@ -214,8 +215,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this._httpClient.get('https://www.qnap.com/i/_aid/header.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
       (data) => {
-        this.headerHTML = data;
-        console.log(data);
+        this._headerHTML = data;
       },
       (error) => {
       }
@@ -278,5 +278,9 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
       case 101 || 150:
         break;
     }
+  }
+
+  public get headerHTML(): SafeHtml {
+    return this._sanitizer.bypassSecurityTrustHtml(this._headerHTML);
   }
 }
