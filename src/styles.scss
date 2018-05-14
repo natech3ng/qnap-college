@@ -728,6 +728,15 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
           }
         }
       }
+
+      &.m-datatable-cell-action span span {
+        margin: 0px 4px;
+        font-size: 1rem;
+
+        .icon-trash {
+          color: rgba(170, 0, 0, 0.6);
+        }
+      }
       
       .m-badge {
         background-color: #716aca;
