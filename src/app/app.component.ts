@@ -12,6 +12,7 @@ import { NgcCookieConsentService, NgcInitializeEvent, NgcStatusChangeEvent } fro
 
 import reframe from 'reframe.js';
 import { NgxScreensizeService } from './modules/ngx-screensize/_services/ngx-screensize.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,6 @@ import { NgxScreensizeService } from './modules/ngx-screensize/_services/ngx-scr
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private _ssService: NgxScreensizeService) {
-
   }
   ngOnInit() {}
 

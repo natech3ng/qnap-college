@@ -13,6 +13,7 @@ import { NgcCookieConsentService, NgcInitializeEvent, NgcStatusChangeEvent } fro
 import reframe from 'reframe.js';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { NgxScreensizeService } from '../modules/ngx-screensize/_services/ngx-screensize.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pages',
@@ -43,6 +44,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deviceInfo: any = null;
 
+  headerHTML = '';
   // keep refs to subscriptions to be able to unsubscribe later
   private popupOpenSubscription: Subscription;
   private popupCloseSubscription: Subscription;
@@ -80,8 +82,8 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _modalService: ModalService,
     private _ccService: NgcCookieConsentService,
     private _deviceService: DeviceDetectorService,
-    private _ssService: NgxScreensizeService) {
-      console.log('Pages Component Constructor...');
+    private _ssService: NgxScreensizeService,
+    private _httpClient: HttpClient) {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
       console.log(this.deviceInfo);
@@ -209,6 +211,15 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     // console.log(this.el.nativeElement.offsetHeight);
     setTimeout(() => { this.loading = false; }, 0);
+
+    this._httpClient.get('https://www.qnap.com/i/_aid/header.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
+      (data) => {
+        this.headerHTML = data;
+        console.log(data);
+      },
+      (error) => {
+      }
+    );
   }
 
   ngOnDestroy() {
