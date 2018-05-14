@@ -24,7 +24,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           for (const course of this.courses) {
             course['tags'] = [];
             course['tags'] = course['keywords'].split(' ');
-            console.log(course['tags']);
+            // console.log(course['tags']);
           }
         }
       });
