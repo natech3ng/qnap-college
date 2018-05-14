@@ -1,23 +1,35 @@
+import { CourseNewComponent } from './courses/course-new/course-new.component';
+import { CoursesComponent } from './courses/courses.component';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CourseResolver } from './courses/course.resolver';
 
 
 const routes: Routes = [
   {
-    path: 'index',
+    path: '',
     component: AdminComponent,
     children: [
       {
         path: '',
         component: DashboardComponent
-      }
+      },
+      {
+        path: 'courses',
+        component: CoursesComponent,
+        resolve: { courses: CourseResolver}
+      },
+      {
+        path: 'course/new',
+        component: CourseNewComponent
+      },
     ]
   },
   {
     path: '',
-    redirectTo: 'index',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ];

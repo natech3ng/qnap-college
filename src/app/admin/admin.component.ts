@@ -1,4 +1,5 @@
-import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute, NavigationStart, NavigationEnd, NavigationCancel } from '@angular/router';
 import { AuthService } from './../auth/_services/auth.service';
 import { OnInit, AfterViewInit, OnDestroy, Component } from '@angular/core';
 import { Location } from '@angular/common';
@@ -10,6 +11,8 @@ import { Location } from '@angular/common';
 export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
 
   loggedIn: boolean;
+  routeSub: Subscription;
+  loading = false;
 
   constructor(
     private _router: Router,
@@ -28,6 +31,19 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    this.routeSub = this._router.events
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.loading = true;
+          console.log('Admin navigate start');
+        } else if (
+            event instanceof NavigationEnd ||
+            event instanceof NavigationCancel
+            ) {
+          this.loading = false;
+          console.log('Admin navigate end');
+        }
+    });
   }
 
   ngOnDestroy() {}

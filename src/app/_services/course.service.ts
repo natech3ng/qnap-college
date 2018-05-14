@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 export class CourseService {
   constructor(private httpClient: HttpClient) {
   }
-  all(limit: number): Observable<Course []> {
+  all(limit?: number): Observable<Course []> {
     let api_query = 'https://go.qnap.com/api/courses?orderBy=publishedDate:desc';
     if (limit) {
       api_query = api_query + '&limit=' + limit;

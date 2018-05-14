@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  app = 'dashboard';
   constructor(private _authService: AuthService) { }
 
   ngOnInit() {

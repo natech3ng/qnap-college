@@ -194,13 +194,13 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
             this.loading = true;
-            console.log('Navigate start');
+            // console.log('Navigate start');
         } else if (
             event instanceof NavigationEnd ||
             event instanceof NavigationCancel
             ) {
             this.loading = false;
-            console.log('Navigate end');
+            // console.log('Navigate end');
         }
     });
 
