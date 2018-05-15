@@ -45,6 +45,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   deviceInfo: any = null;
 
   _headerHTML = '';
+  _footerHTML = '';
   // keep refs to subscriptions to be able to unsubscribe later
   private popupOpenSubscription: Subscription;
   private popupCloseSubscription: Subscription;
@@ -215,7 +216,17 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this._httpClient.get('https://www.qnap.com/i/_aid/header.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
       (data) => {
-        this._headerHTML = data;
+        setTimeout(() => {
+          this._headerHTML = data;
+        }, 2000);
+      },
+      (error) => {
+      }
+    );
+
+    this._httpClient.get('https://www.qnap.com/i/_aid/footer.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
+      (data) => {
+        this._footerHTML = data;
       },
       (error) => {
       }
@@ -282,5 +293,9 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public get headerHTML(): SafeHtml {
     return this._sanitizer.bypassSecurityTrustHtml(this._headerHTML);
+  }
+
+  public get footerHTML(): SafeHtml {
+    return this._sanitizer.bypassSecurityTrustHtml(this._footerHTML);
   }
 }
