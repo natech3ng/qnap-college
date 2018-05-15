@@ -31,6 +31,7 @@ import { SearchService } from './_services/search.service';
 import { SafePipe } from './_pipes/safe.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmService } from './_services/confirm.service';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {

@@ -32,15 +32,20 @@ tag-input.form-control, .ng2-tag-input {
   font-weight: 100;
 }
 
-tag-input {
-  // overflow: -webkit-paged-x;
+.ng2-tag-input.bootstrap3-info {
+  display: inline-table !important;
 }
+
+// .ng2-tags-container {
+//   display: -webkit-box !important;
+// }
 
 tag-input-form form input, tag-input-form form input:focus, tag-input .ng2-tag-input,
 .bootstrap3-info.ng2-tag-input.ng2-tag-input--focused,
 .ng2-tag-input.ng2-tag-input--focused {
   display: block;
   font-weight: 100;
+  
     // width: 100%;
     // padding: 0.375rem 0.75rem;
     // font-size: 1rem;
@@ -836,4 +841,17 @@ span.cc-message > a {
   flex-wrap: wrap;
   align-items: stretch;
   width: 100%;
+}
+
+/* btn */
+.btn-primary {
+  color: #fff;
+  background-color: #5867dd;
+  border-color: #5867dd;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #f4516c;
+  border-color: #f4516c;
 }

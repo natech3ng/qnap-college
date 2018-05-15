@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Course } from '../_models/course';
 import { Observable } from 'rxjs';
+import { Course } from '../_models/course';
 
 @Injectable()
 export class CourseService {
@@ -21,6 +21,12 @@ export class CourseService {
     const api_query = 'https://go.qnap.com/api/category/' + category + '/courses';
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.httpClient.get<Course []>(api_query, {headers: headers});
+  }
+
+  get(id: any): Observable<Course> {
+    const api_query = 'https://go.qnap.com/api/courses/' + id;
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+    return this.httpClient.get<Course>(api_query, {headers: headers});
   }
 
   getYoutubeInfo(youtubeRef: String): Observable<Course> {

@@ -77,8 +77,8 @@
                 </td>
                 <th class="m-datatable-cell m-datatable-cell-action">
                   <span>
-                    <span><i class="fa fa-edit"></i></span>
-                    <span><i class="icon-trash"></i></span>
+                    <span [routerLink]="['/course', course._id, 'edit']"><i class="fa fa-edit"></i></span>
+                    <span (click)="onDelete(course)"><i class="icon-trash"></i></span>
                   </span>
                 </th>
               </tr>

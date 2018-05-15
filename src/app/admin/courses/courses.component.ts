@@ -2,6 +2,7 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from './../../_models/course';
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { ConfirmService } from '../../_services/confirm.service';
 
 @Component({
   selector: 'app-courses',
@@ -14,7 +15,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   app = 'Courses';
   courses: Course [] = [];
   sub: Subscription;
-  constructor(private _route: ActivatedRoute) { }
+  constructor(
+    private _route: ActivatedRoute,
+    private _confirmService: ConfirmService) { }
 
   ngOnInit() {
     this.sub = this._route.data.subscribe(
@@ -34,6 +37,16 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  onDelete(course: Course) {
+    this._confirmService.open('Do you want to delete?').then(
+      () => {
+        console.log('ok');
+      }).catch( () => {
+        // Reject
+        console.log('no');
+      });
   }
 
 }

@@ -8,7 +8,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-course-new',
-  templateUrl: './course-new.component.html',
+  templateUrl: '../shared/course-new.component.html',
   styleUrls: ['./course-new.component.scss']
 })
 export class CourseNewComponent implements OnInit, OnDestroy {

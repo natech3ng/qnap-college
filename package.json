@@ -46,6 +46,7 @@
     "ngx-chips": "^1.9.2",
     "ngx-cookieconsent": "^1.0.1",
     "ngx-device-detector": "^1.2.2",
+    "ngx-modialog": "^6.0.0",
     "ngx-moment": "^2.0.0",
     "ngx-page-scroll": "^4.0.2",
     "ngx-pipes": "^2.1.7",

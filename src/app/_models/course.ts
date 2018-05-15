@@ -14,4 +14,5 @@ export class Course {
   like: Number;
   rank: Number;
   watched: Number;
+  tags: String [];
 }

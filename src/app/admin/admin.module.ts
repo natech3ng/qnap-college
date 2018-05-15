@@ -15,6 +15,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmService } from '../_services/confirm.service';
+import { ModalModule } from 'ngx-modialog';
+import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
+import { CourseEditComponent } from './courses/course-edit/course-edit.component';
+import { SingleCourseResolver } from './courses/course-edit/single.course.resolver';
 
 @NgModule({
   imports: [
@@ -26,16 +31,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TagInputModule,
     ReactiveFormsModule,
     NgSelectModule,
-    NgbModule
+    NgbModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   declarations: [
     DashboardComponent,
     AdminComponent,
     CoursesComponent,
-    CourseNewComponent],
+    CourseNewComponent,
+    CourseEditComponent],
   providers: [
     CourseResolver,
-    UcFirstPipe
+    UcFirstPipe,
+    ConfirmService,
+    SingleCourseResolver
   ]
 })
 export class AdminModule { }
