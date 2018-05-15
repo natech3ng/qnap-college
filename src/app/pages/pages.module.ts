@@ -8,6 +8,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SafePipe } from '../_pipes/safe.pipe';
+import { RunScriptsDirective } from '../_directives/run.scripts.directives';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { SafePipe } from '../_pipes/safe.pipe';
   ],
   declarations: [
     PagesComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    RunScriptsDirective
   ]
 })
 export class PagesModule { }

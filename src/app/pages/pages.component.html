@@ -1,4 +1,4 @@
-<div [innerHTML]="headerHTML"></div>
+<div [innerHTML]="headerHTML" appRunScripts></div>
 <div class="modal-container" [ngClass]="{'pop': firstOpened, 'out':!modalOpen}">
   <div class="v-modal-overlay" (click)="onCloseModal()"></div>
   <div class="v-modal-content">
