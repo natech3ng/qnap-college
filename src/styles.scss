@@ -846,12 +846,16 @@ span.cc-message > a {
 /* btn */
 .btn-primary {
   color: #fff;
-  background-color: #5867dd;
-  border-color: #5867dd;
+  background-color: #00ADEF;
+  border-color: #00ADEF;
 }
 
 .btn-danger {
   color: #fff;
   background-color: #f4516c;
   border-color: #f4516c;
+}
+
+.form-group .btn {
+  margin: 5px;
 }

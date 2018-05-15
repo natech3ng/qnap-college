@@ -4,6 +4,8 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { Category } from '../../../_models/category';
 import { Subscription } from 'rxjs';
 import { UcFirstPipe } from 'ngx-pipes';
+import { NgForm } from '@angular/forms';
+import { ConfirmService } from '../../../_services/confirm.service';
 
 @Component({
   selector: 'app-course-edit',
@@ -17,7 +19,10 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   dataSub: Subscription;
   course: Course;
   categories: Category [];
-  constructor(private _route: ActivatedRoute, private ucfirstPipe: UcFirstPipe) {
+  constructor(
+    private _route: ActivatedRoute,
+    private ucfirstPipe: UcFirstPipe,
+    private _confirmService: ConfirmService) {
     this.paramSub = this._route.params.subscribe(
       (params) => {
         console.log(params);
@@ -50,5 +55,16 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.paramSub.unsubscribe();
     this.dataSub.unsubscribe();
+  }
+
+  onSubmit(f: NgForm) {
+    console.log('onSubmit');
+    this._confirmService.open('Do you want to submit?').then(
+      () => {
+        console.log('ok');
+      }).catch( () => {
+        // Reject
+        console.log('no');
+    });
   }
 }

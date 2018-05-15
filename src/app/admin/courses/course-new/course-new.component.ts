@@ -5,6 +5,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Category } from '../../../_models/category';
 import { UcFirstPipe } from 'ngx-pipes';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgForm } from '@angular/forms';
+import { ConfirmService } from '../../../_services/confirm.service';
 
 @Component({
   selector: 'app-course-new',
@@ -22,7 +24,10 @@ export class CourseNewComponent implements OnInit, OnDestroy {
   public options = {
     placeholder: ''
 };
-  constructor(private _route: ActivatedRoute, private ucfirstPipe: UcFirstPipe) {
+  constructor(
+    private _route: ActivatedRoute,
+    private ucfirstPipe: UcFirstPipe,
+    private _confirmService: ConfirmService) {
     this.course = new Course();
    }
 
@@ -38,5 +43,16 @@ export class CourseNewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  onSubmit(f: NgForm) {
+    console.log('onSubmit');
+    this._confirmService.open('Do you want to submit?').then(
+      () => {
+        console.log('ok');
+      }).catch( () => {
+        // Reject
+        console.log('no');
+    });
   }
 }

@@ -3,72 +3,82 @@
   <span class='row'>
     <span class="col-md-12 d-content">
       <span class="portlet">
-        <div class="form-group m-form__group row">
-          <label for="example-text-input" class="col-2 col-form-label offset-md-2">
-            Topic
-          </label>
-          <div class="col-6">
-            <input class="form-control m-input" type="text" value="{{course.title}}" placeholder="Topic" id="title-text-input">
+        <form (ngSubmit)="onSubmit(f)" #f f="ngForm">
+          <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label offset-md-2">
+              Topic
+            </label>
+            <div class="col-6">
+              <input class="form-control m-input" type="text" value="{{course.title}}" placeholder="Topic" id="title-text-input">
+            </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label for="example-text-input" class="col-2 col-form-label offset-md-2">
-            Code Name
-          </label>
-          <div class="col-6">
-            <input class="form-control m-input" type="text" value="{{course.code_name}}" placeholder="Code Name" id="codename-text-input">
+          <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label offset-md-2">
+              Code Name
+            </label>
+            <div class="col-6">
+              <input class="form-control m-input" type="text" value="{{course.code_name}}" placeholder="Code Name" id="codename-text-input">
+            </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label for="example-text-input" class="col-2 col-form-label offset-md-2">
-            Tags
-          </label>
-          <div class="col-6">
-            <tag-input [(ngModel)]='course.tags' placeholder="+ Tag" secondaryPlaceholder="Enter Tags" theme='bootstrap3-info' class='form-control'></tag-input>
-            <!-- <input class="form-control m-input" type="text" value="" placeholder="Tags" id="tags-text-input"> -->
+          <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label offset-md-2">
+              Tags
+            </label>
+            <div class="col-6">
+              <tag-input [(ngModel)]='course.tags' name="course.tags" placeholder="+ Tag" secondaryPlaceholder="Enter Tags" theme='bootstrap3-info' class='form-control'></tag-input>
+              <!-- <input class="form-control m-input" type="text" value="" placeholder="Tags" id="tags-text-input"> -->
+            </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label for="example-text-input" class="col-2 col-form-label offset-md-2">
-            Category
-          </label>
-          <div class="col-6">
-              <ng-select  class=""
-                [(ngModel)]="course.category"
-                [items]="categories"
-                bindLabel="name"
-                bindValue="name"
-                placeholder="Select Category"
-                name="category-text-input">
-              </ng-select>
+          <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label offset-md-2">
+              Category
+            </label>
+            <div class="col-6">
+                <ng-select  class=""
+                  [(ngModel)]="course.category"
+                  [items]="categories"
+                  bindLabel="name"
+                  bindValue="name"
+                  placeholder="Select Category"
+                  name="category-text-input">
+                </ng-select>
+            </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label for="example-text-input" class="col-2 col-form-label offset-md-2">
-            Date
-          </label>
-          <div class="col-6">
-              <input class="form-control m-input" disabled type="text" value="{{course.publishedDate  | amDateFormat: 'YYYY-MM-DD'}}" placeholder="Date" id="date-text-input">
-              <!-- <div class="input-group">
-              <input class="form-control" placeholder="YYYY-MM-DD"
-              name="dp" [(ngModel)]="course.publishedDate" ngbDatepicker #d="ngbDatepicker">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                  <i class="fa fa-calendar"></i>
-                </button> 
-              </div>
-            </div> -->
+          <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label offset-md-2">
+              Date
+            </label>
+            <div class="col-6">
+                <input class="form-control m-input" disabled type="text" value="{{course.publishedDate  | amDateFormat: 'YYYY-MM-DD'}}" placeholder="Date" id="date-text-input">
+                <!-- <div class="input-group">
+                <input class="form-control" placeholder="YYYY-MM-DD"
+                name="dp" [(ngModel)]="course.publishedDate" ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                    <i class="fa fa-calendar"></i>
+                  </button> 
+                </div>
+              </div> -->
+            </div>
           </div>
-        </div>
-        <div class="form-group m-form__group row">
-          <label for="example-text-input" class="col-2 col-form-label offset-md-2">
-            Description
-          </label>
-          <div class="col-6">
-            <textarea class="form-control m-input m-input--air" id="desc-textarea" rows="3" value="" [(ngModel)]="course.desc" ></textarea>
+          <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label offset-md-2">
+              Description
+            </label>
+            <div class="col-6">
+              <textarea class="form-control m-input m-input--air" id="desc-textarea" rows="3" value="" name="course.desc"  [(ngModel)]="course.desc" ></textarea>
+            </div>
           </div>
-        </div>
+          <div class="form-group m-form__group row">
+            <div class="col-md-3 offset-md-8">
+              <button type="button" class="btn btn-danger btn-upload" [routerLink]="['/courses']">Back</button>
+              <button type="button" class="btn btn-secondary btn-upload">Reset</button>
+              <button class="btn btn-primary btn-upload" multipart="">Submit</button> 
+            </div>
+          </div>
+        </form>
       </span>
     </span>
   </span>
+  
 </div>
