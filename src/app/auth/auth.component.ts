@@ -13,11 +13,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AuthComponent implements OnInit, OnDestroy {
   signing: boolean;
   returnUrl: string;
+  signin: boolean;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _authService: AuthService) {}
+    private _authService: AuthService) {
+      console.log(this._route.snapshot.url[0].path);
+      this._route.url.subscribe(
+        (url) => {
+          url[0].path === 'login' ? this.signin = true : this.signin = false;
+        }
+      );
+    }
 
   ngOnInit() {
     this.signing = false;

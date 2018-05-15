@@ -8,12 +8,21 @@
         <div class="square third"></div>
         <div class="square fourth"></div>
       </div>
-    </div>
-		<form class="form" (ngSubmit)="onSignin(f)" #f='ngForm'>
-			<input type="text" placeholder="Email" ngModel name="email">
-			<input type="password" placeholder="Password" ngModel name="password">
-			<button type="submit" id="login-button">Login</button>
-		</form>
+		</div>
+		<div class='form-container'>
+			<form class="form login-form" *ngIf="signin" (ngSubmit)="onSignin(f)" #f='ngForm'>
+				<input type="text" placeholder="Email" ngModel name="email">
+				<input type="password" placeholder="Password" ngModel name="password">
+				<button type="submit" id="login-button">Login</button>
+			</form>
+			<form class="form register-form" *ngIf="!signin" #f='ngForm'>
+				<input type="text" placeholder="Email" ngModel name="email">
+				<input type="password" placeholder="Password" ngModel name="password">
+				<input type="confirm_password" placeholder="Confirm Password" ngModel name="confirm_password">
+				<button type="submit" id="login-button">Sign Up</button>
+			</form>
+			<!-- <a href="#" *ngIf="signin" [routerLink]="['/signup']">Sign Up</a><a href="#" *ngIf="!signin" [routerLink]="['/login']">Sign In</a> -->
+		</div>
 	</div>
 	
 	<ul class="bg-bubbles">
