@@ -22,7 +22,7 @@
     </div>
   </div>
 </section>
-<section class="sp-section latest">
+<section class="sp-section latest" #collection>
   <div class="container">
     <h4>
       <span class="vt-section-title">
@@ -85,3 +85,22 @@
     </div>
   </div>
 </section>
+
+<div class="nav-wrapper" [ngClass]="{'show': toCollection }">
+  <div class="nav">
+    <ul class="nav-items">
+      <li class="nav-item latest">
+        Latest
+      </li>
+      <li class="nav-item popular">
+        Most Popular
+      </li>
+      <li class="nav-item rate">
+        Best Rating
+      </li>
+      <li class="nav-item beginner">
+        Beginners
+      </li>
+    </ul>
+  </div>
+</div>

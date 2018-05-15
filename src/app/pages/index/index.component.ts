@@ -1,5 +1,5 @@
 import { ModalService } from './../../_services/modal.service';
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from '@angular/core';
 import { Category } from '../../_models/category';
 import { CategoryService } from '../../_services/category.service';
 import { ActivatedRoute, Data } from '@angular/router';
@@ -15,12 +15,23 @@ import { NgxScreensizeService } from '../../modules/ngx-screensize/_services/ngx
 export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('cElement', {read: ElementRef}) cElement: ElementRef;
+  @ViewChild('collection', {read: ElementRef}) collectionEl: ElementRef;
   private sub: any;
   categories: Category [];
   courses: Course [];
   cGridWidth: Number;
   gridCol: Number;
   gridClass: String;
+  toCollection: boolean;
+
+  @HostListener('window:scroll', ['$event'])
+  currentPosition() {
+    if (window.pageYOffset + 300 > this.collectionEl.nativeElement.offsetHeight) {
+      this.toCollection = true;
+    } else {
+      this.toCollection = false;
+    }
+  }
 
   constructor(
     private _categoryService: CategoryService,

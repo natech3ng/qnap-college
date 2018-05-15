@@ -859,3 +859,40 @@ span.cc-message > a {
 .form-group .btn {
   margin: 5px;
 }
+.nav-wrapper {
+  opacity: 0;
+}
+.xl {
+  .nav-wrapper {
+    
+    display: inline-block;
+    position: fixed;
+    top: 200px;
+    right: 270px;
+    padding: 10px 30px;;
+    // box-shadow: 0 1px 15px 1px rgba(69,65,78,.08);
+
+    &.show {
+      opacity: 1;
+    }
+    ul.nav-items {
+      li.nav-item {
+        padding-left: 10px;
+        margin-top: 5px;
+        border-left: 2px solid #00ADEF;
+
+        &.latest {
+          border-left: 2px solid #48d4bb;
+        }
+
+        // &.popular {
+        //   border-left: 4px solid #9b82f3;
+        // }
+
+        // &.rate {
+        //   border-left: 4px solid #473793;
+        // }
+      }
+    }
+  }
+}
