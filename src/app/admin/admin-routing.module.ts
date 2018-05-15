@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CourseResolver } from './courses/course.resolver';
+import { CategoryResolver } from '../pages/index/category.resolver';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
       },
       {
         path: 'course/new',
-        component: CourseNewComponent
+        component: CourseNewComponent,
+        resolve: { categories: CategoryResolver}
       },
     ]
   },

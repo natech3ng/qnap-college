@@ -214,15 +214,15 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     // console.log(this.el.nativeElement.offsetHeight);
     setTimeout(() => { this.loading = false; }, 0);
 
-    this._httpClient.get('https://www.qnap.com/i/_aid/header.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
-      (data) => {
-        setTimeout(() => {
-          this._headerHTML = data;
-        }, 2000);
-      },
-      (error) => {
-      }
-    );
+    // this._httpClient.get('https://www.qnap.com/i/_aid/header.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
+    //   (data) => {
+    //     setTimeout(() => {
+    //       this._headerHTML = data;
+    //     }, 2000);
+    //   },
+    //   (error) => {
+    //   }
+    // );
 
     this._httpClient.get('https://www.qnap.com/i/_aid/footer.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
       (data) => {

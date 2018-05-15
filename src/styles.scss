@@ -3,6 +3,7 @@
 @import 'variables';
 @import '../node_modules/font-awesome/scss/font-awesome';
 @import "./assets/scss/font-icons";
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 * {
   box-sizing: border-box;
@@ -10,6 +11,45 @@
 
 body {
   display: block;
+}
+
+.bootstrap3-info tag {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.ng2-tag-input__text-input {
+  position: absolute;
+  top: 2px;
+}
+
+tag-input.form-control, .ng2-tag-input {
+  padding: 0px;
+}
+
+.form-control {
+  color: #ced4da;
+  font-weight: 100;
+}
+
+tag-input {
+  // overflow: -webkit-paged-x;
+}
+
+tag-input-form form input, tag-input-form form input:focus, tag-input .ng2-tag-input,
+.bootstrap3-info.ng2-tag-input.ng2-tag-input--focused,
+.ng2-tag-input.ng2-tag-input--focused {
+  display: block;
+  font-weight: 100;
+    // width: 100%;
+    // padding: 0.375rem 0.75rem;
+    // font-size: 1rem;
+    // line-height: 1.5;
+    // color: #495057;
+    // background-color: #fff;
+    // background-clip: padding-box;
+  border: 0px !important;
+  box-shadow: none !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -779,4 +819,21 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 
 span.cc-message > a {
   color: #ffff00;
+}
+
+.form-control.focus, .form-control:focus {
+  border-color: #00ADEF;
+  outline: 0;
+  color: #575962;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
 }

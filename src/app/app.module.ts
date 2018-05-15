@@ -29,6 +29,8 @@ import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { SearchService } from './_services/search.service';
 import { SafePipe } from './_pipes/safe.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -68,7 +70,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     SafePipe
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     NgPipesModule,
@@ -78,7 +80,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     PagesModule,
     AdminModule,
     DeviceDetectorModule.forRoot(),
-    NgxScreensizeModule
+    NgxScreensizeModule,
+    NgbModule.forRoot()
   ],
   providers: [
     CategoryResolver,
