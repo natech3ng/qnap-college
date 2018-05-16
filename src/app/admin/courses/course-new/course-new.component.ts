@@ -1,5 +1,7 @@
+import { CourseService } from './../../../_services/course.service';
+import { ToastrService } from 'ngx-toastr';
 import { Course } from './../../../_models/course';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Category } from '../../../_models/category';
@@ -16,6 +18,7 @@ import { ConfirmService } from '../../../_services/confirm.service';
 export class CourseNewComponent implements OnInit, OnDestroy {
 
   app = 'add course';
+  func = 'new';
   sub: Subscription;
   categories: Category [] = [];
   tags: string [] = [];
@@ -26,8 +29,11 @@ export class CourseNewComponent implements OnInit, OnDestroy {
 };
   constructor(
     private _route: ActivatedRoute,
-    private ucfirstPipe: UcFirstPipe,
-    private _confirmService: ConfirmService) {
+    private _ucfirstPipe: UcFirstPipe,
+    private _confirmService: ConfirmService,
+    private _toastr: ToastrService,
+    private _courseService: CourseService,
+    private _router: Router) {
     this.course = new Course();
    }
 
@@ -36,7 +42,7 @@ export class CourseNewComponent implements OnInit, OnDestroy {
       (data: Data) => {
         this.categories = data.categories;
         for (const category of this.categories) {
-          category.name = this.ucfirstPipe.transform(category.name);
+          category.name = this._ucfirstPipe.transform(category.name);
         }
       });
   }
@@ -49,10 +55,26 @@ export class CourseNewComponent implements OnInit, OnDestroy {
     console.log('onSubmit');
     this._confirmService.open('Do you want to submit?').then(
       () => {
-        console.log('ok');
+        const tags = f.value.tags;
+        f.value.tags = [];
+        f.value.keywords = '';
+        for ( const tag of tags) {
+          f.value.tags.push(tag.value);
+          f.value.keywords === '' ? f.value.keywords += tag.value : f.value.keywords = f.value.keywords + ' ' + tag.value;
+        }
+
+        // console.log(f.value);
+
+        this._courseService.add(f.value).subscribe(
+          (course: Course) => {
+            this._toastr.success('Success');
+            this._router.navigate(['/courses']);
+        }, (error) => {
+          this._toastr.error('Failed to add a course');
+        });
       }).catch( () => {
         // Reject
-        console.log('no');
+        this._toastr.error('Failed to add a course');
     });
   }
 }

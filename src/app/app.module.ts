@@ -14,6 +14,7 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
 import { ResponsiveModule } from 'ngx-responsive';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { CategoryService } from './_services/category.service';
@@ -82,7 +83,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     AdminModule,
     DeviceDetectorModule.forRoot(),
     NgxScreensizeModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     CategoryResolver,
