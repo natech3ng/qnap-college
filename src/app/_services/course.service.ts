@@ -24,7 +24,7 @@ export class CourseService {
   }
 
   update(course: Course) {
-    const api_query = 'http://localhost:3000/api/courses';
+    const api_query = 'https://go.qnap.com/api/courses';
     return this._httpClient.put(api_query, course, this._authService.jwtHttpClient());
   }
 
