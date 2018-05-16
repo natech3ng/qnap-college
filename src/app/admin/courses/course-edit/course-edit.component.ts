@@ -42,7 +42,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this.course = data.course;
         this.course.tags = new Array();
         if (this.course['keywords']) {
-          this.course['tags'] = this.course['keywords'].split(' ');
+          this.course.tags = this.course['keywords'].split(' ');
         }
 
         setTimeout( () => {
@@ -65,30 +65,34 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(f: NgForm) {
-    console.log('onSubmit: edit');
+    // console.log('onSubmit: edit');
+    // console.log(f.value);
     this._confirmService.open('Do you want to submit?').then(
       () => {
         const tags = f.value.tags;
         f.value.tags = [];
         f.value.keywords = '';
         for ( const tag of tags) {
-          f.value.tags.push(tag.value);
+          // console.log(typeof tag);
+          if ( typeof tag === 'string') {
+            f.value.tags.push(tag);
+          } else if (typeof tag === 'object' && tag['value']) {
+            f.value.tags.push(tag['value']);
+          }
           f.value.keywords === '' ? f.value.keywords += tag.value : f.value.keywords = f.value.keywords + ' ' + tag.value;
         }
         f.value['_id'] = this.course._id;
         f.value.category = this._slugify.transform(f.value.category);
-        // console.log(f.value);
-
-        this._courseService.update(f.value).subscribe(
-          (course: Course) => {
-            this._toastr.success('Success');
-            this._router.navigate(['/courses']);
-        }, (error) => {
-          this._toastr.error('Failed to add a course');
-        });
-      }).catch( () => {
-        // Reject
-        this._toastr.error('Failed to add a course');
+      //   this._courseService.update(f.value).subscribe(
+      //     (course: Course) => {
+      //       this._toastr.success('Success');
+      //       this._router.navigate(['/courses']);
+      //   }, (error) => {
+      //     this._toastr.error('Failed to add a course');
+      //   });
+      // }).catch( () => {
+      //   // Reject
+      //   this._toastr.error('Failed to add a course');
     });
   }
 }

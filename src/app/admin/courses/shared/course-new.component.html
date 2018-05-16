@@ -33,7 +33,7 @@
               Tags
             </label>
             <div class="col-6">
-              <tag-input [(ngModel)]='course.tags' name="tags" placeholder="+ Tag" secondaryPlaceholder="Enter Tags" theme='bootstrap3-info' class='form-control'></tag-input>
+              <tag-input [(ngModel)]='course.tags' #name="ngModel" name="tags" placeholder="+ Tag" secondaryPlaceholder="Enter Tags" theme='bootstrap3-info' class='form-control'></tag-input>
               <!-- <input class="form-control m-input" type="text" value="" placeholder="Tags" id="tags-text-input"> -->
             </div>
           </div>

@@ -59,7 +59,11 @@ export class CourseNewComponent implements OnInit, OnDestroy {
         f.value.tags = [];
         f.value.keywords = '';
         for ( const tag of tags) {
-          f.value.tags.push(tag.value);
+          if ( typeof tag === 'string') {
+            f.value.tags.push(tag);
+          } else if (typeof tag === 'object' && tag['value']) {
+            f.value.tags.push(tag['value']);
+          }
           f.value.keywords === '' ? f.value.keywords += tag.value : f.value.keywords = f.value.keywords + ' ' + tag.value;
         }
 
