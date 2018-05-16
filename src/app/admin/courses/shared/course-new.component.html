@@ -3,13 +3,13 @@
   <span class='row'>
     <span class="col-md-12 d-content">
       <span class="portlet">
-        <form (ngSubmit)="onSubmit(f)" #f f="ngForm">
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
           <div class="form-group m-form__group row">
             <label for="example-text-input" class="col-2 col-form-label offset-md-2">
               Topic
             </label>
             <div class="col-6">
-              <input class="form-control m-input" type="text" value="{{course.title}}" placeholder="Topic" id="title-text-input">
+              <input class="form-control m-input" type="text" [(ngModel)]="course.title" name='title' #name="ngModel" required placeholder="Topic" id="title-text-input">
             </div>
           </div>
           <div class="form-group m-form__group row">
@@ -17,7 +17,15 @@
               Code Name
             </label>
             <div class="col-6">
-              <input class="form-control m-input" type="text" value="{{course.code_name}}" placeholder="Code Name" id="codename-text-input">
+              <input class="form-control m-input" type="text" [(ngModel)]="course.code_name" name="code_name" required #name="ngModel" placeholder="Code Name" id="codename-text-input">
+            </div>
+          </div>
+          <div class="form-group m-form__group row">
+            <label for="example-text-input" class="col-2 col-form-label offset-md-2">
+              Youtube Reference
+            </label>
+            <div class="col-6">
+              <input class="form-control m-input" type="text" [(ngModel)]="course.youtube_ref" required name="youtube_ref" required #name="ngModel" placeholder="Youtube Reference" id="youtubeRef-text-input">
             </div>
           </div>
           <div class="form-group m-form__group row">
@@ -25,7 +33,7 @@
               Tags
             </label>
             <div class="col-6">
-              <tag-input [(ngModel)]='course.tags' name="course.tags" placeholder="+ Tag" secondaryPlaceholder="Enter Tags" theme='bootstrap3-info' class='form-control'></tag-input>
+              <tag-input [(ngModel)]='course.tags' name="tags" placeholder="+ Tag" secondaryPlaceholder="Enter Tags" theme='bootstrap3-info' class='form-control'></tag-input>
               <!-- <input class="form-control m-input" type="text" value="" placeholder="Tags" id="tags-text-input"> -->
             </div>
           </div>
@@ -35,16 +43,19 @@
             </label>
             <div class="col-6">
                 <ng-select  class=""
-                  [(ngModel)]="course.category"
+                  [ngModel]="course.category | ucfirst"
+                  (ngModelChange)="course.category=$event"
                   [items]="categories"
                   bindLabel="name"
                   bindValue="name"
+                  #name="ngModel"
                   placeholder="Select Category"
-                  name="category-text-input">
+                  name="category"
+                  required>
                 </ng-select>
             </div>
           </div>
-          <div class="form-group m-form__group row">
+          <div class="form-group m-form__group row" *ngIf="func==='edit'">
             <label for="example-text-input" class="col-2 col-form-label offset-md-2">
               Date
             </label>
@@ -66,14 +77,14 @@
               Description
             </label>
             <div class="col-6">
-              <textarea class="form-control m-input m-input--air" id="desc-textarea" rows="3" value="" name="course.desc"  [(ngModel)]="course.desc" ></textarea>
+              <textarea class="form-control m-input m-input--air" id="desc-textarea" rows="3" name="desc" #name="ngModel" required  [(ngModel)]="course.desc" ></textarea>
             </div>
           </div>
           <div class="form-group m-form__group row">
             <div class="col-md-3 offset-md-8">
               <button type="button" class="btn btn-danger btn-upload" [routerLink]="['/courses']">Back</button>
               <button type="button" class="btn btn-secondary btn-upload">Reset</button>
-              <button class="btn btn-primary btn-upload" multipart="">Submit</button> 
+              <button class="btn btn-primary btn-upload" multipart="" [disabled]="f.invalid">Submit</button> 
             </div>
           </div>
         </form>

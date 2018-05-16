@@ -3,7 +3,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 import { CourseResolver } from './courses/course.resolver';
 
-import { NgPipesModule, UcFirstPipe } from 'ngx-pipes';
+import { NgPipesModule, UcFirstPipe, SlugifyPipe } from 'ngx-pipes';
 import { CoursesComponent } from './courses/courses.component';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -20,6 +20,7 @@ import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { SingleCourseResolver } from './courses/course-edit/single.course.resolver';
+import { ToastrService } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -45,7 +46,9 @@ import { SingleCourseResolver } from './courses/course-edit/single.course.resolv
     CourseResolver,
     UcFirstPipe,
     ConfirmService,
-    SingleCourseResolver
+    SingleCourseResolver,
+    ToastrService,
+    SlugifyPipe
   ]
 })
 export class AdminModule { }

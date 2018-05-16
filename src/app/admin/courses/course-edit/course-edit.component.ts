@@ -1,9 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
+import { CourseService } from './../../../_services/course.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Course } from '../../../_models/course';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Category } from '../../../_models/category';
 import { Subscription } from 'rxjs';
-import { UcFirstPipe } from 'ngx-pipes';
+import { UcFirstPipe, SlugifyPipe } from 'ngx-pipes';
 import { NgForm } from '@angular/forms';
 import { ConfirmService } from '../../../_services/confirm.service';
 
@@ -15,6 +17,7 @@ import { ConfirmService } from '../../../_services/confirm.service';
 export class CourseEditComponent implements OnInit, OnDestroy {
 
   app = 'edit course';
+  func = 'edit';
   paramSub: Subscription;
   dataSub: Subscription;
   course: Course;
@@ -22,7 +25,11 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   constructor(
     private _route: ActivatedRoute,
     private ucfirstPipe: UcFirstPipe,
-    private _confirmService: ConfirmService) {
+    private _confirmService: ConfirmService,
+    private _courseService: CourseService,
+    private _toastr: ToastrService,
+    private _slugify: SlugifyPipe,
+    private _router: Router ) {
     this.paramSub = this._route.params.subscribe(
       (params) => {
         console.log(params);
@@ -58,13 +65,30 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(f: NgForm) {
-    console.log('onSubmit');
+    console.log('onSubmit: edit');
     this._confirmService.open('Do you want to submit?').then(
       () => {
-        console.log('ok');
+        const tags = f.value.tags;
+        f.value.tags = [];
+        f.value.keywords = '';
+        for ( const tag of tags) {
+          f.value.tags.push(tag.value);
+          f.value.keywords === '' ? f.value.keywords += tag.value : f.value.keywords = f.value.keywords + ' ' + tag.value;
+        }
+        f.value['_id'] = this.course._id;
+        f.value.category = this._slugify.transform(f.value.category);
+        // console.log(f.value);
+
+        this._courseService.update(f.value).subscribe(
+          (course: Course) => {
+            this._toastr.success('Success');
+            this._router.navigate(['/courses']);
+        }, (error) => {
+          this._toastr.error('Failed to add a course');
+        });
       }).catch( () => {
         // Reject
-        console.log('no');
+        this._toastr.error('Failed to add a course');
     });
   }
 }
