@@ -2,35 +2,38 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course } from '../_models/course';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CourseService {
+  apiRoot: string = environment.apiUrl;
   constructor(private httpClient: HttpClient) {
+    console.log(this.apiRoot);
   }
   all(limit?: number): Observable<Course []> {
-    let api_query = 'https://go.qnap.com/api/courses?orderBy=publishedDate:desc';
+    let api_query = this.apiRoot + 'courses?orderBy=publishedDate:desc';
     if (limit) {
       api_query = api_query + '&limit=' + limit;
     }
-
+    console.log(api_query);
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.httpClient.get<Course []>(api_query, {headers: headers});
   }
 
   allByCategory(category: String): Observable<Course []> {
-    const api_query = 'https://go.qnap.com/api/category/' + category + '/courses';
+    const api_query = this.apiRoot + 'category/' + category + '/courses';
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.httpClient.get<Course []>(api_query, {headers: headers});
   }
 
   get(id: any): Observable<Course> {
-    const api_query = 'https://go.qnap.com/api/courses/' + id;
+    const api_query = this.apiRoot + 'courses/' + id;
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.httpClient.get<Course>(api_query, {headers: headers});
   }
 
   getYoutubeInfo(youtubeRef: String): Observable<Course> {
-    const api_query = 'https://go.qnap.com/api/courses/' + youtubeRef + '/youtubeinfo';
+    const api_query = this.apiRoot + 'courses/' + youtubeRef + '/youtubeinfo';
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.httpClient.get<Course>(api_query, {headers: headers});
   }
@@ -40,7 +43,7 @@ export class CourseService {
       query = '';
     }
     console.log('search');
-    const api_query = 'https://go.qnap.com/api/courses/search?query=' + query;
+    const api_query = this.apiRoot + 'courses/search?query=' + query;
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this.httpClient.get<Course []>(api_query, {headers: headers});
   }

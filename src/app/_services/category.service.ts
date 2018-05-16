@@ -3,13 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Category } from '../_models/category';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CategoryService {
+
+  apiRoot: string = environment.apiUrl;
+
   constructor(private httpClient: HttpClient) {}
 
   all(): Observable<Category []> {
-    return this.httpClient.get<Category []>('https://go.qnap.com/api/categories')
+    return this.httpClient.get<Category []>(this.apiRoot + 'categories')
       .pipe(
         catchError(this.handleError('getCategories', []))
       );
