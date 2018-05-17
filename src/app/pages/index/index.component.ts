@@ -27,7 +27,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('window:scroll', ['$event'])
   currentPosition() {
     if (window.pageYOffset + 300 > this.collectionEl.nativeElement.offsetHeight) {
-      this.toCollection = true;
+      this.toCollection = false;  // set true if wanna enable the collection button.
     } else {
       this.toCollection = false;
     }
