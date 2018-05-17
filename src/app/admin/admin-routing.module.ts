@@ -8,6 +8,7 @@ import { CourseResolver } from './courses/course.resolver';
 import { CategoryResolver } from '../pages/index/category.resolver';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { SingleCourseResolver } from './courses/course-edit/single.course.resolver';
+import { UsersComponent } from './users/users.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
         path: 'course/:id/edit',
         component: CourseEditComponent,
         resolve: { categories: CategoryResolver, course: SingleCourseResolver}
+      },
+      {
+        path: 'users',
+        component: UsersComponent
       }
     ]
   },

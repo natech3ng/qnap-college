@@ -21,6 +21,7 @@ import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { SingleCourseResolver } from './courses/course-edit/single.course.resolver';
 import { ToastrService } from 'ngx-toastr';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { ToastrService } from 'ngx-toastr';
     AdminComponent,
     CoursesComponent,
     CourseNewComponent,
-    CourseEditComponent],
+    CourseEditComponent,
+    UsersComponent],
   providers: [
     CourseResolver,
     UcFirstPipe,
