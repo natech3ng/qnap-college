@@ -15,7 +15,7 @@ export class CourseService {
     if (limit) {
       api_query = api_query + '&limit=' + limit;
     }
-    console.log(api_query);
+    // console.log(api_query);
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this._httpClient.get<Course []>(api_query, {headers: headers});
   }

@@ -83,16 +83,16 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         }
         f.value['_id'] = this.course._id;
         f.value.category = this._slugify.transform(f.value.category);
-      //   this._courseService.update(f.value).subscribe(
-      //     (course: Course) => {
-      //       this._toastr.success('Success');
-      //       this._router.navigate(['/courses']);
-      //   }, (error) => {
-      //     this._toastr.error('Failed to add a course');
-      //   });
-      // }).catch( () => {
-      //   // Reject
-      //   this._toastr.error('Failed to add a course');
+        this._courseService.update(f.value).subscribe(
+          (course: Course) => {
+            this._toastr.success('Success');
+            this._router.navigate(['/courses']);
+        }, (error) => {
+          this._toastr.error('Failed to add a course');
+        });
+      }).catch( () => {
+        // Reject
+        this._toastr.error('Failed to add a course');
     });
   }
 }
