@@ -13,6 +13,7 @@ import { NgcCookieConsentService, NgcInitializeEvent, NgcStatusChangeEvent } fro
 import reframe from 'reframe.js';
 import { NgxScreensizeService } from './modules/ngx-screensize/_services/ngx-screensize.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {}
 
   ngAfterViewInit() {
+    console.log(environment.production);
     // console.log(this._ssService.sizeClass());
   }
 

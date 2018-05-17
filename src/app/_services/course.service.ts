@@ -21,12 +21,12 @@ export class CourseService {
   }
 
   add(course: Course) {
-    const api_query = 'https://go.qnap.com/api/courses';
+    const api_query = this.apiRoot + 'courses';
     return this._httpClient.post(api_query, course, this._authService.jwtHttpClient());
   }
 
   update(course: Course) {
-    const api_query = 'https://go.qnap.com/api/courses';
+    const api_query = this.apiRoot + 'courses';
     return this._httpClient.put(api_query, course, this._authService.jwtHttpClient());
   }
 

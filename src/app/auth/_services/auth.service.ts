@@ -8,9 +8,11 @@ import {
   Headers,
   RequestOptions  } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment.dev';
 
 @Injectable()
 export class AuthService {
+  private apiRoot = environment.apiUrl;
   private base_url = 'https://go.qnap.com/api';
   token: string;
   private _loggedIn;
@@ -49,7 +51,7 @@ export class AuthService {
   //     });
   // }
   verify(): any {
-    return this.httpClient.get<AuthResponse>('https://go.qnap.com/api/check-state', this.jwtHttpClient());
+    return this.httpClient.get<AuthResponse>(this.apiRoot + 'check-state', this.jwtHttpClient());
   }
 
   login(email: string, password: string): any {
@@ -60,7 +62,7 @@ export class AuthService {
       headers: headers
     };
 
-    return this.httpClient.post<AuthResponse>(`${this.base_url}/login`, body, options)
+    return this.httpClient.post<AuthResponse>(`${this.apiRoot}login`, body, options)
       .map((response: AuthResponse) => {
         // login successful if there's a jwt token in the response
         if (response.success === true) {
