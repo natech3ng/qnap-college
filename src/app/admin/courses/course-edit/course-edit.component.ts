@@ -73,13 +73,15 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         f.value.tags = [];
         f.value.keywords = '';
         for ( const tag of tags) {
-          // console.log(typeof tag);
+          let tagname;
           if ( typeof tag === 'string') {
             f.value.tags.push(tag);
+            tagname = tag;
           } else if (typeof tag === 'object' && tag['value']) {
             f.value.tags.push(tag['value']);
+            tagname = tag['value']
           }
-          f.value.keywords === '' ? f.value.keywords += tag.value : f.value.keywords = f.value.keywords + ' ' + tag.value;
+          f.value.keywords === '' ? f.value.keywords += tagname : f.value.keywords = f.value.keywords + ' ' + tagname;
         }
         f.value['_id'] = this.course._id;
         f.value.category = this._slugify.transform(f.value.category);

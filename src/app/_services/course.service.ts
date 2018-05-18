@@ -57,4 +57,9 @@ export class CourseService {
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this._httpClient.get<Course []>(api_query, {headers: headers});
   }
+  delete(id: String): Observable<any> {
+    const api_query = this.apiRoot + 'courses/' + id;
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+    return this._httpClient.delete<any>(api_query, this._authService.jwtHttpClient());
+  }
 }
