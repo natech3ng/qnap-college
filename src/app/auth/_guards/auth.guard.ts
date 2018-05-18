@@ -29,23 +29,23 @@ export class AuthGuard implements CanActivate {
     console.log(currentUser);
     return this._authService.verify().map(
       (data) => {
-        console.log('data');
-        console.log(data);
+        // console.log('data');
+        // console.log(data);
         if (data !== null && data.success) {
           // logged in so return true
           this._authService.loggedIn = true;
           return true;
         } else {
           // error when verify so redirect to login page with the return url
-          // localStorage.removeItem('currentUser');
+          localStorage.removeItem('currentUser');
           this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
           return false;
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         // error when verify so redirect to login page with the return url
-        // localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser');
         this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
       });
