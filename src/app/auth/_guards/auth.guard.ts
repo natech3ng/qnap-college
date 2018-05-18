@@ -29,6 +29,8 @@ export class AuthGuard implements CanActivate {
     console.log(currentUser);
     return this._authService.verify().map(
       data => {
+        console.log('data');
+        console.log(data);
         if (data !== null && data.success) {
           // logged in so return true
           this._authService.loggedIn = true;
@@ -40,6 +42,7 @@ export class AuthGuard implements CanActivate {
         }
       },
       error => {
+        console.log(error);
         // error when verify so redirect to login page with the return url
         this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
