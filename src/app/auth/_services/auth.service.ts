@@ -121,7 +121,7 @@ export class AuthService {
 
   jwtHttpClient() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(currentUser);
+    // console.log(currentUser);
     if (currentUser && currentUser.token) {
       let headers = new HttpHeaders({ 'x-access-token': currentUser.token });
       headers = headers.append('Content-Type', 'application/json');
