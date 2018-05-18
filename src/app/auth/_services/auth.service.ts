@@ -50,7 +50,7 @@ export class AuthService {
   //       }
   //     });
   // }
-  verify(): any {
+  verify(): Observable<AuthResponse> {
     return this.httpClient.get<AuthResponse>(this.apiRoot + 'check-state', this.jwtHttpClient());
   }
 
