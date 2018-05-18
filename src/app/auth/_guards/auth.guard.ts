@@ -4,6 +4,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, Activ
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -11,7 +12,8 @@ export class AuthGuard implements CanActivate {
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _authService: AuthService) {
+    private _authService: AuthService,
+    private _toastrService: ToastrService) {
   }
 
   private getUrlParameter(url, name) {

@@ -51,8 +51,8 @@ export class AuthService {
   //       }
   //     });
   // }
-  verify(): Observable<any> {
-    return this.httpClient.get<any>(this.apiRoot + 'check-state', this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+  verify(): Observable<AuthResponse | AuthResponseError> {
+    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-state', this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
       // console.error('An error occurred:', err.error);
       return Observable.of(err.error);
     });
