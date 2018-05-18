@@ -38,7 +38,7 @@ export class ConfirmService {
     const fluent: TwoButtonPresetBuilder = <any>this.ngxModal['confirm']();
     let strContent = 'Do you want to proceed?';
     if (args.length > 0) {
-      console.log(args[0]);
+      // console.log(args[0]);
       strContent = args[0];
     }
 

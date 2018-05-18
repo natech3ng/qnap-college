@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -26,11 +27,9 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    console.log(currentUser);
+    // console.log(currentUser);
     return this._authService.verify().map(
       (data) => {
-        // console.log('data');
-        // console.log(data);
         if (data !== null && data.success) {
           // logged in so return true
           this._authService.loggedIn = true;
@@ -46,7 +45,7 @@ export class AuthGuard implements CanActivate {
         // console.log(error);
         // error when verify so redirect to login page with the return url
         localStorage.removeItem('currentUser');
-        this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        this._router.navigate(['/'], { queryParams: { returnUrl: state.url } });
         return false;
       });
   }

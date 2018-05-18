@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {}
 
   ngAfterViewInit() {
-    console.log(environment.production);
+    // console.log(environment.production);
     // console.log(this._ssService.sizeClass());
   }
 

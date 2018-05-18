@@ -25,7 +25,7 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this._route.params.subscribe(
       () => {
-        console.log('params changed');
+        // console.log('params changed');
       }
     );
   }
@@ -35,13 +35,13 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
           this.loading = true;
-          console.log('Admin navigate start');
+          // console.log('Admin navigate start');
         } else if (
             event instanceof NavigationEnd ||
             event instanceof NavigationCancel
             ) {
           this.loading = false;
-          console.log('Admin navigate end');
+          // console.log('Admin navigate end');
         }
     });
   }

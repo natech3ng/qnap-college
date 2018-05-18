@@ -32,7 +32,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     private _router: Router ) {
     this.paramSub = this._route.params.subscribe(
       (params) => {
-        console.log(params);
+        // console.log(params);
       }
     );
 

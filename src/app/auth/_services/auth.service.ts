@@ -1,4 +1,4 @@
-import { AuthResponse } from './../../_models/authresponse';
+import { AuthResponse, AuthResponseError } from './../../_models/authresponse';
 import { User } from './../_models/user.model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -7,8 +7,9 @@ import {
   Response,
   Headers,
   RequestOptions  } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment.dev';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class AuthService {
@@ -50,8 +51,11 @@ export class AuthService {
   //       }
   //     });
   // }
-  verify(): Observable<AuthResponse> {
-    return this.httpClient.get<AuthResponse>(this.apiRoot + 'check-state', this.jwtHttpClient());
+  verify(): Observable<any> {
+    return this.httpClient.get<any>(this.apiRoot + 'check-state', this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+      // console.error('An error occurred:', err.error);
+      return Observable.of(err.error);
+    });
   }
 
   login(email: string, password: string): any {

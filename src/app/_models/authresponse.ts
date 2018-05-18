@@ -1,6 +1,10 @@
 import { User } from './../auth/_models/user.model';
 
-export class AuthResponse {
+export interface AuthResponseError {
+    message: string;
+    success: boolean;
+}
+export class AuthResponse implements AuthResponseError {
     message: string;
     success: boolean;
     token?: string;

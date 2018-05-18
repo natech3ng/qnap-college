@@ -19,7 +19,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _route: ActivatedRoute,
     private _authService: AuthService) {
-      console.log(this._route.snapshot.url[0].path);
+      // console.log(this._route.snapshot.url[0].path);
       this._route.url.subscribe(
         (url) => {
           url[0].path === 'login' ? this.signin = true : this.signin = false;
