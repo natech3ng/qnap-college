@@ -56,7 +56,7 @@ const cookieConfig: NgcCookieConsentConfig = {
   },
   elements: {
     message: 'This site uses cookies in order to improve ' +
-      'your user experience and to provide content tailored' +
+      'your user experience and to provide content tailored ' +
       'specifically to your interests. By continuing to browse our site you agree to our use of cookies, <a href="//www.qnap.com/go/privacy-notice" target="_blank">Data Privacy Notice</a> and <a href="//www.qnap.com/terms-of-use" target="_blank">Terms of Use / Service</a>',
   }
 };
