@@ -9,6 +9,7 @@ import { CategoryResolver } from '../pages/index/category.resolver';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 import { SingleCourseResolver } from './courses/course-edit/single.course.resolver';
 import { UsersComponent } from './users/users.component';
+import { UserNewComponent } from './users/user-new/user-new.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent
+      },
+      {
+        path: 'user/new',
+        component: UserNewComponent
       }
     ]
   },

@@ -79,7 +79,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
             tagname = tag;
           } else if (typeof tag === 'object' && tag['value']) {
             f.value.tags.push(tag['value']);
-            tagname = tag['value']
+            tagname = tag['value'];
           }
           f.value.keywords === '' ? f.value.keywords += tagname : f.value.keywords = f.value.keywords + ' ' + tagname;
         }

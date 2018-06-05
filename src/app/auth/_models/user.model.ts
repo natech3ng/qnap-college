@@ -4,8 +4,10 @@ export class User {
   email: string;
   password: string;
   token: string;
+  name: string;
 
   constructor() {
-    this.email = 'johndoe@gmail.com';
+    this.email = '';
+    this.name = '';
   }
 }

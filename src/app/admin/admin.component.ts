@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('admin page');
     this._route.params.subscribe(
       () => {
         // console.log('params changed');

@@ -22,6 +22,7 @@ import { CourseEditComponent } from './courses/course-edit/course-edit.component
 import { SingleCourseResolver } from './courses/course-edit/single.course.resolver';
 import { ToastrService } from 'ngx-toastr';
 import { UsersComponent } from './users/users.component';
+import { UserNewComponent } from './users/user-new/user-new.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { UsersComponent } from './users/users.component';
     CoursesComponent,
     CourseNewComponent,
     CourseEditComponent,
-    UsersComponent],
+    UsersComponent,
+    UserNewComponent],
   providers: [
     CourseResolver,
     UcFirstPipe,

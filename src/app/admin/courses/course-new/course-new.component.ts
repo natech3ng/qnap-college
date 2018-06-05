@@ -52,7 +52,6 @@ export class CourseNewComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(f: NgForm) {
-    console.log('onSubmit');
     this._confirmService.open('Do you want to submit?').then(
       () => {
         const tags = f.value.tags;
