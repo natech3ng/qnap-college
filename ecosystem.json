@@ -20,7 +20,7 @@
       "pre-setup": "sudo rm -rf /var/www/qnapcollege/source",
       "post-setup": "npm install --unsafe-perm; npm run pre-build",
       "pre-deploy-local" : "echo 'This is a local executed command'",
-      "pre-deploy" : "ng build --aot --prod; ./server/node_modules/.bin/tsc -p ./server --module commonjs --sourceMap --target ES5; ",
+      "pre-deploy" : "",
       "post-deploy" : "sudo pm2 startOrRestart ecosystem.json --env production; sudo chown -R deploy:deploy node_modules",
       "env"  : {
         "NODE_ENV": "production"

@@ -15,7 +15,7 @@
     "build:prod": "npm i; cd ./server; npm i; cd ../; ng build --aot --prod; ./node_modules/.bin/tsc -p ./server; ",
     "heroku-prebuild": "cd ./server; npm i;",
     "pre-build": "cd ./server; npm i;",
-    "postinstall": "ng build --aot --prod; ./node_modules/.bin/tsc -p ./server;"
+    "postinstall": "ng build --aot --prod; ./server/node_modules/.bin/tsc -p ./server --module commonjs --sourceMap --target ES5;"
   },
   "private": true,
   "dependencies": {
