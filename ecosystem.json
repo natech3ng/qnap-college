@@ -17,7 +17,7 @@
       "ref"  : "origin/master",
       "repo" : "git@github.com:qqnc/qnap-college.git",
       "path" : "/var/www/qnapcollege",
-      "pre-setup": "",
+      "pre-setup": "sudo rm -rf /var/www/qnapcollege/source",
       "post-setup": "npm install --unsafe-perm",
       "pre-deploy-local" : "echo 'This is a local executed command'",
       "pre-deploy" : "ng build --aot --prod; ./node_modules/.bin/tsc -p ./server --module commonjs --sourceMap --target ES5; ",
