@@ -36,6 +36,15 @@ body :-ms-input-placeholder {
   color: white;
   font-weight: 300;
 }
+
+.login-error {
+  margin: 0 auto 10px auto;
+  padding: 14px 0;
+  border-radius: 5px;
+  width: 250px;
+  background-color: #ca3535;
+  color: #fff;
+}
   
 .login-wrapper {
   font-family: 'Source Sans Pro', sans-serif;

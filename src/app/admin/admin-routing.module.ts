@@ -10,6 +10,8 @@ import { CourseEditComponent } from './courses/course-edit/course-edit.component
 import { SingleCourseResolver } from './courses/course-edit/single.course.resolver';
 import { UsersComponent } from './users/users.component';
 import { UserNewComponent } from './users/user-new/user-new.component';
+import { UsersResolver } from './users/users.resolver';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -38,11 +40,16 @@ const routes: Routes = [
       },
       {
         path: 'users',
-        component: UsersComponent
+        component: UsersComponent,
+        resolve: { users: UsersResolver }
       },
       {
         path: 'user/new',
         component: UserNewComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       }
     ]
   },

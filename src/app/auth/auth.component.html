@@ -10,15 +10,18 @@
       </div>
 		</div>
 		<div class='form-container'>
+		
 			<form class="form login-form" *ngIf="signin" (ngSubmit)="onSignin(f)" #f='ngForm'>
+				<div class="login-error" *ngIf='loginError'>{{loginErrorMsg}}</div>
 				<input type="text" placeholder="Email" ngModel name="email">
 				<input type="password" placeholder="Password" ngModel name="password">
 				<button type="submit" id="login-button">Login</button>
 			</form>
 			<form class="form register-form" *ngIf="!signin" #f='ngForm'>
+				
 				<input type="text" placeholder="Email" ngModel name="email">
 				<input type="password" placeholder="Password" ngModel name="password">
-				<input type="confirm_password" placeholder="Confirm Password" ngModel name="confirm_password">
+				<input type="password" placeholder="Confirm Password" ngModel name="confirm_password">
 				<button type="submit" id="login-button">Sign Up</button>
 			</form>
 			<!-- <a href="#" *ngIf="signin" [routerLink]="['/signup']">Sign Up</a><a href="#" *ngIf="!signin" [routerLink]="['/login']">Sign In</a> -->

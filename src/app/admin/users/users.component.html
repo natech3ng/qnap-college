@@ -3,7 +3,58 @@
     <span class='row'>
       <span class="col-md-12 d-content">
         <span class="portlet">
-          
+          <div class="m-datatable">
+            <table class="m-datatable-table">
+              <thead class="m-datatable-head">
+                <tr class="m-datatable-row">
+                  <th class="m-datatable-cell m-datatable-cell-check m-datatable-center">
+                    <span>
+                      <label class="m-checkbox">
+                        <input type="checkbox">
+                        <span ></span>
+                      </label>
+                    </span>
+                  </th>
+                  <th class="m-datatable-cell m-datatable-cell-email">
+                    <span>Email</span>
+                  </th>
+                  <th class="m-datatable-cell m-datatable-cell-name">
+                    <span>Name</span>
+                  </th>
+                  <th class="m-datatable-cell m-datatable-cell-action">
+                    <span>&nbsp;</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="m-datatable-body">
+                <tr class="m-datatable-row" *ngFor="let user of users">
+                    <td class="m-datatable-cell m-datatable-cell-check m-datatable-center">
+                      <span>
+                        <label class="m-checkbox">
+                          <input type="checkbox" value="1">
+                          <span >
+                          </span>
+                      </label>
+                    </span>
+                  </td>
+                  <td class="m-datatable-cell m-datatable-cell-email" data-field="type">
+                    <span>
+                      <span> {{user.email}} </span>
+                    </span>
+                  </td>
+                  <td class="m-datatable-cell m-datatable-cell-name">
+                    <span>{{user.name}}</span>
+                  </td>
+                  <td class="m-datatable-cell m-datatable-cell-action">
+                    <span>
+                      <span [routerLink]="['/user', user._id, 'edit']"><i class="fa fa-edit"></i></span>
+                      <span (click)="onDelete(user)"><i class="icon-trash"></i></span>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </span>
       </span>
     </span>

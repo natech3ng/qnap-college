@@ -3,43 +3,43 @@
   <span class='row'>
     <span class="col-md-12 d-content">
       <span class="portlet">
-          <div class="m-datatable">
-            <table class="m-datatable-table">
-              <thead class="m-datatable-head">
-                <tr class="m-datatable-row">
-                  <th class="m-datatable-cell m-datatable-cell-check m-datatable-center">
-                    <span>
-                      <label class="m-checkbox">
-                        <input type="checkbox">
-                        <span ></span>
-                      </label>
-                    </span>
-                  </th>
-                  <th class="m-datatable-cell m-datatable-cell-codename">
-                    <span>Code Name</span>
-                  </th>
-                  <th class="m-datatable-cell m-datatable-cell-title">
-                    <span>Topic</span>
-                  </th>
-                  <th class="m-datatable-cell m-datatable-cell-category">
-                    <span>Category</span>
-                  </th>
-                  <th class="m-datatable-cell m-datatable-cell-desc">
-                    <span>Description</span>
-                  </th>
-                  <th class="m-datatable-cell m-datatable-cell-tags">
-                    <span>Tags</span>
-                  </th>
-                  <th class="m-datatable-cell m-datatable-cell-date">
-                    <span>Date</span>
-                  </th>
-                  <th class="m-datatable-cell m-datatable-cell-action">
-                    <span>&nbsp;</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="m-datatable-body">
-                <tr class="m-datatable-row" *ngFor="let course of courses">
+        <div class="m-datatable">
+          <table class="m-datatable-table">
+            <thead class="m-datatable-head">
+              <tr class="m-datatable-row">
+                <th class="m-datatable-cell m-datatable-cell-check m-datatable-center">
+                  <span>
+                    <label class="m-checkbox">
+                      <input type="checkbox">
+                      <span ></span>
+                    </label>
+                  </span>
+                </th>
+                <th class="m-datatable-cell m-datatable-cell-codename">
+                  <span>Code Name</span>
+                </th>
+                <th class="m-datatable-cell m-datatable-cell-title">
+                  <span>Topic</span>
+                </th>
+                <th class="m-datatable-cell m-datatable-cell-category">
+                  <span>Category</span>
+                </th>
+                <th class="m-datatable-cell m-datatable-cell-desc">
+                  <span>Description</span>
+                </th>
+                <th class="m-datatable-cell m-datatable-cell-tags">
+                  <span>Tags</span>
+                </th>
+                <th class="m-datatable-cell m-datatable-cell-date">
+                  <span>Date</span>
+                </th>
+                <th class="m-datatable-cell m-datatable-cell-action">
+                  <span>&nbsp;</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="m-datatable-body">
+              <tr class="m-datatable-row" *ngFor="let course of courses">
                   <td class="m-datatable-cell m-datatable-cell-check m-datatable-center">
                     <span>
                       <label class="m-checkbox">
@@ -75,12 +75,12 @@
                     {{course.publishedDate | amDateFormat: 'YYYY-MM-DD'}}
                   </span>
                 </td>
-                <th class="m-datatable-cell m-datatable-cell-action">
+                <td class="m-datatable-cell m-datatable-cell-action">
                   <span>
                     <span [routerLink]="['/course', course._id, 'edit']"><i class="fa fa-edit"></i></span>
                     <span (click)="onDelete(course)"><i class="icon-trash"></i></span>
                   </span>
-                </th>
+                </td>
               </tr>
             </tbody>
           </table>

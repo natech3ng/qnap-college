@@ -23,6 +23,10 @@ import { SingleCourseResolver } from './courses/course-edit/single.course.resolv
 import { ToastrService } from 'ngx-toastr';
 import { UsersComponent } from './users/users.component';
 import { UserNewComponent } from './users/user-new/user-new.component';
+import { UsersResolver } from './users/users.resolver';
+import { UsersService } from '../auth/_services/users.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   imports: [
@@ -36,7 +40,8 @@ import { UserNewComponent } from './users/user-new/user-new.component';
     NgSelectModule,
     NgbModule,
     ModalModule.forRoot(),
-    BootstrapModalModule
+    BootstrapModalModule,
+    FontAwesomeModule
   ],
   declarations: [
     DashboardComponent,
@@ -45,14 +50,17 @@ import { UserNewComponent } from './users/user-new/user-new.component';
     CourseNewComponent,
     CourseEditComponent,
     UsersComponent,
-    UserNewComponent],
+    UserNewComponent,
+    ProfileComponent ],
   providers: [
     CourseResolver,
     UcFirstPipe,
     ConfirmService,
     SingleCourseResolver,
     ToastrService,
-    SlugifyPipe
+    SlugifyPipe,
+    UsersResolver,
+    UsersService
   ]
 })
 export class AdminModule { }

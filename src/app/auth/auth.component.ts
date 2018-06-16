@@ -14,6 +14,8 @@ export class AuthComponent implements OnInit, OnDestroy {
   signing: boolean;
   returnUrl: string;
   signin: boolean;
+  loginError = false;
+  loginErrorMsg: '';
 
   constructor(
     private _router: Router,
@@ -44,7 +46,9 @@ export class AuthComponent implements OnInit, OnDestroy {
         this._router.navigate([this.returnUrl]);
       },
       (error) => {
-        console.log(error);
+        this.signing = false;
+        this.loginError = true;
+        this.loginErrorMsg = error.error.message;
       }
     );
   }

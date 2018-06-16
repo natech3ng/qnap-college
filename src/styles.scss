@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700,300);
 @import 'variables';
-@import '../node_modules/font-awesome/scss/font-awesome';
+// @import '../node_modules/font-awesome/scss/font-awesome';
 @import "./assets/scss/font-icons";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "~ngx-toastr/toastr.css";
@@ -91,6 +91,14 @@ a, a:hover, a:visited, a:focus {
   background: #fff;
   text-align: center;
   line-height: 100vh;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
 }
 
 .zgroup {
@@ -751,6 +759,14 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 
       &.m-datatable-cell-category {
         width: 100px;
+      }
+
+      &.m-datatable-cell-email {
+        width: 250px;
+      }
+
+      &.m-datatable-cell-name {
+        width: 250px;
       }
       &.m-datatable-cell-action {
         width: 50px;
