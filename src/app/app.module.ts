@@ -72,6 +72,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     SafePipe
   ],
   imports: [
+    BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,

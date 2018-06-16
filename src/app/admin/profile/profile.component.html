@@ -3,6 +3,82 @@
   <span class='row'>
     <span class="col-md-12 d-content">
       <span class="portlet">
+        <div class="tab-container">
+          <nav class='tab-nav'>
+            <ul class="tabs">
+              <li class="tab" [ngClass]="{'active': tab == 1}" (click)="selectTab(1)"><span>Information</span></li>
+              <li class="tab"[ngClass]="{'active': tab == 2}" (click)="selectTab(2)"><span>Change Password</span></li>
+              <li class="tab slider"></li>
+            </ul>
+          </nav>
+          <div class="tab-content tab1" [@tabState]="tabs[0].state">
+            <div class="profile-info">
+              <form>
+                <div class="form-group m-form__group row">
+                  <label for="example-text-input" class="col-2 col-form-label">
+                    Email
+                  </label>
+                  <div class="col-6">
+                    {{user.email}}
+                  </div>
+                </div>
+                <div class="form-group m-form__group row">
+                  <label for="example-text-input" class="col-2 col-form-label">
+                    Name
+                  </label>
+                  <div class="col-6">
+                      {{user.name}}
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="tab-content tab2" [@tabState]="tabs[1].state">
+            <div class="change-password">
+              <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="form-group m-form__group row">
+                  <div class="change-password-error col-8" *ngIf='error'>{{errorMsg}}</div>
+                </div>
+                <div class="form-group m-form__group row">
+                  <div class="col-2">
+                    <label for="example-text-input" class="">
+                      Old Password
+                    </label>
+                  </div>   
+                  <div class="col-6">
+                    <input class="form-control m-input m-input-large" type="password" [(ngModel)]="old_password" name='old password' required #name="ngModel" required placeholder="Old Password">
+                  </div>
+                </div>
+                <div class="form-group m-form__group row">
+                  <div class="col-2">
+                    <label for="example-text-input" class="">
+                      New Password
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control m-input m-input-large" type="password" [(ngModel)]="password" name="password" required #name="ngModel" placeholder="New Password" >
+                  </div>
+                </div>
+                <div class="form-group m-form__group row">
+                  <div class="col-2">
+                    <label for="example-text-input" class="">
+                      Confirm Password
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <input class="form-control m-input m-input-large" type="password" [(ngModel)]="confirm_password" name="name" required #name="ngModel" placeholder="Confirm Password" >
+                  </div>
+                </div>
+                <div class="form-group m-form__group">
+                  <div class="col-md-3 offset-md-4">
+                    <button type="button" class="btn btn-danger btn-upload btn-lg" [routerLink]="['/users']">Back</button>
+                    <button class="btn btn-primary btn-upload btn-lg" multipart="" [disabled]="f.invalid">Submit</button> 
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </span>
     </span>
   </span>

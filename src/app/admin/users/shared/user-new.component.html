@@ -9,7 +9,7 @@
               Email
             </label>
             <div class="col-6">
-              <input class="form-control m-input" type="text" [(ngModel)]="user.email" name='tiemailtle' #name="ngModel" required placeholder="Email" id="title-text-input">
+              <input class="form-control m-input m-input-large" type="text" [(ngModel)]="user.email" name='tiemailtle' #name="ngModel" required placeholder="Email" id="title-text-input">
             </div>
           </div>
           <div class="form-group m-form__group row">
@@ -17,13 +17,13 @@
               Name
             </label>
             <div class="col-6">
-              <input class="form-control m-input" type="text" [(ngModel)]="user.name" name="name" required #name="ngModel" placeholder="Name" id="codename-text-input">
+              <input class="form-control m-input m-input-large" type="text" [(ngModel)]="user.name" name="name" required #name="ngModel" placeholder="Name" id="codename-text-input">
             </div>
           </div>
           <div class="form-group m-form__group row">
             <div class="col-md-3 offset-md-8">
-              <button type="button" class="btn btn-danger btn-upload" [routerLink]="['/users']">Back</button>
-              <button class="btn btn-primary btn-upload" multipart="" [disabled]="f.invalid">Submit</button> 
+              <button type="button" class="btn btn-danger btn-upload btn-lg" [routerLink]="['/users']">Back</button>
+              <button class="btn btn-primary btn-upload btn-lg" multipart="" [disabled]="f.invalid">Submit</button> 
             </div>
           </div>
         </form>

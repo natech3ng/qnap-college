@@ -58,6 +58,14 @@ export class AuthService {
     });
   }
 
+  changePassword(email: string, oldPassword: string, password: string): Observable<AuthResponse | AuthResponseError> {
+    const body = JSON.stringify({ email: email, password: password, oldPassword: oldPassword });
+    return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'change-password', body, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+      return Observable.of(err.error);
+    });
+  }
+
   login(email: string, password: string): any {
     const body = JSON.stringify({ email: email, password: password });
     let headers = new HttpHeaders();
@@ -125,7 +133,7 @@ export class AuthService {
 
   jwtHttpClient() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    // console.log(currentUser);
+    console.log(currentUser);
     if (currentUser && currentUser.token) {
       let headers = new HttpHeaders({ 'x-access-token': currentUser.token });
       headers = headers.append('Content-Type', 'application/json');
