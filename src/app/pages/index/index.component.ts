@@ -28,6 +28,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   menuOpen: boolean;
   displayOptions;
   currentDisplay = '';
+  loading;
 
   @HostListener('window:scroll', ['$event'])
   currentPosition() {
@@ -52,6 +53,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       this.gridCol === 2 ? this.gridClass = 'col-md-5' : this.gridClass = 'col-md-4';
       this.menuOpen = false;
       this.displayOptions = this._courseService.options;
+      this.loading = false;
     }
 
   ngOnInit() {
@@ -104,15 +106,18 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   changeDisplayTo(option) {
+    this.loading = true;
     localStorage.setItem('currentDisplay', option.name);
     this.currentDisplay = option.name;
     this.toggleMenu();
     this._courseService.all(6, option.value).subscribe(
       (courses: Course []) => {
         this.courses = courses;
+        this.loading = false;
       },
       (error) => {
         console.log('Something went wrong!');
+        this.loading = false;
       }
     );
   }
