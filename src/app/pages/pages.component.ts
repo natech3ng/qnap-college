@@ -89,6 +89,12 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
       console.log(this.deviceInfo);
+      this._router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          (<any>window).ga('set', 'page', event.urlAfterRedirects);
+          (<any>window).ga('send', 'pageview');
+        }
+      });
     }
 
   ngOnInit() {
