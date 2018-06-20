@@ -23,7 +23,13 @@ import { environment } from '../environments/environment';
 
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  constructor(private _ssService: NgxScreensizeService) {
+  constructor(private _ssService: NgxScreensizeService, private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        (<any>window).ga('set', 'page', event.urlAfterRedirects);
+        (<any>window).ga('send', 'pageview');
+      }
+    });
   }
   ngOnInit() {}
 
