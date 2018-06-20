@@ -73,13 +73,20 @@
     position: absolute;
     z-index: 999;
     width: 260px;
-    padding: 5px 0 8px 0;
+    // padding: 5px 0 8px 0;
 
     p {
-      padding: 0px 14px;
+      padding: 3px 14px;
       margin: 0;
       transition: all 0.1s;
       font-size: 0.8em
+    }
+    p:hover {
+      background: #05749e;
+      transform: scale(1.05);
+      -webkit-transform: scale(1.05);
+      color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 30px -10px #000;
     }
   }
 

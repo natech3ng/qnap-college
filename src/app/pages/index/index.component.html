@@ -31,7 +31,7 @@
             {{currentDisplay}} Video Tutorials <span class="fa fa-bars"></span>
             <div class="arrow gone"></div>
           </div>
-          <div class="dropdown" [ngClass]="{'down': menuOpen}">
+          <div class="dropdown" [ngClass]="{'down': menuOpen}" [ngStyle]="{ 'overflow': menuOpenForStyle?'visible':'hidden'}">
             <p *ngFor='let option of displayOptions' (click)="changeDisplayTo(option)">{{option.name}}</p>
           </div>
         </div>

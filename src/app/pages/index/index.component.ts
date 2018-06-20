@@ -26,6 +26,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   gridClass: String;
   toCollection: boolean;
   menuOpen: boolean;
+  menuOpenForStyle: boolean;
   displayOptions;
   currentDisplay = '';
   loading;
@@ -52,6 +53,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       this.gridCol = localColSetting ? + localColSetting : 2;
       this.gridCol === 2 ? this.gridClass = 'col-md-5' : this.gridClass = 'col-md-4';
       this.menuOpen = false;
+      this.menuOpenForStyle = false;
       this.displayOptions = this._courseService.options;
       this.loading = false;
     }
@@ -102,6 +104,13 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleMenu() {
+    if ( !this.menuOpen ) {
+      setTimeout(() => {
+        this.menuOpenForStyle = !this.menuOpenForStyle;
+      }, 400);
+    } else {
+      this.menuOpenForStyle = !this.menuOpenForStyle;
+    }
     this.menuOpen = !this.menuOpen;
   }
 
