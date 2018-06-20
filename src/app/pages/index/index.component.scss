@@ -1,0 +1,48 @@
+@import "../../../assets/scss/responsive.scss";
+
+.btn-index > span > span {
+  background-color: #e91e63;
+}
+
+.btn-index > span {
+  display: inline-block;
+  position: relative;
+  width: 1.5em;
+  height: 1.5em;
+  transition: transform 0.5s ease;
+  overflow: hidden;
+  font-weight: 100;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.btn-index > span > span {
+  display: block;
+  background-color: #00ADEF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5em;
+  height: 1.5em;
+  transition: all 0.5s ease;
+  border: 0px solid transparent;
+}
+
+.btn-index.menu > span > span {
+  transform: scale(1, 0.1) translate(0, -4em);
+}
+
+.btn-index.menu > span > span.l2 {
+  transform: scale(1, 0.1) translate(0, 0);
+}
+
+.btn-index.menu > span > span.l3 {
+  transform: scale(0.7, 0.1) translate(0, 4em);
+}

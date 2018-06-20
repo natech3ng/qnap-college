@@ -5,6 +5,7 @@
 @import "./assets/scss/font-icons";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "~ngx-toastr/toastr.css";
+@import "assets/scss/responsive.scss";
 
 * {
   box-sizing: border-box;
@@ -297,6 +298,15 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   margin: auto;
   font-size: 22px;
   font-weight:100;
+
+  @include breakpoint(xs) {
+    margin-top: 5px;
+    border-bottom: 1px solid #fff;
+  }
+  @include breakpoint(sm) {
+    margin-top: 5px;
+    border-bottom: 1px solid #fff;
+  }
 }
 
 .vt-section-title {
@@ -481,6 +491,12 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 
 .vt-section-title .grid-options {
   float: right;
+  @include breakpoint(xs) {
+    display: none;
+  }
+  @include breakpoint(sm) {
+    display: none;
+  }
 }
 .vt-section-title > .grid-options > span > i {
   margin: 0px 3px;
