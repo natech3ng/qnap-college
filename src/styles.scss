@@ -313,6 +313,8 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   color: #000;
   display: block;
   border-bottom: 1px solid #000;
+  display: inline-block;
+  width: 100%;
 }
 
 .videos-section {
@@ -508,6 +510,7 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 .vt-section-title > .grid-options > span > i {
   margin: 0px 3px;
   color: #05749e;
+  
 }
 
 .vt-section-title > .grid-options > span {

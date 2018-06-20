@@ -26,7 +26,16 @@
   <div class="container">
     <h4>
       <span class="vt-section-title">
-        Latest Video Tutorials
+        <div class="menu pull-left">
+          <div class="title" (click)='toggleMenu()'>
+            {{currentDisplay}} Video Tutorials <span class="fa fa-bars"></span>
+            <div class="arrow gone"></div>
+          </div>
+          <div class="dropdown" [ngClass]="{'down': menuOpen}">
+            <p *ngFor='let option of displayOptions' (click)="changeDisplayTo(option)">{{option.name}}</p>
+          </div>
+        </div>
+        <!-- <span class="fa fa-bars"></span> -->
         <!-- <span>
           <a href="#" class='btn-index menu'>
             <span class="icon">

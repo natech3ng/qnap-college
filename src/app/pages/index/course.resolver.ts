@@ -11,6 +11,15 @@ export class CourseResolver implements Resolve<Course []> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Course []> | Promise<Course []> | Course [] {
-    return this._courseService.all(6);
+    const cs = localStorage.getItem('currentDisplay') || 'Latest';
+    let cs_value;
+    console.log(this._courseService.options);
+    for (const option of this._courseService.options) {
+      if (option['name'] === cs) {
+        cs_value = option['value'];
+        break;
+      }
+    }
+    return this._courseService.all(6, cs_value);
   }
 }

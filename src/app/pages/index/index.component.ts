@@ -6,6 +6,8 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { Course } from '../../_models/course';
 import { NgxScreensizeModule } from '../../modules/ngx-screensize';
 import { NgxScreensizeService } from '../../modules/ngx-screensize/_services/ngx-screensize.service';
+import { CoursesComponent } from '../../admin/courses/courses.component';
+import { CourseService } from '../../_services/course.service';
 
 @Component({
   selector: 'app-index',
@@ -23,6 +25,9 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   gridCol: Number;
   gridClass: String;
   toCollection: boolean;
+  menuOpen: boolean;
+  displayOptions;
+  currentDisplay = '';
 
   @HostListener('window:scroll', ['$event'])
   currentPosition() {
@@ -37,13 +42,16 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     private _categoryService: CategoryService,
     private _route: ActivatedRoute,
     private _modalService: ModalService,
-    private _ssService: NgxScreensizeService) {
+    private _ssService: NgxScreensizeService,
+    private _courseService: CourseService) {
       const localColSetting = localStorage.getItem('grid-col');
       this.cGridWidth = 0;
       this.categories = [];
       this.courses = [];
       this.gridCol = localColSetting ? + localColSetting : 2;
       this.gridCol === 2 ? this.gridClass = 'col-md-5' : this.gridClass = 'col-md-4';
+      this.menuOpen = false;
+      this.displayOptions = this._courseService.options;
     }
 
   ngOnInit() {
@@ -70,6 +78,12 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    const cs = localStorage.getItem('currentDisplay');
+      if (cs) {
+        this.currentDisplay = cs;
+      } else {
+        this.currentDisplay = 'Latest';
+      }
   }
 
   ngOnDestroy() {
@@ -83,5 +97,23 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onModalPop(youtubeRef: String) {
     this._modalService.popModal(youtubeRef);
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  changeDisplayTo(option) {
+    localStorage.setItem('currentDisplay', option.name);
+    this.currentDisplay = option.name;
+    this.toggleMenu();
+    this._courseService.all(6, option.value).subscribe(
+      (courses: Course []) => {
+        this.courses = courses;
+      },
+      (error) => {
+        console.log('Something went wrong!');
+      }
+    );
   }
 }

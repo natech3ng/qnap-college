@@ -8,10 +8,20 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class CourseService {
   apiRoot: string = environment.apiUrl;
+  public options;
   constructor(private _httpClient: HttpClient, private _authService: AuthService) {
+    this.options = [
+      { name: 'Latest', value: 'publishedDate'},
+      { name: 'Most Viewed', value: 'watched'},
+      { name: 'Most Liked', value: 'like'}
+    ];
   }
-  all(limit?: number): Observable<Course []> {
-    let api_query = this.apiRoot + 'courses?orderBy=publishedDate:desc';
+  all(limit?: number, getBy?: string): Observable<Course []> {
+    let by = 'publishedDate';
+    if (getBy) {
+      by = getBy;
+    }
+    let api_query = this.apiRoot + 'courses?orderBy=' + by + ':desc';
     if (limit) {
       api_query = api_query + '&limit=' + limit;
     }
