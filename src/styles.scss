@@ -491,11 +491,18 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 
 .vt-section-title .grid-options {
   float: right;
+  display: block;
+  @include breakpoint(md) {
+    display: block;
+  }
+  @include breakpoint(lg) {
+    display: block;
+  }
   @include breakpoint(xs) {
     display: none;
   }
   @include breakpoint(sm) {
-    display: none;
+    display: block;
   }
 }
 .vt-section-title > .grid-options > span > i {
