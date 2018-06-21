@@ -9,18 +9,22 @@ import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SafePipe } from '../_pipes/safe.pipe';
 import { RunScriptsDirective } from '../_directives/run.scripts.directives';
+import { CourseComponent } from './course/course.component';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgxPageScrollModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    MomentModule
   ],
   declarations: [
     PagesComponent,
     NotFoundComponent,
-    RunScriptsDirective
+    RunScriptsDirective,
+    CourseComponent
   ]
 })
 export class PagesModule { }

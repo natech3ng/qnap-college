@@ -21,7 +21,7 @@ import { CategoryService } from './_services/category.service';
 import { IndexComponent } from './pages/index/index.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CourseService } from './_services/course.service';
-import { CourseResolver } from './pages/index/course.resolver';
+import { CoursesResolver } from './pages/index/courses.resolver';
 import { CategoryResolver } from './pages/index/category.resolver';
 import { DurationToTimePipe } from './_pipes/moment.duration.pipe';
 import { CategoryComponent } from './pages/category/category.component';
@@ -33,6 +33,7 @@ import { SafePipe } from './_pipes/safe.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmService } from './_services/confirm.service';
+import { CourseResolver } from './pages/course/course.resolver';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -91,12 +92,13 @@ const cookieConfig: NgcCookieConsentConfig = {
     CategoryResolver,
     CategoryService,
     CourseService,
-    CourseResolver,
+    CoursesResolver,
     CatCourseResolver,
     SearchResolver,
     SearchService,
     ModalService,
-    AuthService],
+    AuthService,
+    CourseResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

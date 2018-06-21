@@ -7,12 +7,14 @@ import { AuthGuard } from './auth/_guards/auth.guard';
 import { Routes, RouterModule  } from '@angular/router';
 
 import { IndexComponent } from './pages/index/index.component';
-import { CourseResolver } from './pages/index/course.resolver';
 import { CategoryResolver } from './pages/index/category.resolver';
 import { CategoryComponent } from './pages/category/category.component';
 import { CatCourseResolver } from './pages/category/cat.course.resolver';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
+import { CourseComponent } from './pages/course/course.component';
+import { CoursesResolver } from './pages/index/courses.resolver';
+import { CourseResolver } from './pages/course/course.resolver';
 
 const routes: Routes = [
   // {
@@ -60,6 +62,10 @@ const routes: Routes = [
   {
     path: 'admin', loadChildren: './admin/admin.module#AdminModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'course/:id', component: CourseComponent,
+    resolve: { course: CourseResolver }
   },
   {
     path: '**', loadChildren: './pages/pages.module#PagesModule'
