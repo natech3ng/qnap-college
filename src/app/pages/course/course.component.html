@@ -9,7 +9,8 @@
     <section class="sp-section latest">
       <div class="container">
         <h4>
-          <span class="vt-section-title category">{{course.code_name}} - {{course.title}}</span>
+          <span class="vt-section-title category">{{course.code_name}} - {{course.title}}<span class="add-course-icon"><a href="/"><i _ngcontent-c3="" class="fa fa-arrow-left"></i></a></span></span>
+          
         </h4>
       </div>
     </section>
@@ -19,17 +20,25 @@
           <div class="col-md-8">
             <div class="inner-flex-video">
               <div class="flex-video widescreen">
-                <iframe width="420" height="315" src="https://www.youtube.com/embed/hsJwegPlJWk" allowfullscreen=""></iframe>
+                <iframe width="420" height="315" [src]="youtubeSrc | safe" allowfullscreen=""></iframe>
+              </div>
+              <div class="tags"> 
+                Tags: <a class="tag" *ngFor="let tag of course.tags">{{tag}}</a>
               </div>
             </div>
             <div class="col-md-12 video-desc single-post">
-              <p>
-                <span><i class="fa fa-clock-o"></i>{{course.publishedDate | amDateFormat:'D MMMM YYYY' }}</span>
-                <span><i class="fa fa-eye"></i>{{course.watched}}</span>
-                <span><i class="fa fa-thumbs-up"></i>{{course.like}}</span>
-                <span><i class="fa fa-thumbs-down"></i>{{course.dislike}}</span>
-                <span><i class="fa fa-comment"></i>{{course.commentCount}}</span>
-              </p>
+              <div>
+                <p>
+                  <span><i class="fa fa-clock"></i>{{course.publishedDate | amDateFormat:'D MMMM YYYY' }}</span>
+                  <span><i class="fa fa-eye"></i>{{course.watched}}</span>
+                  <span><i class="fa fa-thumbs-up"></i>{{course.like}}</span>
+                  <span><i class="fa fa-thumbs-down"></i>{{course.dislike}}</span>
+                  <span><i class="fa fa-comment"></i>{{course.commentCount}}</span>
+                </p>
+              </div>
+              <div>
+                {{ course.desc }}
+              </div>
             </div>
           </div>
           <div class="col-md-4 sidebar">
@@ -38,9 +47,9 @@
                 <div class="widgetTitle">
                   <h5>Search Videos</h5>
                 </div>
-                <form id="searchform" method="get" role="search">
+                <form id="searchform" (ngSubmit)="onSubmit(f);" #f="ngForm" role="search">
                   <div class="input-group">
-                    <input class="input-group-field" type="text" placeholder="Enter your keyword">
+                    <input class="input-group-field" type="text" placeholder="Enter your keyword" name="keywords" [ngModel]="keywords">
                     <div class="input-group-button">
                       <input type="submit" class="button" value="Submit">
                     </div>
@@ -53,6 +62,73 @@
                 <div class="widgetTitle">
                   <h5>Most View Videos</h5>
                 </div>
+                <div class="widgetContent">
+                  <a class="media-object stack-for-small" *ngFor='let course of courses' [routerLink]="['/course', course._id]">
+                    <div class="media-object-section">
+                      <div class="recent-img">
+                        <img src= "{{'//img.youtube.com/vi/' + course.youtube_ref + '/sddefault.jpg'}}" alt="recent">
+                        <a href="#" class="hover-posts">
+                          <span><i class="fa fa-play"></i></span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="media-object-section">
+                      <div class="media-content">
+                        <h6><a href="#">{{course.title | shorten: 80}}</a></h6>
+                        <p><i class="fa fa-eye"></i><span>{{ course.watched }}</span><i class="fa fa-clock"></i><span>{{ course.publishedDate | amDateFormat:'D MMMM YYYY' }}</span></p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- <div class="media-object stack-for-small">
+                      <div class="media-object-section">
+                          <div class="recent-img">
+                              <img src= "http://placehold.it/120x80" alt="recent">
+                              <a href="#" class="hover-posts">
+                                  <span><i class="fa fa-play"></i></span>
+                              </a>
+                          </div>
+                      </div>
+                      <div class="media-object-section">
+                          <div class="media-content">
+                              <h6><a href="#">The lorem Ipsumbeen the industry's standard.</a></h6>
+                              <p><i class="fa fa-user"></i><span>admin</span><i class="fa fa-clock-o"></i><span>5 january 16</span></p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="media-object stack-for-small">
+                      <div class="media-object-section">
+                          <div class="recent-img">
+                              <img src= "http://placehold.it/120x80" alt="recent">
+                              <a href="#" class="hover-posts">
+                                  <span><i class="fa fa-play"></i></span>
+                              </a>
+                          </div>
+                      </div>
+                      <div class="media-object-section">
+                          <div class="media-content">
+                              <h6><a href="#">The lorem Ipsumbeen the industry's standard.</a></h6>
+                              <p><i class="fa fa-user"></i><span>admin</span><i class="fa fa-clock-o"></i><span>5 january 16</span></p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="media-object stack-for-small">
+                      <div class="media-object-section">
+                          <div class="recent-img">
+                              <img src= "http://placehold.it/120x80" alt="recent">
+                              <a href="#" class="hover-posts">
+                                  <span><i class="fa fa-play"></i></span>
+                              </a>
+                          </div>
+                      </div>
+                      <div class="media-object-section">
+                          <div class="media-content">
+                              <h6><a href="#">The lorem Ipsumbeen the industry's standard.</a></h6>
+                              <p><i class="fa fa-user"></i><span>admin</span><i class="fa fa-clock-o"></i><span>5 january 16</span></p>
+                          </div>
+                      </div>
+                  </div>
+              </div> -->
               <!-- <div class="widgetContent">
                   <div class="video-box thumb-border">
                       <div class="video-img-thumb">

@@ -18,13 +18,15 @@ import { MomentModule } from 'ngx-moment';
     FormsModule,
     NgxPageScrollModule,
     PagesRoutingModule,
-    MomentModule
+    MomentModule,
+    NgPipesModule
   ],
   declarations: [
     PagesComponent,
     NotFoundComponent,
     RunScriptsDirective,
-    CourseComponent
+    CourseComponent,
+    SafePipe
   ]
 })
 export class PagesModule { }

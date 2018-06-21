@@ -28,7 +28,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   menuOpen: boolean;
   menuOpenForStyle: boolean;
   displayOptions;
-  currentDisplay = '';
+  currentDisplay;
   loading;
 
   @HostListener('window:scroll', ['$event'])
@@ -46,19 +46,20 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     private _modalService: ModalService,
     private _ssService: NgxScreensizeService,
     private _courseService: CourseService) {
-      const localColSetting = localStorage.getItem('grid-col');
-      this.cGridWidth = 0;
-      this.categories = [];
-      this.courses = [];
-      this.gridCol = localColSetting ? + localColSetting : 2;
-      this.gridCol === 2 ? this.gridClass = 'col-md-5' : this.gridClass = 'col-md-4';
-      this.menuOpen = false;
-      this.menuOpenForStyle = false;
-      this.displayOptions = this._courseService.options;
-      this.loading = false;
+      
     }
 
   ngOnInit() {
+    const localColSetting = localStorage.getItem('grid-col');
+    this.cGridWidth = 0;
+    this.categories = [];
+    this.courses = [];
+    this.gridCol = localColSetting ? + localColSetting : 2;
+    this.gridCol === 2 ? this.gridClass = 'col-md-5' : this.gridClass = 'col-md-4';
+    this.menuOpen = false;
+    this.menuOpenForStyle = false;
+    this.displayOptions = this._courseService.options;
+    this.loading = false;
     this.sub = this._route.data.subscribe(
       (data: Data) => {
         if (data.courses) {

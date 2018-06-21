@@ -3,7 +3,7 @@ export class Course {
   title: String;
   code_name: String;
   desc: String;
-  keyword: String;
+  keywords: String;
   youtube_ref: String;
   category: String;
   publishedDate: Date;

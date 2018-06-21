@@ -69,8 +69,7 @@ const cookieConfig: NgcCookieConsentConfig = {
     IndexComponent,
     DurationToTimePipe,
     CategoryComponent,
-    SearchComponent,
-    SafePipe
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +85,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     DeviceDetectorModule.forRoot(),
     NgxScreensizeModule,
     NgbModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgPipesModule
   ],
   providers: [
     CategoryResolver,

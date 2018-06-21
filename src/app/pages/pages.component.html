@@ -36,7 +36,7 @@
             <h3>Search for topics</h3>
             <div class="title">Welcome to QNAP College</div>
             <div class="description">The place that you can get the most out of QNAP</div>
-            <form class="search-input" (ngSubmit)="onSubmit(f);"#f="ngForm">
+            <form class="search-input" (ngSubmit)="onSubmit(f);" #f="ngForm">
               <input id="search_input" type="text" name="keywords" [ngModel]="keywords" placeholder="Search by keyword" value="">
             </form>
           </div>

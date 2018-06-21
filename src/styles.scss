@@ -330,6 +330,7 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   -webkit-box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
   box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
   background-color: #ffffff;
+  cursor: pointer;
 }
 .video-card-body {
   display: block;
@@ -395,6 +396,9 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 .video-card-content {
   display: block;
   padding: 0 1.2rem 1.2rem 1.2rem;
+  &:focus {
+    outline: none;
+  }
 }
 .video-card-content > .video-card-content-header {
   display: table;
