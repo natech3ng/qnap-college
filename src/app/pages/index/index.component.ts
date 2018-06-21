@@ -46,7 +46,6 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     private _modalService: ModalService,
     private _ssService: NgxScreensizeService,
     private _courseService: CourseService) {
-      
     }
 
   ngOnInit() {
