@@ -32,7 +32,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           for (const course of this.courses) {
             course['tags'] = [];
             if (course['keywords']) {
-              course['tags'] = course['keywords'].split(' ');
+              course['tags'] = course['keywords'].split(',');
             }
             // console.log(course['tags']);
           }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from '../../_models/course';
@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss']
 })
-export class CourseComponent implements OnInit, OnDestroy {
+export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
 
   sub: Subscription;
   routeSub: Subscription;
@@ -40,9 +40,13 @@ export class CourseComponent implements OnInit, OnDestroy {
         if (data.course) {
           this.course = data.course;
           this.youtubeSrc = 'https://www.youtube.com/embed/' + this.course.youtube_ref;
-          this.course.tags = this.course.keywords.split(' ');
+          this.course.tags = this.course.keywords.split(',');
         }
       });
+  }
+
+  ngAfterViewInit() {
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {

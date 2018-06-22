@@ -3,7 +3,7 @@ import { ModalService } from '../_services/modal.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { CategoryService } from '../_services/category.service';
 import { Category } from '../_models/category';
-import { Router, NavigationStart, NavigationEnd, NavigationCancel } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, RoutesRecognized, RouteConfigLoadEnd } from '@angular/router';
 import { SearchComponent } from '../pages/search/search.component';
 import { SearchService } from '../_services/search.service';
 import { NgForm } from '@angular/forms';
@@ -27,20 +27,22 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   private routeSub: any;
   private modalPopSub: any;
   private modalCloseSub: any;
-  loading: boolean;
-  keywords: string;
-  goToTop: boolean;
-  modalOpen: boolean;
-  firstOpened: boolean;
-  youtubeSrc: any;
-  youtubeRef: string;
+  private youtubeSrc: any;
+  private youtubeRef: string;
 
-  public YT: any;
-  public video: any;
-  public player: any;
-  public reframed = false;
-  youtubeVideoWidth = 853;
-  youtubeVideoHeight = 480;
+  public bannerShow: boolean;
+  public goToTop: boolean;
+  public loading: boolean;
+  public keywords: string;
+  public modalOpen: boolean;
+  public firstOpened: boolean;
+
+  private YT: any;
+  private video: any;
+  private player: any;
+  private reframed = false;
+  private youtubeVideoWidth = 853;
+  private youtubeVideoHeight = 480;
 
   deviceInfo: any = null;
 
@@ -88,7 +90,12 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _sanitizer: DomSanitizer) {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
-      console.log(this.deviceInfo);
+      // console.log(this.deviceInfo);
+      console.log(this._router.url);
+      const url = this._router.url;
+      console.log(url.indexOf('/category'));
+      console.log(url === '/');
+      this.checkBanner(url);
       this._router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
           (<any>window).ga('set', 'page', event.urlAfterRedirects);
@@ -204,13 +211,17 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
             this.loading = true;
+
             // console.log('Navigate start');
         } else if (
             event instanceof NavigationEnd ||
             event instanceof NavigationCancel
             ) {
             this.loading = false;
+            console.log(this._router.url);
+            this.checkBanner(this._router.url);
             // console.log('Navigate end');
+        } else if ( event instanceof RouteConfigLoadEnd) {
         }
     });
 
@@ -305,7 +316,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     return this._sanitizer.bypassSecurityTrustHtml(this._footerHTML);
   }
 
-  public loadScript(script) {
+  private loadScript(script) {
     console.log('load: ' + script);
     const body = <HTMLDivElement> document.body;
     const scriptDOM = document.createElement('script');
@@ -314,5 +325,14 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     scriptDOM.async = true;
     scriptDOM.defer = true;
     body.appendChild(scriptDOM);
-}
+  }
+
+  private checkBanner(url) {
+    if (url === '/' || url.indexOf('/category/') !== -1 || url.indexOf('/search/') !== -1) {
+      // banner only appears in home, category, and search pages
+      this.bannerShow = true;
+    } else {
+      this.bannerShow = false;
+    }
+  }
 }

@@ -28,7 +28,7 @@
   
 <div id="main" class="row" [ngClass]="{'loaded': !loading, 'loading': loading}">
   <article class="support-index">
-    <header #header>
+    <header #header [ngStyle]="{'display': bannerShow?'block':'none'}">
       <div class="container">
         <h2><a href="#">QNAP College</a></h2>
         <section id="sp_search" class="sp-search no-h3 ">
@@ -59,82 +59,4 @@
   </article>
 </div>
 <div [innerHTML]="footerHTML"></div>
-<!-- <footer class="mainFooter"><div class="ftrBlock"><aside class="new-stations">
-  <h2>Applications</h2>
-  <ul>
-      <li><a href="/solution/instant-messaging/en-us/" target="_top" title="Mattermost">
-          <span class="ns-icon sprite sprite-layout-ns-icon-25"></span>
-          <span class="ns-label">Mattermost</span></a></li>
-      <li><a href="/solution/qiot-suite/en-us/" target="_top" title="QIoT Suite Lite">
-          <span class="ns-icon sprite sprite-layout-ns-icon-22"></span>
-          <span class="ns-label">QIoT Suite Lite</span></a></li>
-      <li><a href="/solution/dj2live/en-us/" target="_top" title="DJ2 Live">
-          <span class="ns-icon sprite sprite-layout-ns-icon-21"></span>
-          <span class="ns-label">DJ2 Live</span></a></li>
-      <li><a href="/solution/qmailagent/en-us/" target="_blank" title="QmailAgent">
-          <span class="ns-icon sprite sprite-layout-ns-icon-16"></span>
-          <span class="ns-label">QmailAgent</span></a></li>
-      <li><a href="/solution/browser-station/en-us/" target="_top" title="">
-          <span class="ns-icon sprite sprite-layout-ns-icon-24"></span>
-          <span class="ns-label">Browser Station</span></a></li>
-      <li><a href="/solution/wirelessap-station/en-us/" target="_blank" title="WirelessAP Station">
-          <span class="ns-icon sprite sprite-layout-ns-icon-18"></span>
-          <span class="ns-label">WirelessAP Station</span></a></li>
-      <li><a href="/solution/qfiling/en-us/" target="_blank" title="Qfiling">
-          <span class="ns-icon sprite sprite-layout-ns-icon-17"></span>
-          <span class="ns-label">Qfiling</span></a></li>
-      <li><a href="/solution/ifttt_agent/en-us" target="_blank" title="IFTTT Agent">
-          <span class="ns-icon sprite sprite-layout-ns-icon-19"></span>
-          <span class="ns-label">IFTTT Agent</span></a></li>
-      <li><a href="/solution/qsirch/en-us/" target="_blank" title="Qsirch">
-          <span class="ns-icon sprite sprite-layout-ns-icon-6"></span>
-          <span class="ns-label">Qsirch</span></a></li>
-      <li><a href="/solution/qcenter/index.php?lang=en-us" target="_blank" title="Q'center">
-          <span class="ns-icon sprite sprite-layout-ns-icon-7"></span>
-          <span class="ns-label">Q'center</span></a></li>
-      <li><a href="/solution/virtualization-station-3/en-us/" target="_blank" title="Virtualization Station">
-          <span class="ns-icon sprite sprite-layout-ns-icon-1"></span>
-          <span class="ns-label">Virtualization</span></a></li>
-      <li><a href="/solution/smb-solution-qsync/en-us/" target="_blank" title="Qsync">
-          <span class="ns-icon sprite sprite-layout-ns-icon-13"></span>
-          <span class="ns-label">Qsync</span></a></li>
-  </ul>
-  
-  </aside><nav class="sitemap">
-  
-  <h2>SITEMAP</h2>
-  <ul>
-          <li>
-              <p class="mapTitle">About us</p>
-              <ul class="subMap"><li><a href="/i/useng/about/con_show.php?op=showone&amp;cid=2" target="_top" title="">About QNAP</a></li><li><a href="/i/useng/about/con_show.php?op=showone&amp;cid=1" target="_top" title="">Contact Us</a></li><li><a href="/i/useng/about/con_show.php?op=showone&amp;cid=4" target="_top" title="">Information Security Policy</a></li><li><a href="/en-us/news/" target="_top" title="">Press Releases</a></li><li><a href="/i/useng/award/" target="_top" title="">Awards &amp; Reviews</a></li><li><a href="/i/useng/about/con_show.php?op=showone&amp;cid=5" target="_top" title="">Press Resources</a></li></ul></li>
-          <li>
-              <p class="mapTitle">Other QNAP websites</p>
-              <ul class="subMap"><li><a href="http://start.qnap.com/useng/" target="_blank" title="NAS Quick Setup">NAS Quick Setup</a></li><li><a href="/dev/useng/index.php" target="_blank" title="">Development Platform</a></li><li><a href="http://shop.qnap.com/" target="_blank" title="">Accessories Store</a></li><li><a href="http://license.qnap.com/?locale=en_us" target="_blank" title="">License Store</a></li><li><a href="https://www.myqnapcloud.com" target="_blank" title="myQNAPcloud">myQNAPcloud</a></li><li><a href="http://www.qnapsecurity.com/" target="_blank" title="QNAP Security">QNAP Security</a></li></ul></li>
-          <li>
-              <p class="mapTitle">Product information</p>
-              <ul class="subMap"><li><a href="/i/useng/support/con_show.php?cid=8" target="_top" title="">Live Demo</a></li><li><a href="/i/useng/compatibility/" target="_top" title="">Compatibility</a></li><li><a href="/i/useng/product/" target="_top" title="">Product Overview</a></li><li><a href="/i/useng/product/eol.php" target="_top" title="">Product Support Status</a></li><li><a href="/en-us/nas-migration/" target="_top" title="">NAS Migration</a></li></ul></li>
-          <li>
-              <p class="mapTitle">Solutions</p>
-              <ul class="subMap"><li><a href="/i/useng/enterprise_apply_v2/" target="_top" title="">For Business</a></li><li><a href="/i/useng/family_apply_v2/" target="_top" title="">For Home</a></li><li><a href="/i/useng/app_center/" target="_top" title="">App Center</a></li></ul></li>
-          <li>
-              <p class="mapTitle">FAQ</p>
-              <ul class="subMap"><li><a href="/i/useng/qa/" target="_top" title="">FAQ</a></li><li><a href="/i/useng/service_ask/" target="_top" title="">Warranty FAQ</a></li><li><a href="/i/useng/before_buy/con_show.php?op=showone&amp;cid=6" target="_top" title="">Warranty Terms and Conditions</a></li><li><a href="/i/useng/before_question/list.php?cat=1" target="_top" title="">Presale FAQ</a></li><li><a href="https://sourceforge.net/projects/qosgpl/" target="_blank" title="">GPL Source</a></li></ul></li>
-          <li>
-              <p class="mapTitle">Resources</p>
-  <ul class="subMap"><li><a href="/i/useng/product_x_down/" target="_top" title="">Download</a></li><li><a href="/i/useng/before_buy/con_show.php?op=showone&amp;cid=2" target="_top" title="">Customer Service</a></li><li><a href="http://helpdesk.qnap.com/" target="_blank" title="">Online Support Form</a></li><li><a href="/i/useng/before_group/list.php?cat=1" target="_top" title="">Community</a></li><li><a href="https://reseller.qnap.com/UserSite/?country=us" target="_blank" title="">Reseller Program</a></li><li><a href="/en-us/before_buy/con_show.php?op=showone&amp;cid=17" target="_top" title="Privacy Policy">Privacy Policy</a></li><li><a href="/en-us/before_buy/con_show.php?op=showone&amp;cid=14" target="_top" title="Terms of Use">Terms of Use</a></li><li><a href="/i/useng/_sitemap.php" target="_top" title="">Site Map</a></li></ul></li></ul></nav></div>
-  <div class="locale">
-    <div class="locale-selector">
-      <div class="icon"><i class="fa fa-globe"></i><span class="alway_not_there">Language</span></div>
-      <div class="block">
-        <select name="func-choose-locale" onchange="funcLocaleOnChangeGoTo(this)"><option value="/en/how-to">English - Global</option><option value="/en-us/how-to" selected="">English - US/Canada</option><option value="/en-uk/how-to">English - UK</option><option value="/en-au/how-to">English - Australia</option><option value="/en-in/how-to">English - India</option><option value="/de-de/how-to">Deutsch</option><option value="/es-es/how-to">Español - Spain</option><option value="/es-mx/how-to">Español - Latinoamerica</option><option value="/fr-fr/how-to">Français</option><option value="/it-it/how-to">Italiano</option><option value="/nl-nl/how-to">Nederlands</option><option value="/sv-se/how-to">Svenska</option><option value="/zh-cn/how-to">简体中文</option><option value="/zh-tw/how-to">繁體中文 - 台灣</option><option value="/zh-hk/how-to">繁體中文 - 香港</option><option value="/pt-pt/how-to">Português</option><option value="/pl-pl/how-to">Polish</option><option value="http://qnap.ru/">Русский</option><option value="/ja-jp/how-to">日本語</option><option value="/ko-kr/how-to">한글</option><option value="/cs-cz/how-to">Czech</option><option value="/th-th/how-to">Thai</option><option value="/tr-tr/how-to">Turkey</option>    </select>
-    </div>
-  </div>
-  </div>
-  
-  <div class="copyright">
-    <h2>COPYRIGHT INFORMATION</h2>
-    Copyright ©2018 Qnap Systems, Inc.&nbsp;All Rights Reserved.
-  </div>
-</footer> -->
-
 <div href="#main" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="500" id="go-to-top" class="icon-angle-up" [ngClass]="{'show': goToTop, 'hide': !goToTop}"></div>

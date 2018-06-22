@@ -14,7 +14,6 @@ import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { CourseComponent } from './pages/course/course.component';
 import { CoursesResolver } from './pages/index/courses.resolver';
-import { CourseResolver } from './pages/course/course.resolver';
 
 const routes: Routes = [
   // {
@@ -62,10 +61,6 @@ const routes: Routes = [
   {
     path: 'admin', loadChildren: './admin/admin.module#AdminModule',
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'course/:id', component: CourseComponent,
-    resolve: { course: CourseResolver }
   },
   {
     path: '**', loadChildren: './pages/pages.module#PagesModule'

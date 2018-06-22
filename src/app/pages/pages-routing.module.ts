@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryResolver } from './index/category.resolver';
 import { CourseComponent } from './course/course.component';
+import { CourseResolver } from './course/course.resolver';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'search/:keywords', component: SearchComponent,
         resolve: { courses: SearchResolver }
+      },
+      {
+        path: 'course/:id', component: CourseComponent,
+        resolve: { course: CourseResolver }
       }
     ]
   }
