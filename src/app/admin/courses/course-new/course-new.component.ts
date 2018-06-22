@@ -63,7 +63,7 @@ export class CourseNewComponent implements OnInit, OnDestroy {
           } else if (typeof tag === 'object' && tag['value']) {
             f.value.tags.push(tag['value']);
           }
-          f.value.keywords === '' ? f.value.keywords += tag.value : f.value.keywords = f.value.keywords + ' ' + tag.value;
+          f.value.keywords === '' ? f.value.keywords += tag.value : f.value.keywords = f.value.keywords + ',' + tag.value;
         }
 
         // console.log(f.value);

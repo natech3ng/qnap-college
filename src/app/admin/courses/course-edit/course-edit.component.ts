@@ -42,7 +42,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this.course = data.course;
         this.course.tags = new Array();
         if (this.course['keywords']) {
-          this.course.tags = this.course['keywords'].split(' ');
+          this.course.tags = this.course['keywords'].split(',');
         }
 
         setTimeout( () => {
@@ -81,7 +81,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
             f.value.tags.push(tag['value']);
             tagname = tag['value'];
           }
-          f.value.keywords === '' ? f.value.keywords += tagname : f.value.keywords = f.value.keywords + ' ' + tagname;
+          f.value.keywords === '' ? f.value.keywords += tagname : f.value.keywords = f.value.keywords + ',' + tagname;
         }
         f.value['_id'] = this.course._id;
         f.value.category = this._slugify.transform(f.value.category);
