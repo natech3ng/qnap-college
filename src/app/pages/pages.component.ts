@@ -229,7 +229,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     //   (error) => {
     //   }
     // );
-
+    this.loadScript('//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a0dd7aa711366bd');
     this._httpClient.get('https://www.qnap.com/i/_aid/footer.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
       (data) => {
         this._footerHTML = data;
@@ -304,4 +304,15 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   public get footerHTML(): SafeHtml {
     return this._sanitizer.bypassSecurityTrustHtml(this._footerHTML);
   }
+
+  public loadScript(script) {
+    console.log('load: ' + script);
+    const body = <HTMLDivElement> document.body;
+    const scriptDOM = document.createElement('script');
+    scriptDOM.innerHTML = '';
+    scriptDOM.src = script;
+    scriptDOM.async = true;
+    scriptDOM.defer = true;
+    body.appendChild(scriptDOM);
+}
 }
