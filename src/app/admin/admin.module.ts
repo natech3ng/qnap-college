@@ -1,3 +1,4 @@
+import { KeywordService } from './../_services/keyword.services';
 import { MomentModule } from 'ngx-moment';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -61,7 +62,8 @@ import { BrowserModule } from '@angular/platform-browser';
     ToastrService,
     SlugifyPipe,
     UsersResolver,
-    UsersService
+    UsersService,
+    KeywordService
   ]
 })
 export class AdminModule { }

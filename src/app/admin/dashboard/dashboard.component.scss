@@ -1,0 +1,49 @@
+.portlet {
+  .portlet-head {
+    .portlet-head-caption {
+      .portlet-head-title {
+        .portlet-head-text {
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          font-size: 1.2rem;
+          font-weight: 500;
+          font-family: Roboto;
+          margin: 0;
+          padding: 0;
+          color: #575962;
+        }
+      }
+    }
+  }
+
+  .portlet-body {
+    padding-top: 1.2rem;
+    .widget-4 {
+      .widget-4-item {
+        width: 100%;
+        display: table;
+        padding-top: .3rem;
+        padding-bottom: .3rem;
+        border-bottom: .07rem dashed #ebedf2;
+
+        .widget-4-item-name {
+          display: table-cell;
+          width: 100%;
+          padding-left: 1.2rem;
+          padding-right: 1.2rem;
+          font-size: 1rem;
+          vertical-align: middle;
+        }
+        .widget-4-item-times {
+          color: #f4516c!important;
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
