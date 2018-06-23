@@ -34,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmService } from './_services/confirm.service';
 import { CourseResolver } from './pages/course/course.resolver';
+import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -69,7 +70,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     IndexComponent,
     DurationToTimePipe,
     CategoryComponent,
-    SearchComponent
+    SearchComponent,
+    MaintenanceComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CategoryResolver } from './index/category.resolver';
 import { CourseComponent } from './course/course.component';
 import { CourseResolver } from './course/course.resolver';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 const routes: Routes = [
   {

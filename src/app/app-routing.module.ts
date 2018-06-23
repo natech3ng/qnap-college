@@ -14,6 +14,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { CourseComponent } from './pages/course/course.component';
 import { CoursesResolver } from './pages/index/courses.resolver';
+import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 
 const routes: Routes = [
   // {
@@ -63,7 +64,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: '**', loadChildren: './pages/pages.module#PagesModule'
+    path: 'maintenance', component: MaintenanceComponent
+  },
+  {
+    path: '**', component: NotFoundComponent
   }
 ];
 
