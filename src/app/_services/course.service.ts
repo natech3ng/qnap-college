@@ -85,4 +85,9 @@ export class CourseService {
       }
     );
   }
+
+  getClickStatus() {
+    const api_query = this.apiRoot + 'courses/clickStatus';
+    return this._httpClient.get<any>(api_query, this._authService.jwtHttpClient());
+  }
 }

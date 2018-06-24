@@ -47,3 +47,65 @@
     }
   }
 }
+
+.subheader {
+  margin-bottom: 0.5rem;
+  .subheader-daterange {
+    display: inline-block;
+    border-radius: 2rem;
+    padding: 5px;
+    cursor: pointer;
+    background: #fff;
+
+    .btn {
+      width: 32px!important;
+      height: 32px!important;
+    }
+
+    .subheader-daterange-label {
+      padding: .7rem .75rem .7rem 1.5rem;
+  
+      .subheader-daterange-title {
+        display: inline-block;
+        font-weight: 400;
+        color: #aaaeb8;
+      }
+      .subheader-daterange-date {
+        display: inline-block;
+        font-weight: 500;
+      }
+      
+      .font-brand {
+        color: #716aca!important;
+      }
+    }
+  }
+}
+
+.btn {
+  &.btn-pill {
+    border-radius: 60px;
+  }
+
+  &.btn-brand {
+    color: #fff;
+    background-color: #716aca;
+    border-color: #716aca;
+  }
+
+  .btn-icon.btn-icon-only {
+    display: inline-block;
+    position: relative;
+    padding: 0!important;
+    width: 33px;
+    height: 33px;
+}
+
+  .btn.btn-custom {
+    padding: .75rem 2rem;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: Poppins;
+  }
+}
+

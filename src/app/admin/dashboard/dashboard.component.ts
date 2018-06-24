@@ -1,3 +1,4 @@
+import { CourseService } from './../../_services/course.service';
 import { Subscription } from 'rxjs';
 import { Keyword } from './../../_models/keyword';
 import { AuthService } from './../../auth/_services/auth.service';
@@ -12,16 +13,29 @@ import { KeywordService } from '../../_services/keyword.services';
 export class DashboardComponent implements OnInit {
 
   keywords: Keyword [];
+  courseStats;
   app = 'dashboard';
   constructor(
     private _authService: AuthService,
-    private _keywordService: KeywordService
+    private _keywordService: KeywordService,
+    private _courseService: CourseService
   ) {
     this._keywordService.all(10).subscribe(
       (keywords: Keyword []) => {
         this.keywords = keywords;
       }
     );
+
+    this._courseService.getClickStatus().subscribe(
+      (courseStats) => {
+        this.courseStats = courseStats;
+        console.log(courseStats);
+      },
+      (err) => {
+        console.log('Something went wrong!');
+      }
+    );
+
   }
 
   ngOnInit() {
