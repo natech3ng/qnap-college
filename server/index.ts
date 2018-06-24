@@ -45,6 +45,10 @@ app.use(['/', '/login', '/admin'], function(req, res, next) {
   }
 });
 
+app.use(function (req, res, next) {
+  res.status(404).send('Sorry, current under mainteance');
+});
+
 const httpServer = http.createServer(app);
 
 console.log('Listen: ' + port);

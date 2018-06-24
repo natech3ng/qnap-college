@@ -19,6 +19,16 @@ export class CategoryService {
       );
   }
 
+  increase(category: string) {
+    return this.httpClient
+            .get(this.apiRoot + 'category/' + category + '/clicked')
+            .subscribe(
+              () => {},
+              () => {}
+            );
+
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

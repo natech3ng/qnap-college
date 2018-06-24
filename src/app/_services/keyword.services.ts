@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/_services/auth.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,7 +10,7 @@ export class KeywordService {
 
   apiRoot: string = environment.apiUrl;
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(private _httpClient: HttpClient, private _authService: AuthService) {
   }
 
   all(limit?: number): Observable<Keyword []> {
@@ -19,6 +20,6 @@ export class KeywordService {
     }
     const api_query = this.apiRoot + 'keywords' + limitStr;
 
-    return this._httpClient.get<Keyword []>(api_query);
+    return this._httpClient.get<Keyword []>(api_query, this._authService.jwtHttpClient());
   }
 }
