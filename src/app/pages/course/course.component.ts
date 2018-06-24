@@ -39,6 +39,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
       (data: Data) => {
         if (data.course) {
           this.course = data.course;
+          this._courseService.quickClicked(this.course);
           this.youtubeSrc = 'https://www.youtube.com/embed/' + this.course.youtube_ref;
           this.course.tags = this.course.keywords.split(',');
         }

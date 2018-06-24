@@ -72,4 +72,17 @@ export class CourseService {
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this._httpClient.delete<any>(api_query, this._authService.jwtHttpClient());
   }
+
+  clicked(id: String): Observable<any> {
+    const api_query = this.apiRoot + 'courses/' + id + '/clicked';
+    return this._httpClient.post<any>(api_query, '');
+  }
+
+  quickClicked(course) {
+    this.clicked(course._id).subscribe(
+      () => {},
+      (err) => {
+      }
+    );
+  }
 }

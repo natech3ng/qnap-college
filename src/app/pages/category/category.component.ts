@@ -59,7 +59,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
     localStorage.setItem('grid-col', this.gridCol.toString());
   }
 
-  onModalPop(youtubeRef: String) {
-    this._modalService.popModal(youtubeRef);
+  onModalPop(course: Course) {
+    this._courseService.quickClicked(course);
+    this._modalService.popModal(course.youtube_ref);
   }
 }
