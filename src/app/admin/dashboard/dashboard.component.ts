@@ -15,6 +15,9 @@ export class DashboardComponent implements OnInit {
   keywords: Keyword [];
   courseStats;
   app = 'dashboard';
+  start;
+  end;
+
   constructor(
     private _authService: AuthService,
     private _keywordService: KeywordService,
@@ -39,5 +42,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onSelected(event) {
+    console.log(event);
   }
 }

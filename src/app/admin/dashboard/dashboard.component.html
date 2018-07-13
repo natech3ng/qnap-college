@@ -1,6 +1,9 @@
 <div class="admin-section">
   <span class='vt-section-title'>
     <span class='pull-left'><h5>{{app | ucfirst}}</h5></span>
+    <div class="pull-right">
+      <lib-daterangepicker [(start)]="start" [(end)]="end" format="MM-DD-YYYY" opens="left" [pill]="true" (complete)="onSelected($event)"></lib-daterangepicker>
+    </div>
     <!-- <span class='subheader pull-right'>
       <span class="subheader-daterange" id="dashboard-daterangepicker">
         <span class="subheader-daterange-label">
