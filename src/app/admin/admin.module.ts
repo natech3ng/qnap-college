@@ -1,3 +1,4 @@
+import { NgxDaterangepickerModule } from '@qqnc/ngx-daterangepicker';
 import { KeywordService } from './../_services/keyword.services';
 import { MomentModule } from 'ngx-moment';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -43,7 +44,8 @@ import { BrowserModule } from '@angular/platform-browser';
     NgbModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxDaterangepickerModule
   ],
   declarations: [
     DashboardComponent,

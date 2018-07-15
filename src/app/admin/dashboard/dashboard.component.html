@@ -1,8 +1,18 @@
 <div class="admin-section">
   <span class='vt-section-title'>
     <span class='pull-left'><h5>{{app | ucfirst}}</h5></span>
-    <!-- <span class='subheader pull-right'>
-      <span class="subheader-daterange" id="dashboard-daterangepicker">
+    <span class='subheader pull-right'>
+        <lib-daterangepicker 
+        [(start)]="start" 
+        [(end)]="end" 
+        format="MM-DD-YYYY" 
+        outputFormat="MM-DD-YYYY"
+        opens="left" 
+        [pill]="true"
+        (complete)="onSelected($event)"
+        ></lib-daterangepicker>
+ 
+      <!-- <span class="subheader-daterange" id="dashboard-daterangepicker">
         <span class="subheader-daterange-label">
           <span class="subheader-daterange-title"></span>
           <span class="subheader-daterange-date font-brand">May 25 - Jun 23</span>
@@ -10,8 +20,8 @@
         <a href="#" class="btn btn-sm btn-brand m-btn m-btn-icon btn-icon-only btn-custom btn-pill">
           <i class="la la-angle-down"></i>
         </a>
-      </span>
-    </span> -->
+      </span> -->
+    </span>
   </span>
   <span class='row'>
     <span class="col-md-12 d-content">
