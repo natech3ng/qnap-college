@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   start;
   end;
   app = 'dashboard';
+
   constructor(
     private _authService: AuthService,
     private _keywordService: KeywordService,

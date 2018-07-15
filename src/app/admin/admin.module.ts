@@ -30,6 +30,7 @@ import { UsersService } from '../auth/_services/users.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgxDaterangepickerModule } from '@qqnc/ngx-daterangepicker';
 
 @NgModule({
   imports: [
