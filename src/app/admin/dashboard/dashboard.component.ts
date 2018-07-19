@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onSelected(event) {
-    console.log('selected');
+    // console.log('selected');
     this._courseService.getClickStatus(event.start, event.end).subscribe(
       (courseStats) => {
         this.courseStats = courseStats;
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
         console.log('Something went wrong!');
       }
     );
-    console.log(event);
+    // console.log(event);
     this._courseService.getClickStatus(event.start, event.end).subscribe(
       (courseStats) => {
         this.courseStats = courseStats;
