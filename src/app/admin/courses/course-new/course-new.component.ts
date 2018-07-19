@@ -34,7 +34,7 @@ export class CourseNewComponent implements OnInit, OnDestroy {
     private _toastr: ToastrService,
     private _courseService: CourseService,
     private _router: Router) {
-    this.course = new Course();
+      this.course = new Course();
    }
 
   ngOnInit() {
