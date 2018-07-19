@@ -1015,3 +1015,13 @@ span.cc-message > a {
 #qts-live-video-promote-block {
   display: none !important;
 }
+
+.calendar {
+  .form-control {
+    font-size: .7rem;
+  }
+}
+
+lib-calendar {
+  min-width: 540px;
+}

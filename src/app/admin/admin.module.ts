@@ -1,3 +1,4 @@
+import { NgxDaterangepickerModule } from '@qqnc/ngx-daterangepicker';
 import { KeywordService } from './../_services/keyword.services';
 import { MomentModule } from 'ngx-moment';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -13,7 +14,6 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CourseNewComponent } from './courses/course-new/course-new.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TagInputModule } from 'ngx-chips';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmService } from '../_services/confirm.service';
@@ -28,8 +28,6 @@ import { UsersResolver } from './users/users.resolver';
 import { UsersService } from '../auth/_services/users.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileComponent } from './profile/profile.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgxDaterangepickerModule } from '@qqnc/ngx-daterangepicker';
 
 @NgModule({
   imports: [

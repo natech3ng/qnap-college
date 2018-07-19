@@ -86,24 +86,22 @@ export class CourseService {
     );
   }
 
-  getClickStatus(start?: Date, end?: Date) {
+  getClickStatus(start?: string, end?: string) {
     let api_query = this.apiRoot + 'courses/clickStatus';
-    let params='';
-    
+    let params = '';
+
     if (start || end) {
-      params += '?'
+      params += '?';
 
       if (start) {
-        params += 'startDate=' + start;
-
-        if (end) {
-          params += '$endDate=' + end;
-        }
+        params += 'startDate=' + start + '&';
       }
 
-
+      if (end) {
+        params += 'endDate=' + end;
+      }
+      api_query += params;
     }
-    api_query += params;
     return this._httpClient.get<any>(api_query, this._authService.jwtHttpClient());
   }
 }

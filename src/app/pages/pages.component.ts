@@ -264,7 +264,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmit(f: NgForm) {
-    this._router.navigate(['/search', f.value.keywords]);
+    this._router.navigate(['/search', f.value.keywords], { queryParams: { q: f.value.keywords } });
   }
 
   onCloseModal() {

@@ -14,9 +14,9 @@ export class DashboardComponent implements OnInit {
 
   keywords: Keyword [];
   courseStats;
-  app = 'dashboard';
   start;
   end;
+  app = 'dashboard';
 
   constructor(
     private _authService: AuthService,
@@ -29,7 +29,24 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this._courseService.getClickStatus().subscribe(
+    // this._courseService.getClickStatus().subscribe(
+    //   (courseStats) => {
+    //     this.courseStats = courseStats;
+    //     console.log(courseStats);
+    //   },
+    //   (err) => {
+    //     console.log('Something went wrong!');
+    //   }
+    // );
+
+  }
+
+  ngOnInit() {
+  }
+
+  onSelected(event) {
+    console.log('selected');
+    this._courseService.getClickStatus(event.start, event.end).subscribe(
       (courseStats) => {
         this.courseStats = courseStats;
         console.log(courseStats);
@@ -38,13 +55,6 @@ export class DashboardComponent implements OnInit {
         console.log('Something went wrong!');
       }
     );
-
-  }
-
-  ngOnInit() {
-  }
-
-  onSelected(event) {
     console.log(event);
     this._courseService.getClickStatus(event.start, event.end).subscribe(
       (courseStats) => {
