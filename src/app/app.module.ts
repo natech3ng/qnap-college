@@ -1,3 +1,4 @@
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxScreensizeModule } from './modules/ngx-screensize/index';
 import { AuthService } from './auth/_services/auth.service';
 import { AdminModule } from './admin/admin.module';
@@ -88,7 +89,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     NgxScreensizeModule,
     NgbModule.forRoot(),
     ToastrModule.forRoot(),
-    NgPipesModule
+    NgPipesModule,
+    InfiniteScrollModule
   ],
   providers: [
     CategoryResolver,

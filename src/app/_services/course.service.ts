@@ -1,3 +1,4 @@
+import { CourseDoc } from './../_models/document';
 import { AuthService } from './../auth/_services/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -16,7 +17,7 @@ export class CourseService {
       { name: 'Most Liked', value: 'like'}
     ];
   }
-  all(limit?: number, getBy?: string): Observable<Course []> {
+  all(limit?: number, getBy?: string, page?: number): Observable<CourseDoc> {
     let by = 'publishedDate';
     if (getBy) {
       by = getBy;
@@ -25,9 +26,14 @@ export class CourseService {
     if (limit) {
       api_query = api_query + '&limit=' + limit;
     }
+    if (page) {
+      api_query += '&page=' + page;
+    } else {
+      api_query += '&page=1';
+    }
     // console.log(api_query);
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
-    return this._httpClient.get<Course []>(api_query, {headers: headers});
+    return this._httpClient.get<CourseDoc>(api_query, {headers: headers});
   }
 
   add(course: Course) {

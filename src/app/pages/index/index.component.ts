@@ -1,13 +1,16 @@
+import { CourseDoc } from './../../_models/document';
 import { ModalService } from './../../_services/modal.service';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy, HostListener } from '@angular/core';
 import { Category } from '../../_models/category';
 import { CategoryService } from '../../_services/category.service';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Course } from '../../_models/course';
-import { NgxScreensizeModule } from '../../modules/ngx-screensize';
+// import { NgxScreensizeModule } from '../../modules/ngx-screensize';
 import { NgxScreensizeService } from '../../modules/ngx-screensize/_services/ngx-screensize.service';
-import { CoursesComponent } from '../../admin/courses/courses.component';
+// import { CoursesComponent } from '../../admin/courses/courses.component';
 import { CourseService } from '../../_services/course.service';
+
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-index',
@@ -30,6 +33,11 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   displayOptions;
   currentDisplay;
   loading;
+  cs;
+  page = 1;
+  loadingmore = false;
+  totalPages = 0;
+  finished = false;
 
   @HostListener('window:scroll', ['$event'])
   currentPosition() {
@@ -45,7 +53,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     private _route: ActivatedRoute,
     private _modalService: ModalService,
     private _ssService: NgxScreensizeService,
-    private _courseService: CourseService) {
+    private _courseService: CourseService,
+    private _router: Router) {
     }
 
   ngOnInit() {
@@ -59,10 +68,13 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.menuOpenForStyle = false;
     this.displayOptions = this._courseService.options;
     this.loading = false;
+    this.cs = localStorage.getItem('currentDisplay');
     this.sub = this._route.data.subscribe(
       (data: Data) => {
-        if (data.courses) {
-          this.courses = data.courses;
+        if (data.coursedoc) {
+          // console.log(data.coursedoc);
+          this.courses = data.coursedoc.docs;
+          this.totalPages = data.coursedoc.pages;
           setTimeout( () => {
             const screenClass = this._ssService.sizeClass();
             if (screenClass === 'xs' || screenClass === 'sm') {
@@ -82,12 +94,14 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    const cs = localStorage.getItem('currentDisplay');
-      if (cs) {
-        this.currentDisplay = cs;
+    // const cs = localStorage.getItem('currentDisplay');
+    setTimeout(() => {
+      if (this.cs) {
+        this.currentDisplay = this.cs;
       } else {
         this.currentDisplay = 'Latest';
       }
+    }, 0);
   }
 
   ngOnDestroy() {
@@ -119,15 +133,43 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.loading = true;
     localStorage.setItem('currentDisplay', option.name);
     this.currentDisplay = option.name;
+    this.cs = option.value;
+    this.page = 1;
     this.toggleMenu();
-    this._courseService.all(6, option.value).subscribe(
-      (courses: Course []) => {
-        this.courses = courses;
+    this._courseService.all(6, option.value, this.page).subscribe(
+      (coursedoc: CourseDoc) => {
+        this.courses = coursedoc.docs;
         this.loading = false;
       },
       (error) => {
         console.log('Something went wrong!');
         this.loading = false;
+      }
+    );
+  }
+
+  onScroll () {
+    // console.log('scrolled!!');
+    this.loadingmore = true;
+    this.page += 1;
+
+    this._courseService.all(6, this.cs, this.page).subscribe(
+      (newcoursedoc: CourseDoc) => {
+        // console.log(newcoursedoc);
+        for ( const doc of newcoursedoc.docs) {
+          this.courses.push(doc);
+        }
+
+        if (this.page === this.totalPages) {
+          this.finished = true;
+          // console.log('finished.');
+        }
+
+        this.loadingmore = false;
+      },
+      (err) => {
+        this._router.navigate(['/maintenance']);
+      return [];
       }
     );
   }

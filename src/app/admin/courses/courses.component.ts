@@ -1,3 +1,4 @@
+import { CourseDoc } from './../../_models/document';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from './../../_models/course';
@@ -27,8 +28,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this._route.data.subscribe(
       (data: Data) => {
-        if (data.courses) {
-          this.courses = data.courses;
+        if (data.coursedoc) {
+          this.courses = data.coursedoc.docs;
           for (const course of this.courses) {
             course['tags'] = [];
             if (course['keywords']) {
@@ -53,8 +54,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
           (res_course) => {
             this._toastr.success('Success');
             this._courseService.all().subscribe(
-              (courses: Course []) => {
-                this.courses = courses;
+              (coursedoc: CourseDoc) => {
+                this.courses = coursedoc.docs;
               },
               (error) => {
                 this._toastr.error(error);

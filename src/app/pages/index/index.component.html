@@ -108,9 +108,24 @@
             </div>
           </div>
         </div>
-        
+      </div>
+      <div class="more-loader row" [ngClass]="{ 'show': loadingmore }" style="margin-top: 80px;">
+        <div class="zgroup" style="position: relative;margin:auto;"> 
+          <div class="bigSqr">
+            <div class="square first"></div>
+            <div class="square second"></div>
+            <div class="square third"></div>
+            <div class="square fourth"></div>
+          </div>
+        </div>
       </div>
     </div>
+    <div
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="1500"
+        (scrolled)="onScroll()">
+      </div>
   </div>
 </section>
 <!-- 

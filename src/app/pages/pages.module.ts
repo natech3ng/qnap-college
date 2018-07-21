@@ -11,6 +11,7 @@ import { SafePipe } from '../_pipes/safe.pipe';
 import { RunScriptsDirective } from '../_directives/run.scripts.directives';
 import { CourseComponent } from './course/course.component';
 import { MomentModule } from 'ngx-moment';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { MomentModule } from 'ngx-moment';
     NgxPageScrollModule,
     PagesRoutingModule,
     MomentModule,
-    NgPipesModule
+    NgPipesModule,
+    InfiniteScrollModule
   ],
   declarations: [
     PagesComponent,

@@ -91,10 +91,10 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
       // console.log(this.deviceInfo);
-      console.log(this._router.url);
+      // console.log(this._router.url);
       const url = this._router.url;
-      console.log(url.indexOf('/category'));
-      console.log(url === '/');
+      // console.log(url.indexOf('/category'));
+      // console.log(url === '/');
       this.checkBanner(url);
       this._router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
@@ -139,7 +139,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.modalCloseSub = this._modalService.close.subscribe(
       () => {
-        console.log(this.player.getCurrentTime());
+        // console.log(this.player.getCurrentTime());
         localStorage.setItem(this.youtubeRef.toString(), this.cleanTime().toString());
         this.modalOpen = false;
         this.youtubeSrc = '';
@@ -317,7 +317,6 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loadScript(script) {
-    console.log('load: ' + script);
     const body = <HTMLDivElement> document.body;
     const scriptDOM = document.createElement('script');
     scriptDOM.innerHTML = '';

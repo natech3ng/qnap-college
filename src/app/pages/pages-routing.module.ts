@@ -19,7 +19,7 @@ const routes: Routes = [
     children: [
       {
         path: '', component: IndexComponent,
-        resolve: { courses: CoursesResolver, categories: CategoryResolver}
+        resolve: { coursedoc: CoursesResolver, categories: CategoryResolver}
       },
       {
         path: 'category/:name', component: CategoryComponent,

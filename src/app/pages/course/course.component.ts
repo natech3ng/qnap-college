@@ -1,3 +1,4 @@
+import { CourseDoc } from './../../_models/document';
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -20,8 +21,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   keywords;
   constructor(private _route: ActivatedRoute, private _courseService: CourseService, private _router: Router) {
     this._courseService.all(4, 'watched').subscribe(
-      (courses: Course []) => {
-        this.courses = courses;
+      (coursedoc: CourseDoc) => {
+        this.courses = coursedoc.docs;
       },
       (error) => {
         console.log('Something went wrong');
