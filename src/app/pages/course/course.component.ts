@@ -6,6 +6,7 @@ import { Course } from '../../_models/course';
 import { CourseService } from '../../_services/course.service';
 import { NgForm } from '@angular/forms';
 import { AddThisService } from '../../_services/addthis.service';
+import { MetaService } from '@ngx-meta/core';
 
 @Component({
   selector: 'app-course',
@@ -25,7 +26,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     private _route: ActivatedRoute, 
     private _courseService: CourseService, 
     private _router: Router,
-    private _addThis: AddThisService) {
+    private _addThis: AddThisService,
+    private _meta: MetaService) {
     this._courseService.all(4, 'watched').subscribe(
       (coursedoc: CourseDoc) => {
         this.courses = coursedoc.docs;
@@ -49,22 +51,22 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
           this._courseService.quickClicked(this.course);
           this.youtubeSrc = 'https://www.youtube.com/embed/' + this.course.youtube_ref;
           this.course.tags = this.course.keywords.split(',');
+          this._meta.setTitle(`Page for ${this.course.title}`);
+          this._meta.setTag('og:image', `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`);
         }
       });
   }
 
   ngAfterViewInit() {
     window.scrollTo(0, 0);
-    let isLoaded = this.checkForScript();
-
     this.addThisSub = this._addThis.initAddThis('ra-5a0dd7aa711366bd', false).subscribe();
-
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
     this.routeSub.unsubscribe();
     this.addThisSub.unsubscribe();
+    this._meta.removeTag('property="og:type"');
   }
 
   onSubmit(f: NgForm) {
@@ -87,7 +89,6 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    console.log('Pass');
     const profileId = 'ra-5a0dd7aa711366bd';
     const baseUrl = '//s7.addthis.com/js/300/addthis_widget.js';
     const scriptInFooter = true;
@@ -107,10 +108,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     // append SCRIPT element
 
     if(scriptInFooter !== true && typeof document.head === 'object') {
-      console.log('Add in head');
       document.head.appendChild(script);
     } else {
-      console.log('add in body');
       document.body.appendChild(script);
     }
   };

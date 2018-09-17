@@ -30,6 +30,7 @@ import { CatCourseResolver } from './pages/category/cat.course.resolver';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { SearchService } from './_services/search.service';
+import { MetaModule } from '@ngx-meta/core';
 import { SafePipe } from './_pipes/safe.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -91,7 +92,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     NgbModule.forRoot(),
     ToastrModule.forRoot(),
     NgPipesModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    MetaModule.forRoot()
   ],
   providers: [
     CategoryResolver,
