@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Course } from '../../_models/course';
 import { CourseService } from '../../_services/course.service';
 import { NgForm } from '@angular/forms';
+import { AddThisService } from '../../_services/addthis.service';
 
 @Component({
   selector: 'app-course',
@@ -15,11 +16,16 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
 
   sub: Subscription;
   routeSub: Subscription;
+  addThisSub: Subscription;
   course: Course;
   courses: Course [];
   youtubeSrc;
   keywords;
-  constructor(private _route: ActivatedRoute, private _courseService: CourseService, private _router: Router) {
+  constructor(
+    private _route: ActivatedRoute, 
+    private _courseService: CourseService, 
+    private _router: Router,
+    private _addThis: AddThisService) {
     this._courseService.all(4, 'watched').subscribe(
       (coursedoc: CourseDoc) => {
         this.courses = coursedoc.docs;
@@ -49,15 +55,63 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit() {
     window.scrollTo(0, 0);
+    let isLoaded = this.checkForScript();
+
+    this.addThisSub = this._addThis.initAddThis('ra-5a0dd7aa711366bd', false).subscribe();
+
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
     this.routeSub.unsubscribe();
+    this.addThisSub.unsubscribe();
   }
 
   onSubmit(f: NgForm) {
     this._router.navigate(['/search', f.value.keywords]);
   }
 
-}
+  checkForScript() {
+    let scriptOnPage = false;
+    const selector = 'script[src*="addthis_widget.js"]';
+    const matches = document.querySelectorAll(selector);
+    if(matches.length > 0) {
+        scriptOnPage = true;
+    }
+    return scriptOnPage;
+  }
+
+  addScript() {
+    // if script is already on page, do nothing
+    if (this.checkForScript()) {
+      return;
+    }
+
+    console.log('Pass');
+    const profileId = 'ra-5a0dd7aa711366bd';
+    const baseUrl = '//s7.addthis.com/js/300/addthis_widget.js';
+    const scriptInFooter = true;
+    var url;
+
+    if(profileId) {
+        // preference the site's profile ID in the URL, if available
+        url = baseUrl + '#pubid=' + profileId;
+    } else {
+        url = baseUrl;
+    }
+
+    // create SCRIPT element
+    let script = document.createElement('script');
+    script.src = url;
+
+    // append SCRIPT element
+
+    if(scriptInFooter !== true && typeof document.head === 'object') {
+      console.log('Add in head');
+      document.head.appendChild(script);
+    } else {
+      console.log('add in body');
+      document.body.appendChild(script);
+    }
+  };
+};

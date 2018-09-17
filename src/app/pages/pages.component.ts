@@ -14,6 +14,7 @@ import reframe from 'reframe.js';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { NgxScreensizeService } from '../modules/ngx-screensize/_services/ngx-screensize.service';
 import { HttpClient } from '@angular/common/http';
+import { AddThisService } from '../_services/addthis.service';
 
 @Component({
   selector: 'app-pages',
@@ -48,6 +49,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   _headerHTML = '';
   _footerHTML = '';
+  private addThisSub: Subscription;
   // keep refs to subscriptions to be able to unsubscribe later
   private popupOpenSubscription: Subscription;
   private popupCloseSubscription: Subscription;
@@ -87,14 +89,12 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _deviceService: DeviceDetectorService,
     private _ssService: NgxScreensizeService,
     private _httpClient: HttpClient,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer,
+    private _addThis: AddThisService) {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
       // console.log(this.deviceInfo);
-      // console.log(this._router.url);
       const url = this._router.url;
-      // console.log(url.indexOf('/category'));
-      // console.log(url === '/');
       this.checkBanner(url);
       this._router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
@@ -230,7 +230,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     // console.log(this.el.nativeElement.offsetHeight);
     setTimeout(() => { this.loading = false; }, 0);
-
+    this.addThisSub = this._addThis.initAddThis('ra-5a0dd7aa711366bd', false).subscribe();
     // this._httpClient.get('https://www.qnap.com/i/_aid/header.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
     //   (data) => {
     //     setTimeout(() => {
@@ -240,7 +240,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     //   (error) => {
     //   }
     // );
-    this.loadScript('//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a0dd7aa711366bd');
+    // this.loadScript('//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a0dd7aa711366bd');
     this._httpClient.get('https://www.qnap.com/i/_aid/footer.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
       (data) => {
         this._footerHTML = data;
@@ -261,6 +261,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.initializeSubscription.unsubscribe();
     this.statusChangeSubscription.unsubscribe();
     this.revokeChoiceSubscription.unsubscribe();
+    this.addThisSub.unsubscribe();
   }
 
   onSubmit(f: NgForm) {

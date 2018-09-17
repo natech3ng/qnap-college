@@ -36,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmService } from './_services/confirm.service';
 import { CourseResolver } from './pages/course/course.resolver';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
+import { AddThisService } from './_services/addthis.service';
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -95,6 +96,7 @@ const cookieConfig: NgcCookieConsentConfig = {
   providers: [
     CategoryResolver,
     CategoryService,
+    AddThisService,
     CourseService,
     CoursesResolver,
     CatCourseResolver,
