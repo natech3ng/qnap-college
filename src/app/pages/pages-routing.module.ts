@@ -11,7 +11,7 @@ import { CategoryResolver } from './index/category.resolver';
 import { CourseComponent } from './course/course.component';
 import { CourseResolver } from './course/course.resolver';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
-
+import { MetaGuard } from '@ngx-meta/core';
 const routes: Routes = [
   {
     path: '',
@@ -31,7 +31,13 @@ const routes: Routes = [
       },
       {
         path: 'course/:id', component: CourseComponent,
-        resolve: { course: CourseResolver }
+        resolve: { course: CourseResolver },
+        data: {
+          meta: {
+            title: 'Course',
+            description: 'Course, course, course, and course....'
+          }
+        }
       }
     ]
   }

@@ -8,13 +8,13 @@ import { ModalService } from './_services/modal.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 import { NgPipesModule } from 'ngx-pipes';
 import { MomentModule } from 'ngx-moment';
-import { NgxPageScrollModule } from 'ngx-page-scroll';
+// import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NgcCookieConsentModule, NgcCookieConsentConfig } from 'ngx-cookieconsent';
-import { ResponsiveModule } from 'ngx-responsive';
+// import { ResponsiveModule } from 'ngx-responsive';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
@@ -30,11 +30,11 @@ import { CatCourseResolver } from './pages/category/cat.course.resolver';
 import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { SearchService } from './_services/search.service';
-import { MetaModule } from '@ngx-meta/core';
-import { SafePipe } from './_pipes/safe.pipe';
+import { MetaModule, MetaStaticLoader, PageTitlePositioning, MetaLoader } from '@ngx-meta/core';
+// import { SafePipe } from './_pipes/safe.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfirmService } from './_services/confirm.service';
+// import { ConfirmService } from './_services/confirm.service';
 import { CourseResolver } from './pages/course/course.resolver';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { AddThisService } from './_services/addthis.service';
@@ -68,6 +68,22 @@ const cookieConfig: NgcCookieConsentConfig = {
   }
 };
 
+export function metaFactory(): MetaLoader {
+  return new MetaStaticLoader({
+    pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
+    pageTitleSeparator: ' - ',
+    applicationName: 'Tour of (lazy/busy) heroes',
+    defaults: {
+      title: 'Mighty mighty mouse',
+      description: 'Mighty Mouse is an animated superhero mouse character',
+      'og:image': 'https://upload.wikimedia.org/wikipedia/commons/f/f8/superraton.jpg',
+      'og:type': 'website',
+      'og:locale': 'en_US',
+      'og:locale:alternate': 'en_US,nl_NL,tr_TR'
+    }
+  });
+}
+
 
 @NgModule({
   declarations: [
@@ -95,7 +111,10 @@ const cookieConfig: NgcCookieConsentConfig = {
     ToastrModule.forRoot(),
     NgPipesModule,
     InfiniteScrollModule,
-    MetaModule.forRoot(),
+    MetaModule.forRoot({
+      provide: MetaLoader,
+      useFactory: (metaFactory)
+    }),
     FacebookModule.forRoot()
   ],
   providers: [

@@ -65,7 +65,6 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
           this.course.tags = this.course.keywords.split(',');
           this._meta.setTitle(`${this.course.title}`);
           this._meta.setTag('og:image', `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`);
-
           let params: UIParams = {
             method: 'share_open_graph',
             action_type: 'og.shares',
@@ -77,13 +76,23 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
                 'og:description': `${this.course.desc}`,
                 'og:image': `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`,//
                 'og:image:width':'250',//size of image in pixel
-                'og:image:height':'257'
+                'og:image:height':'257',
+                'og:image:type': 'image/jpeg'
               }
             })
           }
+          console.log(params);
           this._fb.ui(params)
-            .then((res: UIResponse) => console.log(res))
-            .catch((e: any) => console.error(e));;
+            .then((res: UIResponse) => 
+            {
+              console.log("dadedadeada");
+              console.log(res)
+            })
+            .catch((e: any) => 
+            {
+              console.log("dadeada");
+              console.error(e)
+            });;
         }
       });
   }
