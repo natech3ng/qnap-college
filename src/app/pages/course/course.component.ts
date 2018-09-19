@@ -28,7 +28,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     private _courseService: CourseService, 
     private _router: Router,
     private _addThis: AddThisService,
-    private _meta: MetaService,
+    private readonly _meta: MetaService,
     private _fb: FacebookService) {
 
 
@@ -53,6 +53,13 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+
+    this._meta.setTitle('Course Course Course');
+    this._meta.setTag('og:image', '//img.youtube.com/vi/tcGIYGr4guA/sddefault.jpg');
+    this._meta.setTag('og:type', 'video.other');
+    this._meta.setTag('og:description', 'Course description');
+    this._meta.setTag('og:url', 'https://college.qnap.com/course/5b5105d1e449ca649bbc1675');
+
     this.sub = this._route.params.subscribe(params => {
     });
 
@@ -63,36 +70,36 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
           this._courseService.quickClicked(this.course);
           this.youtubeSrc = 'https://www.youtube.com/embed/' + this.course.youtube_ref;
           this.course.tags = this.course.keywords.split(',');
-          this._meta.setTitle(`${this.course.title}`);
-          this._meta.setTag('og:image', `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`);
-          let params: UIParams = {
-            method: 'share_open_graph',
-            action_type: 'og.shares',
-            action_properties: JSON.stringify({
-              object : {
-                'og:url': `//college.qnap.com/course/${this.course._id}`, // your url to share
-                'og:title': `${this.course.title}`,
-                'og:site_name': 'QNAP College',
-                'og:description': `${this.course.desc}`,
-                'og:image': `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`,//
-                'og:image:width':'250',//size of image in pixel
-                'og:image:height':'257',
-                'og:image:type': 'image/jpeg'
-              }
-            })
-          }
-          console.log(params);
-          this._fb.ui(params)
-            .then((res: UIResponse) => 
-            {
-              console.log("dadedadeada");
-              console.log(res)
-            })
-            .catch((e: any) => 
-            {
-              console.log("dadeada");
-              console.error(e)
-            });;
+          // this._meta.setTitle(`${this.course.title}`);
+          // this._meta.setTag('og:image', `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`);
+          // let params: UIParams = {
+          //   method: 'share_open_graph',
+          //   action_type: 'og.shares',
+          //   action_properties: JSON.stringify({
+          //     object : {
+          //       'og:url': `//college.qnap.com/course/${this.course._id}`, // your url to share
+          //       'og:title': `${this.course.title}`,
+          //       'og:site_name': 'QNAP College',
+          //       'og:description': `${this.course.desc}`,
+          //       'og:image': `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`,//
+          //       'og:image:width':'250',//size of image in pixel
+          //       'og:image:height':'257',
+          //       'og:image:type': 'image/jpeg'
+          //     }
+          //   })
+          // }
+          // console.log(params);
+          // this._fb.ui(params)
+          //   .then((res: UIResponse) => 
+          //   {
+          //     console.log("dadedadeada");
+          //     console.log(res)
+          //   })
+          //   .catch((e: any) => 
+          //   {
+          //     console.log("dadeada");
+          //     console.error(e)
+          //   });;
         }
       });
   }

@@ -95,7 +95,7 @@ export function metaFactory(): MetaLoader {
     MaintenanceComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: 'qnap-college' }),
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,

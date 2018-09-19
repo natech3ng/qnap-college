@@ -35,7 +35,8 @@ const routes: Routes = [
         data: {
           meta: {
             title: 'Course',
-            description: 'Course, course, course, and course....'
+            description: 'Course, course, course, and course....',
+            overrider: true
           }
         }
       }
