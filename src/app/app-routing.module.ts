@@ -19,9 +19,8 @@ import { MaintenanceComponent } from './pages/maintenance/maintenance.component'
 
 const routes: Routes = [
   {
-    path: '', 
-    canActivateChild: [MetaGuard],
-    loadChildren: './pages/pages.module#PagesModule',
+    path: '', component: PagesComponent
+    // loadChildren: './pages/pages.module#PagesModule',
   },
   {
     path: 'login', loadChildren: './auth/auth.module#AuthModule'
