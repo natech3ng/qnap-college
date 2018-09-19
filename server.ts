@@ -7,7 +7,7 @@ import { enableProdMode } from '@angular/core';
 
 import * as express from 'express';
 import { join } from 'path';
-
+require('dotenv').config();
 
 const domino = require('domino');
 const fs = require('fs');
@@ -19,7 +19,7 @@ enableProdMode();
 // Express server
 const app = express();
 
-const PORT = process.env.PORT || 9090;
+const PORT = process.env.PORT || 9000;
 const DIST_FOLDER = path.join(process.cwd(), 'dist');
 const template = fs.readFileSync(path.join(DIST_FOLDER, 'browser', 'index.html')).toString();
 const win = domino.createWindow(template);
