@@ -38,6 +38,8 @@ import { ConfirmService } from './_services/confirm.service';
 import { CourseResolver } from './pages/course/course.resolver';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { AddThisService } from './_services/addthis.service';
+import { FacebookModule } from 'ngx-facebook';
+
 
 const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
@@ -93,7 +95,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     ToastrModule.forRoot(),
     NgPipesModule,
     InfiniteScrollModule,
-    MetaModule.forRoot()
+    MetaModule.forRoot(),
+    FacebookModule.forRoot()
   ],
   providers: [
     CategoryResolver,

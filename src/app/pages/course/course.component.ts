@@ -7,6 +7,7 @@ import { CourseService } from '../../_services/course.service';
 import { NgForm } from '@angular/forms';
 import { AddThisService } from '../../_services/addthis.service';
 import { MetaService } from '@ngx-meta/core';
+import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
 
 @Component({
   selector: 'app-course',
@@ -27,7 +28,18 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     private _courseService: CourseService, 
     private _router: Router,
     private _addThis: AddThisService,
-    private _meta: MetaService) {
+    private _meta: MetaService,
+    private _fb: FacebookService) {
+
+
+    let initParams: InitParams = {
+      appId: '482418502252290',
+      xfbml: true,
+      version: 'v3.1'
+    };
+
+    this._fb.init(initParams);
+    
     this._courseService.all(4, 'watched').subscribe(
       (coursedoc: CourseDoc) => {
         this.courses = coursedoc.docs;
@@ -51,8 +63,27 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
           this._courseService.quickClicked(this.course);
           this.youtubeSrc = 'https://www.youtube.com/embed/' + this.course.youtube_ref;
           this.course.tags = this.course.keywords.split(',');
-          this._meta.setTitle(`Page for ${this.course.title}`);
+          this._meta.setTitle(`${this.course.title}`);
           this._meta.setTag('og:image', `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`);
+
+          let params: UIParams = {
+            method: 'share_open_graph',
+            action_type: 'og.shares',
+            action_properties: JSON.stringify({
+              object : {
+                'og:url': `//college.qnap.com/course/${this.course._id}`, // your url to share
+                'og:title': `${this.course.title}`,
+                'og:site_name': 'QNAP College',
+                'og:description': `${this.course.desc}`,
+                'og:image': `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`,//
+                'og:image:width':'250',//size of image in pixel
+                'og:image:height':'257'
+              }
+            })
+          }
+          this._fb.ui(params)
+            .then((res: UIResponse) => console.log(res))
+            .catch((e: any) => console.error(e));;
         }
       });
   }
