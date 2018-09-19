@@ -1,3 +1,4 @@
+import { MetaService } from '@ngx-meta/core';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MaintenanceComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly _meta: MetaService
+  ) { }
 
   ngOnInit() {
+    this._meta.setTag('og:title', 'The page is under maintenance');
   }
 
 }
