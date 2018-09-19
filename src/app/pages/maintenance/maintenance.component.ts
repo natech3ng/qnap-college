@@ -13,7 +13,7 @@ export class MaintenanceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._meta.setTag('og:title', 'The page is under maintenance');
+    // this._meta.setTag('og:title', 'The page is under maintenance');
   }
 
 }
