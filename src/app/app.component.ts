@@ -12,7 +12,7 @@ import { NgxScreensizeService } from './modules/ngx-screensize/_services/ngx-scr
 })
 
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  loaded = false;
   constructor(private _ssService: NgxScreensizeService, private router: Router, private readonly _meta: MetaService) {
     this._meta.setTag('og:title', 'This is the home page of QNAP College');
     this.router.events.subscribe(event => {
@@ -25,6 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {}
 
   ngAfterViewInit() {
+    this.loaded = true;
   }
 
   ngOnDestroy() {}

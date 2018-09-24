@@ -1025,3 +1025,14 @@ span.cc-message > a {
 lib-calendar {
   min-width: 540px;
 }
+
+.loading {
+  app-maintenance {
+    display: none;
+  }
+}
+.loaded {
+  app-maintenance {
+    display: block;
+  }
+}
