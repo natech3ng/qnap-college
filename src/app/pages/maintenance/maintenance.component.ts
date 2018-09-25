@@ -17,9 +17,6 @@ export class MaintenanceComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.loaded = true;
-    }, 3000);
   }
 
 }
