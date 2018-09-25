@@ -65,6 +65,11 @@ app.get('*', (req, res) => {
   res.render('index', { req });
 });
 
+app.use(function(req, res, next) {
+  res.status(404);
+  res.send('404: File Not Found');
+});
+
 // Start up the Node server
 app.listen(PORT, () => {
   console.log(`Node server listening on http://localhost:${PORT}`);
