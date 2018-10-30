@@ -5,7 +5,7 @@ import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ReCaptchaV3Service, ReCaptcha2Component } from 'ngx-captcha';
-import { environment } from '../../environments/environment.dev';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-auth',
