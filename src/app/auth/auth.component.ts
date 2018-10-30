@@ -1,9 +1,11 @@
 import { User } from './_models/user.model';
 import { AuthResponse } from './../_models/authresponse';
 import { AuthService } from './_services/auth.service';
-import { NgForm } from '@angular/forms';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ReCaptchaV3Service, ReCaptcha2Component } from 'ngx-captcha';
+import { environment } from '../../environments/environment.dev';
 
 @Component({
   selector: 'app-auth',
@@ -16,11 +18,30 @@ export class AuthComponent implements OnInit, OnDestroy {
   signin: boolean;
   loginError = false;
   loginErrorMsg: '';
+  public readonly siteKey = environment.recapctchaSitekey;
+
+  public captchaIsLoaded = false;
+  public captchaSuccess = false;
+  public captchaIsExpired = false;
+  public captchaResponse?: string;
+
+  public theme: 'light' | 'dark' = 'light';
+  public size: 'compact' | 'normal' = 'normal';
+  public lang = 'en';
+  public type: 'image' | 'audio';
+  public badge: 'bottomright' | 'bottomleft' | 'inline' = 'bottomleft';
+
+  protected aFormGroup: FormGroup;
+
+  @ViewChild('captchaElem') captchaElem: ReCaptcha2Component;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _authService: AuthService) {
+    private _authService: AuthService,
+    private reCaptchaV3Service: ReCaptchaV3Service,
+    private cdr: ChangeDetectorRef,
+    private formBuilder: FormBuilder) {
       // console.log(this._route.snapshot.url[0].path);
       this._route.url.subscribe(
         (url) => {
@@ -32,6 +53,9 @@ export class AuthComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.signing = false;
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/admin';
+    this.aFormGroup = this.formBuilder.group({
+      recaptcha: ['', Validators.required]
+    });
   }
 
   ngOnDestroy() {
@@ -51,5 +75,24 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.loginErrorMsg = error.error.message;
       }
     );
+  }
+
+  handleSuccess(captchaResponse: string): void {
+    this.captchaSuccess = true;
+    this.captchaResponse = captchaResponse;
+    this.captchaIsExpired = false;
+    this.cdr.detectChanges();
+  }
+
+  handleLoad(): void {
+    this.captchaIsLoaded = true;
+    this.captchaIsExpired = false;
+    this.cdr.detectChanges();
+  }
+
+  handleExpire(): void {
+    this.captchaSuccess = false;
+    this.captchaIsExpired = true;
+    this.cdr.detectChanges();
   }
 }

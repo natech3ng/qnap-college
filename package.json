@@ -56,6 +56,7 @@
     "moment-duration-format": "^2.2.2",
     "morgan": "^1.9.0",
     "ng-bootstrap": "^1.6.3",
+    "ngx-captcha": "^6.0.0",
     "ngx-chips": "^1.9.2",
     "ngx-cookieconsent": "^1.0.1",
     "ngx-device-detector": "^1.2.2",

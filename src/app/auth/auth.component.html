@@ -15,6 +15,18 @@
 				<div class="login-error" *ngIf='loginError'>{{loginErrorMsg}}</div>
 				<input type="text" placeholder="Email" ngModel name="email">
 				<input type="password" placeholder="Password" ngModel name="password">
+
+				<ngx-invisible-recaptcha #captchaElem
+					[siteKey]="siteKey"
+					(ready)="handleReady()"
+					(load)="handleLoad()"
+					(success)="handleSuccess($event)"
+					[type]="type"
+					[badge]="badge"
+					[ngModel]="recaptcha"
+					[ngModelOptions]="{ standalone: true }">
+        </ngx-invisible-recaptcha>
+				
 				<button type="submit" id="login-button">Login</button>
 			</form>
 			<form class="form register-form" *ngIf="!signin" #f='ngForm'>

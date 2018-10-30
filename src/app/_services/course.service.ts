@@ -46,8 +46,11 @@ export class CourseService {
     return this._httpClient.put(api_query, course, this._authService.jwtHttpClient());
   }
 
-  allByCategory(category: String): Observable<Course []> {
+  allByCategory(category: String, orderBy?: String): Observable<Course []> {
     const api_query = this.apiRoot + 'category/' + category + '/courses';
+    if(orderBy){
+      
+    }
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this._httpClient.get<Course []>(api_query, {headers: headers});
   }
