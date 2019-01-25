@@ -8,7 +8,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { VerificationComponent } from './verification/verification.component';
 import { VerificationSuccessComponent } from './verification/success.component';
-import { VerificationFailedComponent } from './verification/failure.component';
+import { VerificationFailedComponent } from './verification/failure.component/failure.component';
 
 @NgModule({
   imports: [
