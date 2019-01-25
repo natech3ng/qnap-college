@@ -16,6 +16,7 @@ import { SearchResolver } from './pages/search/search.resolver';
 import { CourseComponent } from './pages/course/course.component';
 import { CoursesResolver } from './pages/index/courses.resolver';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
+import { VerificationComponent } from './auth/verification/verification.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,9 @@ const routes: Routes = [
   },
   {
     path: 'maintenance', component: MaintenanceComponent
+  },
+  {
+    path: 'user/verification/:id', component: VerificationComponent
   },
   {
     path: '**', component: NotFoundComponent

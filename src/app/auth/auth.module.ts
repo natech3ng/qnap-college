@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 
 import { AuthComponent } from './auth.component';
+import { VerificationComponent } from './verification/verification.component';
+import { VerificationSuccessComponent } from './verification/success.component';
+import { VerificationFailedComponent } from './verification/failure.component';
 
 @NgModule({
   imports: [
@@ -16,10 +19,17 @@ import { AuthComponent } from './auth.component';
     NgxCaptchaModule
   ],
   declarations: [
-    AuthComponent
+    AuthComponent,
+    VerificationComponent,
+    VerificationSuccessComponent,
+    VerificationFailedComponent
   ],
   providers: [
     AuthGuard
+  ],
+  entryComponents: [
+    VerificationSuccessComponent,
+    VerificationFailedComponent
   ]
 })
 export class AuthModule { }

@@ -126,9 +126,9 @@ export class AuthService {
     this._loggedIn = value;
   }
 
-  verifyEmail(cid: string, uid: string): Observable<{success: boolean, message: string}> {
+  verifyEmail(uid: string, token: string): Observable<{success: boolean, message: string}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<{success: boolean, message: string}>('/api/confirmation/' + cid + '?uid=' + uid, {}, { headers: headers });
+    return this.httpClient.post<{success: boolean, message: string}>(`${this.apiRoot}user/verification/${uid}?token=${token}`, {}, { headers: headers });
   }
 
   jwtHttpClient() {
