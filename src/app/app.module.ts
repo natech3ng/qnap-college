@@ -39,6 +39,8 @@ import { CourseResolver } from './pages/course/course.resolver';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { AddThisService } from './_services/addthis.service';
 import { FacebookModule } from 'ngx-facebook';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 
 const cookieConfig: NgcCookieConsentConfig = {
@@ -115,7 +117,9 @@ export function metaFactory(): MetaLoader {
       provide: MetaLoader,
       useFactory: (metaFactory)
     }),
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+    ReactiveFormsModule,
+    NgxCaptchaModule
   ],
   providers: [
     CategoryResolver,
