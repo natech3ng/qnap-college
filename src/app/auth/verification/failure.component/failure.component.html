@@ -1,2 +1,8 @@
-<div class="panel" *ngIf="token_in_valid; else elseBlock">Token is in valid: need to resend</div>
-<ng-template #elseBlock>User doesn't not exist</ng-template>
+<div class="panel" *ngIf="token_in_valid; else elseBlock">Token is in valid: <a style="cursor: pointer" (click)="resend()">resend the validation link</a></div>
+<ng-template #elseBlock>
+  <div class="alert-box">
+    <div class="alert-danger">
+      User doesn't not exist
+    </div>
+  </div>
+</ng-template>

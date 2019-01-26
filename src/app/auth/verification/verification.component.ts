@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 
-import { environment } from '../../../environments/environment.dev';
-import { VerificationSuccessComponent } from './success.component';
+// import { environment } from '../../../environments/environment.dev';
+import { VerificationSuccessComponent } from './success.component/success.component';
 import { VerificationFailedComponent } from './failure.component/failure.component';
 import { AuthService } from '../_services/auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -44,16 +44,16 @@ export class VerificationComponent implements OnInit, AfterViewInit, OnDestroy {
         // this._router.navigate([this.returnUrl]);
         console.log(res);
         if (res.success) {
-          setTimeout( () => { this.loadComponent(VerificationSuccessComponent);}, 0);
+          setTimeout( () => { this.loadComponent(VerificationSuccessComponent, res.code, {token: this.token, uid: this.uid});}, 0);
         }
       },
       (res: any) => {
         const error = res.error;
         if (!error.success) {
-          setTimeout( () => { this.loadComponent(VerificationFailedComponent, error.error_code);}, 0);
+          setTimeout( () => { this.loadComponent(VerificationFailedComponent, error.error_code, {token: this.token, uid: this.uid});}, 0);
         } 
         else {
-          setTimeout( () => { this.loadComponent(VerificationFailedComponent, ResponseCode.GENERAL_ERROR);}, 0);
+          setTimeout( () => { this.loadComponent(VerificationFailedComponent, ResponseCode.GENERAL_ERROR, {token: this.token, uid: this.uid});}, 0);
         }
       }
     );
@@ -64,7 +64,7 @@ export class VerificationComponent implements OnInit, AfterViewInit, OnDestroy {
     this.querySub.unsubscribe();
   }
 
-  loadComponent(component: any, error_code?: number) {
+  loadComponent(component: any, code?: number, payload?: any) {
     const factory = this.componentFactoryResolver.resolveComponentFactory(component);
     this.container.clear();
     let el : HTMLElement = this.container.element.nativeElement;
@@ -72,9 +72,10 @@ export class VerificationComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const ref: any = this.container.createComponent(factory, 0);
     ref.instance.message = "";
+    ref.instance.payload = payload;
 
-    if(error_code) {
-      ref.instance.type = error_code;
+    if(code) {
+      ref.instance.type = code;
     }
 
     ref.changeDetectorRef.detectChanges();

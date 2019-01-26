@@ -1034,3 +1034,18 @@ app-maintenance {
     display: block;
   }
 }
+
+.alert-danger {
+  width: 50%;
+  margin: 10% auto;
+  padding: .85rem 1.5rem;
+  border-radius: 4px;
+  background: #fff;
+  color: #fff;
+  background-color: #f66e84;
+  border-color: #f55f78;
+  
+  a {
+    text-decoration: underline !important;
+  }
+}
