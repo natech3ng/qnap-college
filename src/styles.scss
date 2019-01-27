@@ -1034,3 +1034,57 @@ app-maintenance {
     display: block;
   }
 }
+
+.alert {
+  width: 50%;
+  margin: 10% auto;
+  padding: .85rem 1.5rem;
+  border-radius: 4px;
+  background: #fff;
+}
+.alert-danger {
+  
+  color: #fff;
+  background-color: #f66e84;
+  border-color: #f55f78;
+  
+  a {
+    text-decoration: underline !important;
+  }
+}
+
+.alert-success {
+  color: #f6fcfb;
+  background-color: #45ccb1;
+  border-color: #39c9ac;
+}
+
+.alert-info {
+  color: #fff;
+  background-color: #53b0f8;
+  border-color: #45aaf8;
+}
+
+.alert-warning {
+  color: #fff;
+  background-color: #ffc241;
+  border-color: #ffbd31;
+}
+
+.alert-brand {
+  color: #fff;
+  background-color: #8781d2;
+  border-color: #7c75ce;
+}
+
+.alert-primary {
+  color: #fff;
+  background-color: #717ee2;
+  border-color: #6573e0;
+}
+
+button.create-password:disabled {
+  background-color: #eee !important;
+  color: #c9e6f2 !important;
+  cursor: text !important;
+}

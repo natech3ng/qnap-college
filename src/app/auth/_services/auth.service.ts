@@ -57,6 +57,12 @@ export class AuthService {
       return Observable.of(err.error);
     });
   }
+  tmpVerify(token): Observable<AuthResponse | AuthResponseError> {
+    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-tmp-state?token=' + token, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+      // console.error('An error occurred:', err.error);
+      return Observable.of(err.error);
+    });
+  }
 
   changePassword(email: string, oldPassword: string, password: string): Observable<AuthResponse | AuthResponseError> {
     const body = JSON.stringify({ email: email, password: password, oldPassword: oldPassword });
@@ -130,6 +136,18 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<{success: boolean, message: string}>(`${this.apiRoot}user/verification/${uid}?token=${token}`, {}, { headers: headers });
   }
+
+  resendVerification(uid: string): Observable<{success: boolean, message: string}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<{success: boolean, message: string}>(`${this.apiRoot}user/resend_verification/${uid}`, {}, { headers: headers });
+  }
+
+  createPassword(uid:string, token: string, password: string): Observable<{success: boolean, message: string}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = JSON.stringify({password: password});
+    return this.httpClient.post<{success: boolean, message: string}>(`${this.apiRoot}user/create_password/${uid}?token=${token}`, body, { headers: headers });
+  }
+
 
   jwtHttpClient() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));

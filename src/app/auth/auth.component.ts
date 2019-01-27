@@ -64,9 +64,9 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   onSignin(f: NgForm) {
     this.signing = true;
-    this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
-      console.log('This is your token: ', token);
-    });
+    // this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
+    //   console.log('This is your token: ', token);
+    // });
     this._authService.login(f.value.email, f.value.password).subscribe(
       (user: User) => {
         // console.log(user);
@@ -97,5 +97,8 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.captchaSuccess = false;
     this.captchaIsExpired = true;
     this.cdr.detectChanges();
+  }
+  handleReady():void {
+    console.log('handle ready');
   }
 }

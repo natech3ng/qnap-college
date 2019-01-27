@@ -21,6 +21,9 @@
                   <th class="m-datatable-cell m-datatable-cell-name">
                     <span>Name</span>
                   </th>
+                  <th class="m-datatable-cell m-datatable-cell-name">
+                    <span>Verified?</span>
+                  </th>
                   <th class="m-datatable-cell m-datatable-cell-action">
                     <span>&nbsp;</span>
                   </th>
@@ -38,12 +41,13 @@
                     </span>
                   </td>
                   <td class="m-datatable-cell m-datatable-cell-email" data-field="type">
-                    <span>
-                      <span> {{user.email}} </span>
-                    </span>
+                    <span> {{user.email}} </span>
                   </td>
                   <td class="m-datatable-cell m-datatable-cell-name">
                     <span>{{user.name}}</span>
+                  </td>
+                  <td class="m-datatable-cell m-datatable-cell-name">
+                    <span>{{ user.isVerified === true ? 'Yes': 'No'}}</span>
                   </td>
                   <td class="m-datatable-cell m-datatable-cell-action">
                     <span>

@@ -7,8 +7,9 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 import { AuthComponent } from './auth.component';
 import { VerificationComponent } from './verification/verification.component';
-import { VerificationSuccessComponent } from './verification/success.component';
-import { VerificationFailedComponent } from './verification/failure.component';
+import { VerificationSuccessComponent } from './verification/success.component/success.component';
+import { VerificationFailedComponent } from './verification/failure.component/failure.component';
+import { CreatePasswordComponent } from './create.password/create.password.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { VerificationFailedComponent } from './verification/failure.component';
     AuthComponent,
     VerificationComponent,
     VerificationSuccessComponent,
-    VerificationFailedComponent
+    VerificationFailedComponent,
+    CreatePasswordComponent
   ],
   providers: [
     AuthGuard

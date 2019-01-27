@@ -1,13 +1,13 @@
 
 export class User {
-  id: number;
+  _id: string;
   email: string;
   password: string;
   token: string;
   name: string;
 
-  constructor() {
-    this.email = '';
-    this.name = '';
+  constructor(email?: string, name?: string) {
+    this.email = email ? email: '';
+    this.name = name ? name: '';
   }
 }
