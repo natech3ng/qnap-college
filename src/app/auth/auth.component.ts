@@ -67,6 +67,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     // this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
     //   console.log('This is your token: ', token);
     // });
+
     this._authService.login(f.value.email, f.value.password).subscribe(
       (user: User) => {
         // console.log(user);

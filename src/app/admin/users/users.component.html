@@ -21,8 +21,11 @@
                   <th class="m-datatable-cell m-datatable-cell-name">
                     <span>Name</span>
                   </th>
-                  <th class="m-datatable-cell m-datatable-cell-name">
+                  <th class="m-datatable-cell m-datatable-cell-verified">
                     <span>Verified?</span>
+                  </th>
+                  <th class="m-datatable-cell m-datatable-cell-role">
+                    <span>Role</span>
                   </th>
                   <th class="m-datatable-cell m-datatable-cell-action">
                     <span>&nbsp;</span>
@@ -46,8 +49,11 @@
                   <td class="m-datatable-cell m-datatable-cell-name">
                     <span>{{user.name}}</span>
                   </td>
-                  <td class="m-datatable-cell m-datatable-cell-name">
+                  <td class="m-datatable-cell m-datatable-cell-verified">
                     <span>{{ user.isVerified === true ? 'Yes': 'No'}}</span>
+                  </td>
+                  <td class="m-datatable-cell m-datatable-cell-role">
+                    <span class='tag tag-wide tag-{{user.role | slugify}}'>{{ user.role | ucfirst }}</span>
                   </td>
                   <td class="m-datatable-cell m-datatable-cell-action">
                     <span>

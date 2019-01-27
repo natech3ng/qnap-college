@@ -721,8 +721,9 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
 .add-course-icon {
   float: right;
   padding-right: 30px;
-}
+} 
 
+/*  Datatable */
 .m-datatable {
   display: block;
  
@@ -808,6 +809,12 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
       &.m-datatable-cell-name {
         width: 250px;
       }
+      &.m-datatable-cell-verified {
+        width: 100px;
+      }
+      &.m-datatable-cell-role {
+        width: 150px;
+      }
       &.m-datatable-cell-action {
         width: 50px;
       }
@@ -874,6 +881,85 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
     }
   }
 }
+
+.dataTables_wrapper {
+  .dataTables_pager .dataTables_length+.dataTables_paginate {
+    margin-left: 1rem;
+  }
+
+  .dataTables_pager .dataTables_paginate {
+    display: inline-block;
+    margin: 20px 0;
+    ul {
+      &.pagination {
+        margin: 2px 0;
+        white-space: nowrap;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+
+        li.page-item {
+          margin-left: 0.4rem;
+
+          &.disabled >.page-link, 
+          &.disabled:hover >.page-link {
+            opacity: .6;
+          }
+
+          &.previous>.page-link, 
+          &.next>.page-link, 
+          &.last>.page-link, 
+          &.first>.page-link {
+            background: #ebe9f2;
+          }
+        
+          & > .page-link {
+            color: #898b96;
+            border: 0;
+            border-radius: 10%;
+            cursor: pointer;
+            display: inline-block;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -moz-justify-content: center;
+            -ms-justify-content: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            text-align: center;
+            vertical-align: middle;
+            height: 2.25rem;
+            min-width: 2.25rem;
+            vertical-align: middle;
+            padding: 0.5rem;
+            text-align: center;
+            position: relative;
+            font-size: 1rem;
+            line-height: 1rem;
+            font-weight: 400;
+          }
+          &.active>.page-link {
+            background: #716aca;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+  div.dataTables_paginate {
+    margin: 0;
+    white-space: nowrap;
+    text-align: right;
+  }
+}
+
+/* End of Datatable */
 
 .cc-banner .cc-btn:last-child {
   min-width: 100px;

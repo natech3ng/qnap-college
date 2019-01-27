@@ -18,6 +18,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   app = 'Courses';
   courses: Course [] = [];
   sub: Subscription;
+  page: number = 1;
+  pages: number = 1;
+
   constructor(
     private _route: ActivatedRoute,
     private _confirmService: ConfirmService,
@@ -28,8 +31,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this._route.data.subscribe(
       (data: Data) => {
+        console.log(data);
         if (data.coursedoc) {
           this.courses = data.coursedoc.docs;
+          this.page = data.coursedoc.page;
+          this.pages = data.coursedoc.pages;
+
           for (const course of this.courses) {
             course['tags'] = [];
             if (course['keywords']) {

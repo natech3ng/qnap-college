@@ -12,6 +12,10 @@ export class CourseResolver implements Resolve<CourseDoc> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<CourseDoc> | Promise<CourseDoc> | CourseDoc {
-    return this._courseService.all(10);
+    
+    let page = 1;
+    if (route.params && route.params['page'])
+      page = +route.params['page'];
+    return this._courseService.all(10, null, page);
   }
 }

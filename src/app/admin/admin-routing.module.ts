@@ -1,3 +1,4 @@
+import { AuthGuard } from './../auth/_guards/auth.guard';
 import { CourseNewComponent } from './courses/course-new/course-new.component';
 import { CoursesComponent } from './courses/courses.component';
 import { AdminComponent } from './admin.component';
@@ -29,6 +30,11 @@ const routes: Routes = [
         resolve: { coursedoc: CourseResolver}
       },
       {
+        path: 'courses/:page',
+        component: CoursesComponent,
+        resolve: { coursedoc: CourseResolver}
+      },
+      {
         path: 'course/new',
         component: CourseNewComponent,
         resolve: { categories: CategoryResolver}
@@ -45,7 +51,9 @@ const routes: Routes = [
       },
       {
         path: 'user/new',
-        component: UserNewComponent
+        component: UserNewComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['super admin'] } 
       },
       {
         path: 'profile',
