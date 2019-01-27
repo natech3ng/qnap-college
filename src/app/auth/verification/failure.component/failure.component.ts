@@ -25,7 +25,7 @@ export class VerificationFailedComponent implements OnInit, OnDestroy, AfterView
   ngAfterViewInit() {
     console.log(this.type);
     if (this.type === ResponseCode.USER_NOT_FOUND) {
-      this.statement = 'The user does not exist';
+      this.statement = 'The user does not exist, please contact site administrator';
     } else if (this.type === ResponseCode.TOKEN_IS_INVALID) {
       this.statement = 'Token is invalid';
       this.token_in_valid = true;
