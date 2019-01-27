@@ -19,10 +19,8 @@ export class VerificationSuccessComponent implements OnInit {
         this._router.navigate(['/user/create-password', this.payload.uid], { queryParams: { token:  this.payload.token} });
         break;
       case ResCode.GENEROR_SUCCESS:
-        alert('Nothing need to do');
         break;
       default:
-        alert('Nothing');
         break;
     }
   }

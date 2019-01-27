@@ -15,10 +15,15 @@ export class UsersService {
     private _authService: AuthService,
     private _httpClient: HttpClient) {}
 
-  create() {
+  create(user: User) {
+    const body = JSON.stringify(user);
+    const api_query = this.apiRoot + 'user';
+    return this._httpClient.post<User []>(api_query, body, this._authService.jwtHttpClient());
   }
 
-  delete() {
+  delete(id: string) {
+    const api_query = this.apiRoot + `user/${id}`;
+    return this._httpClient.delete<User []>(api_query, this._authService.jwtHttpClient());
   }
 
   all(): Observable<User []> {

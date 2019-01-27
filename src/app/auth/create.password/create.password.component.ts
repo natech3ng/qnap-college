@@ -3,9 +3,10 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Ren
 import * as ResCode from '../../_codes/response';
 import { AuthService } from '../_services/auth.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmService } from '../../_services/confirm.service';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: './create.password.component.html',
@@ -28,8 +29,9 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     private _authService: AuthService,
     private _route: ActivatedRoute,
-    private _confirmService: ConfirmService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private _toastr: ToastrService,
+    private _router: Router
   ) {
     this.sub = this._route.params.subscribe(params => {
       console.log(params);
@@ -71,7 +73,7 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
   resend() {
     this._authService.resendVerification(this.uid).subscribe(
       (res) => {
-        this._confirmService.alert("Success!");
+        this._toastr.success('Success');
       },
       (err) => {
         this.createError = true;
@@ -81,28 +83,32 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   onCreate(f: NgForm) {
+    if (f.value.password !== f.value.cPassword){
+      this._toastr.error('Password doesn\'t match');
+      return false;
+    }
     this.creating = true;
     this._authService.createPassword(this.uid, this.token, f.value.password).subscribe(
       (data) => {
         console.log(data);
+        this._toastr.success('Successfully created a password, please login.');
+        this._router.navigate(['/login'])
       },
       (err) => {
-        console.log(err);
+        this._toastr.error('Failed to create a password, please contact admistrator for further assistance.');
       }
     );
-    // this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
-    //   console.log('This is your token: ', token);
-    // });
-    // this._authService.login(f.value.email, f.value.password).subscribe(
-    //   (user: User) => {
-    //     // console.log(user);
-    //     this._router.navigate([this.returnUrl]);
-    //   },
-    //   (error) => {
-    //     this.signing = false;
-    //     this.loginError = true;
-    //     this.loginErrorMsg = error.error.message;
-    //   }
-    // );
+  }
+
+  onCheckPassword(f: NgForm) {
+    console.log('Check Password');
+    console.log(f.value.password);
+    console.log(f.value.cPassword);
+    if (f.value.password !== f.value.cPassword) {
+      this.createError = true;
+      this.createErrorMsg = 'Password doesn\'t match';
+    } else {
+      this.createError = false;
+    }
   }
 }
