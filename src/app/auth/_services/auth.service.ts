@@ -1,15 +1,13 @@
 import { AuthResponse, AuthResponseError } from './../../_models/authresponse';
-import { User } from './../_models/user.model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
-  Http,
-  Response,
   Headers,
-  RequestOptions  } from '@angular/http';
+} from '@angular/http';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/catch';
+import * as ResCode from '../../_codes/response';
 
 @Injectable()
 export class AuthService {
@@ -36,19 +34,22 @@ export class AuthService {
       headers: headers
     };
     return this.httpClient.post<AuthResponse>(`${this.apiRoot}fbLogin`, body, options)
-      .map((response) => {
-        // console.log("[fbLogin]: ", response);
+      .map((response:any) => {
+        console.log("[fbLogin]: ", response);
         if (response.success === true) {
-
-          const ruser = response.user;
-          ruser.token = response.token;
-          delete ruser['salt'];
-          delete ruser['hash'];
-          if (ruser && ruser.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(ruser));
+          if (response.payload.code === ResCode.PASSWORD_HAS_NOT_BEEN_CREATED) {
+            return response.payload;
+          } else {
+            const ruser = response.payload;
+            ruser.token = response.token;
+            delete ruser['salt'];
+            delete ruser['hash'];
+            if (ruser && ruser.token) {
+              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              localStorage.setItem('currentUser', JSON.stringify(ruser));
+            }
+            return ruser;
           }
-          return ruser;
         }
       });
   }
@@ -63,9 +64,10 @@ export class AuthService {
 
     return this.httpClient.post<AuthResponse>(`${this.apiRoot}login`, body, options)
       .map((response: AuthResponse) => {
+        console.log(response);
         // login successful if there's a jwt token in the response
         if (response.success === true) {
-          const user = response.user;
+          const user = response.payload;
           user.token = response.token;
           if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -90,7 +92,7 @@ export class AuthService {
     .map((response: AuthResponse) => {
       // login successful if there's a jwt token in the response
       if (response.success === true) {
-        const user = response.user;
+        const user = response.payload;
         user.token = response.token;
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes

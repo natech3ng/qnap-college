@@ -8,5 +8,5 @@ export class AuthResponse implements AuthResponseError {
     message: string;
     success: boolean;
     token?: string;
-    user?: User;
+    payload?: any;
 }

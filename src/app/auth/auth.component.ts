@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ReCaptchaV3Service, ReCaptcha2Component } from 'ngx-captcha';
 import { environment } from '../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import * as ResCode from '../_codes/response';
 
 @Component({
   selector: 'app-auth',
@@ -127,14 +128,20 @@ export class AuthComponent implements OnInit, OnDestroy {
           const authRes = response.authResponse;
           this._authService.fbLogin(authRes).subscribe(
             
-            (user: any) => {
-              // console.log("[onFacebookLogin]: ", user);
-              if (user.role === 'normal') {
-                this.returnUrl = '/profile';
+            (res: any) => {
+              console.log("[onFacebookLogin]", res);
+              if (res.code === ResCode.PASSWORD_HAS_NOT_BEEN_CREATED) {
+                
+                this._router.navigate(['/user/create-password', res.uid], { queryParams: { token:  res.token, from: 'fb'} });
+              } else {
+                if (res.role === 'normal') {
+                  this.returnUrl = '/profile';
+                }
+                this._router.navigate([this.returnUrl]);
               }
-              this._router.navigate([this.returnUrl]);
             },
             (error) => {
+              console.log(error);
               this.signing = false;
               this.loginError = true;
               this.loginErrorMsg = error.error.message;
