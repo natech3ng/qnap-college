@@ -16,7 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CourseNewComponent } from './courses/course-new/course-new.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagInputModule } from 'ngx-chips';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmService } from '../_services/confirm.service';
 import { ModalModule } from 'ngx-modialog';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
@@ -40,11 +40,11 @@ import { ProfileComponent } from './profile/profile.component';
     TagInputModule,
     ReactiveFormsModule,
     NgSelectModule,
-    NgbModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
     FontAwesomeModule,
-    NgxDaterangepickerModule
+    NgxDaterangepickerModule,
+    NgbModule
   ],
   declarations: [
     DashboardComponent,
@@ -67,6 +67,7 @@ import { ProfileComponent } from './profile/profile.component';
     UsersResolver,
     UsersService,
     KeywordService
+    
   ]
 })
 export class AdminModule { }

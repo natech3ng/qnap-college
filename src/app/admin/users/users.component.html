@@ -33,7 +33,7 @@
                 </tr>
               </thead>
               <tbody class="m-datatable-body">
-                <tr class="m-datatable-row" *ngFor="let user of users">
+                <tr class="m-datatable-row" *ngFor="let user of users; let i = index">
                     <td class="m-datatable-cell m-datatable-cell-check m-datatable-center">
                       <span>
                         <label class="m-checkbox">
@@ -52,8 +52,15 @@
                   <td class="m-datatable-cell m-datatable-cell-verified">
                     <span>{{ user.isVerified === true ? 'Yes': 'No'}}</span>
                   </td>
-                  <td class="m-datatable-cell m-datatable-cell-role">
-                    <span class='tag tag-wide tag-{{user.role | slugify}}'>{{ user.role | ucfirst }}</span>
+                  <td class="m-datatable-cell m-datatable-cell-role" >
+                    <div ngbDropdown class="d-inline-block">
+                      <span class='tag tag-wide tag-{{user.role | slugify}}' id="dropdownBasic-{{i}}" ngbDropdownToggle>{{ user.role | ucfirst }}</span>
+                      <div ngbDropdownMenu attr.aria-labelledby="dropdownBasic-{{1}}">
+                        <button class="dropdown-item">Action - {{i}}</button>
+                        <button class="dropdown-item">Another Action</button>
+                        <button class="dropdown-item">Something else is here</button>
+                      </div>
+                    </div>
                   </td>
                   <td class="m-datatable-cell m-datatable-cell-action">
                     <span>
