@@ -22,7 +22,7 @@
       "post-setup": "npm install --unsafe-perm",
       "pre-deploy-local" : "echo 'This is a local executed command'",
       "pre-deploy" : "",
-      "post-deploy" : "cp ~/environment/college/.env ./; sudo pm2 startOrRestart ecosystem.json --env production; sudo chown -R deploy:deploy node_modules",
+      "post-deploy" : "cp ~/environment/college/.env ./; sudo pm2 startOrRestart ecosystem.config.js --env production; sudo chown -R deploy:deploy node_modules",
       "env"  : {
         "NODE_ENV": "production"
       }
