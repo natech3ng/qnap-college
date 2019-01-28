@@ -29,8 +29,8 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let roles = route.data["roles"] as Array<string>;
-    console.log('[canActivate]: roles: ' + roles);
-    console.log('[canActivate]: user: ', currentUser);
+    // console.log('[canActivate]: roles: ' + roles);
+    // console.log('[canActivate]: user: ', currentUser);
     if (roles) {
       if (!roles.includes(currentUser.role)) {
         this._toastr.error('You are not authorized.')
@@ -52,7 +52,7 @@ export class AuthGuard implements CanActivate {
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         // error when verify so redirect to login page with the return url
         localStorage.removeItem('currentUser');
         this._router.navigate(['/'], { queryParams: { returnUrl: state.url } });

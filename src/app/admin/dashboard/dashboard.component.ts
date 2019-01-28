@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
     this._courseService.getClickStatus(event.start, event.end).subscribe(
       (courseStats) => {
         this.courseStats = courseStats;
-        console.log(courseStats);
+        // console.log(courseStats);
       },
       (err) => {
         console.log('Something went wrong!');

@@ -28,12 +28,12 @@ export class VerificationComponent implements OnInit, AfterViewInit, OnDestroy {
   
   ngOnInit() {
     this.sub = this._route.params.subscribe(params => {
-      console.log(params);
+
       this.uid = params['id'];
     });
 
     this.querySub = this._route.queryParams.subscribe(params => {
-      console.log(params);
+
       this.token = params['token'];
     });
   }
@@ -42,7 +42,7 @@ export class VerificationComponent implements OnInit, AfterViewInit, OnDestroy {
     this.authService.verifyEmail(this.uid, this.token).subscribe(
       (res: any) => {
         // this._router.navigate([this.returnUrl]);
-        console.log(res);
+        console.log('[Validation Component]: ', res)
         if (res.success) {
           setTimeout( () => { this.loadComponent(VerificationSuccessComponent, res.code, {token: this.token, uid: this.uid});}, 0);
         }

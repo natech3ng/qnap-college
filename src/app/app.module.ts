@@ -1,3 +1,4 @@
+import { ClickStopPropagation } from './_directives/click.stop.propagation.directive';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxScreensizeModule } from './modules/ngx-screensize/index';
 import { AuthService } from './auth/_services/auth.service';
@@ -94,7 +95,8 @@ export function metaFactory(): MetaLoader {
     DurationToTimePipe,
     CategoryComponent,
     SearchComponent,
-    MaintenanceComponent
+    MaintenanceComponent,
+    ClickStopPropagation
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'qnap-college' }),
@@ -132,7 +134,8 @@ export function metaFactory(): MetaLoader {
     SearchService,
     ModalService,
     AuthService,
-    CourseResolver],
+    CourseResolver
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

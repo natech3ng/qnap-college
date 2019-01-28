@@ -1,3 +1,4 @@
+import { SecurityDirective } from './_directives/security.directive';
 import { NgxDaterangepickerModule } from '@qqnc/ngx-daterangepicker';
 import { KeywordService } from './../_services/keyword.services';
 import { MomentModule } from 'ngx-moment';
@@ -53,7 +54,9 @@ import { ProfileComponent } from './profile/profile.component';
     CourseEditComponent,
     UsersComponent,
     UserNewComponent,
-    ProfileComponent ],
+    ProfileComponent,
+    SecurityDirective
+  ],
   providers: [
     CourseResolver,
     UcFirstPipe,

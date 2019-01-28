@@ -23,7 +23,7 @@ export class VerificationFailedComponent implements OnInit, OnDestroy, AfterView
   }
 
   ngAfterViewInit() {
-    console.log(this.type);
+
     if (this.type === ResponseCode.USER_NOT_FOUND) {
       this.statement = 'The user does not exist, please contact site administrator';
     } else if (this.type === ResponseCode.TOKEN_IS_INVALID) {
@@ -31,14 +31,13 @@ export class VerificationFailedComponent implements OnInit, OnDestroy, AfterView
       this.token_in_valid = true;
     }
 
-    console.log(this.statement);
   }
 
   ngOnDestroy() {  
   }
 
   resend() {
-    console.log(this.payload)
+
     this._authService.resendVerification(this.payload.uid).subscribe(
       (res) => {
         this._confirmService.alert("Success!");

@@ -1169,8 +1169,9 @@ app-maintenance {
   border-color: #6573e0;
 }
 
-button.create-password:disabled {
+button.create-password:disabled,
+button.reg-button:disabled {
   background-color: #eee !important;
-  color: #c9e6f2 !important;
+  color: rgba(5, 116, 158, .5) !important;
   cursor: text !important;
 }

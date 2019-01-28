@@ -33,7 +33,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
     this.sub = this._route.params.subscribe(params => {
       // console.log('emit');
       this._searchService.emit(params['keywords']);

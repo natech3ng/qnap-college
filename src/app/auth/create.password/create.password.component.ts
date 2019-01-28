@@ -34,11 +34,11 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
     private _router: Router
   ) {
     this.sub = this._route.params.subscribe(params => {
-      console.log(params);
+      // console.log(params);
       this.uid = params['id'];
     });
       this.routeSub = this._route.queryParams.subscribe(params => {
-        console.log(params);
+        // console.log(params);
         this.token = params['token'];
       });
     }
@@ -52,14 +52,14 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
           this.renderer.setStyle(this.alertBox.nativeElement, 'display', 'block');
           this.valid = false;
         }
-        console.log(data);
+        // console.log(data);
       }, 
       (error) => {
         this.valid = false;
-        console.log(error);
+        // console.log(error);
       });
 
-      console.log(this.valid);
+      // console.log(this.valid);
   }
   ngAfterViewInit() {
     
@@ -90,7 +90,7 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
     this.creating = true;
     this._authService.createPassword(this.uid, this.token, f.value.password).subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         this._toastr.success('Successfully created a password, please login.');
         this._router.navigate(['/login'])
       },
@@ -101,9 +101,9 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   onCheckPassword(f: NgForm) {
-    console.log('Check Password');
-    console.log(f.value.password);
-    console.log(f.value.cPassword);
+    // console.log('Check Password');
+    // console.log(f.value.password);
+    // console.log(f.value.cPassword);
     if (f.value.password !== f.value.cPassword) {
       this.createError = true;
       this.createErrorMsg = 'Password doesn\'t match';

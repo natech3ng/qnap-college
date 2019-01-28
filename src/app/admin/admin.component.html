@@ -1,7 +1,7 @@
 <!-- <a *ngIf="loggedIn" (click)="onSignout()" style='position: relative'>Sign out</a> -->
 <nav class="main-menu">
   <ul>
-    <li>
+    <li [appSecurity]="['super admin','admin']">
         <a href="#" [routerLink]="['/admin']">
             <i class="fa fa-home fa-qnap fa-qnap-2x"></i>
             <span class="nav-text">
@@ -10,15 +10,7 @@
         </a>
       
     </li>
-    <!-- <li class="has-subnav">
-        <a href="#">
-            <i class="fa fa-laptop fa-qnap fa-qnap-2x"></i>
-            <span class="nav-text">
-                UI Components
-            </span>
-        </a>
-    </li> -->
-    <li>
+    <li [appSecurity]="['super admin','admin']">
       <a href="#" [routerLink]="['/admin/courses']">
         <!-- <fa-icon [icon]="faList" class='fa-qnap fa-qnap-2x'></fa-icon> -->
         <i class="fas fa-list fa-qnap fa-qnap-2x"></i>
@@ -27,7 +19,7 @@
         </span>
       </a>
     </li>
-    <li>
+    <li [appSecurity]="['super admin']">
       <a href="#" [routerLink]="['/admin/users']">
           <i class="fa fa-users fa-qnap fa-qnap-2x"></i>
           <span class="nav-text">

@@ -1,5 +1,5 @@
 <div class="admin-section">
-  <span class='vt-section-title'><h5>{{app | ucfirst}}  <span class='add-course-icon'><a [routerLink]="['/admin/course/new']"><i class="icon-plus"></i></a></span></h5></span>
+  <span [appSecurity]="['admin', 'super admin']" class='vt-section-title'><h5>{{app | ucfirst}}  <span class='add-course-icon'><a [routerLink]="['/admin/course/new']"><i class="icon-plus"></i></a></span></h5></span>
   <span class='row'>
     <span class="col-md-12 d-content">
       <span class="portlet dataTables_wrapper">
@@ -29,7 +29,7 @@
           <table class="m-datatable-table">
             <thead class="m-datatable-head">
               <tr class="m-datatable-row">
-                <th class="m-datatable-cell m-datatable-cell-check m-datatable-center">
+                <th class="m-datatable-cell m-datatable-cell-check m-datatable-center" [appSecurity]="['admin', 'super admin']">
                   <span>
                     <label class="m-checkbox">
                       <input type="checkbox">
@@ -55,14 +55,14 @@
                 <th class="m-datatable-cell m-datatable-cell-date">
                   <span>Date</span>
                 </th>
-                <th class="m-datatable-cell m-datatable-cell-action">
+                <th class="m-datatable-cell m-datatable-cell-action" [appSecurity]="['admin', 'super admin']">
                   <span>&nbsp;</span>
                 </th>
               </tr>
             </thead>
             <tbody class="m-datatable-body">
               <tr class="m-datatable-row" *ngFor="let course of courses">
-                  <td class="m-datatable-cell m-datatable-cell-check m-datatable-center">
+                  <td class="m-datatable-cell m-datatable-cell-check m-datatable-center"[appSecurity]="['admin', 'super admin']">
                     <span>
                       <label class="m-checkbox">
                         <input type="checkbox" value="1">
@@ -97,7 +97,7 @@
                     {{course.publishedDate | amDateFormat: 'YYYY-MM-DD'}}
                   </span>
                 </td>
-                <td class="m-datatable-cell m-datatable-cell-action">
+                <td class="m-datatable-cell m-datatable-cell-action" [appSecurity]="['admin', 'super admin']">
                   <span>
                     <span [routerLink]="['/course', course._id, 'edit']"><i class="fa fa-edit"></i></span>
                     <span (click)="onDelete(course)"><i class="icon-trash"></i></span>

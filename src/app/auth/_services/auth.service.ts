@@ -28,50 +28,31 @@ export class AuthService {
     return { headers: headers };
   }
 
-  // fbLogin(user: User) {
-  //   const body = JSON.stringify(user);
-  //   const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  //   const options = {
-  //     headers: headers
-  //   };
-  //   return this.http.post<AuthResponse>(`/api/fbLogin`, body, options)
-  //     .map((response) => {
-  //       // logger.debug(response);
-  //       if (response.success === true) {
+  fbLogin(fbPayload: any) {
+    const body = JSON.stringify(fbPayload);
+    // console.log(body);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {
+      headers: headers
+    };
+    return this.httpClient.post<AuthResponse>(`${this.apiRoot}fbLogin`, body, options)
+      .map((response) => {
+        // console.log("[fbLogin]: ", response);
+        if (response.success === true) {
 
-  //         const ruser = response.user;
-  //         ruser.token = response.token;
-  //         delete ruser['salt'];
-  //         delete ruser['hash'];
-  //         if (ruser && ruser.token) {
-  //           // store user details and jwt token in local storage to keep user logged in between page refreshes
-  //           localStorage.setItem('currentUser', JSON.stringify(ruser));
-  //         }
-  //         return ruser;
-  //       }
-  //     });
-  // }
-  verify(): Observable<AuthResponse | AuthResponseError> {
-    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-state', this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
-      // console.error('An error occurred:', err.error);
-      return Observable.of(err.error);
-    });
+          const ruser = response.user;
+          ruser.token = response.token;
+          delete ruser['salt'];
+          delete ruser['hash'];
+          if (ruser && ruser.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(ruser));
+          }
+          return ruser;
+        }
+      });
   }
-  tmpVerify(token): Observable<AuthResponse | AuthResponseError> {
-    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-tmp-state?token=' + token, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
-      // console.error('An error occurred:', err.error);
-      return Observable.of(err.error);
-    });
-  }
-
-  changePassword(email: string, oldPassword: string, password: string): Observable<AuthResponse | AuthResponseError> {
-    const body = JSON.stringify({ email: email, password: password, oldPassword: oldPassword });
-    return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'change-password', body, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
-      console.error('An error occurred:', err.error);
-      return Observable.of(err.error);
-    });
-  }
-
+ 
   login(email: string, password: string): any {
     const body = JSON.stringify({ email: email, password: password });
     let headers = new HttpHeaders();
@@ -98,12 +79,59 @@ export class AuthService {
       });
   }
 
+  register(email: string, password: string, name: string): any {
+    const body = JSON.stringify({ email: email, password: password, name: name });
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    const options = {
+      headers: headers
+    };
+    return this.httpClient.post<AuthResponse>(`${this.apiRoot}register`, body, options)
+    .map((response: AuthResponse) => {
+      // login successful if there's a jwt token in the response
+      if (response.success === true) {
+        const user = response.user;
+        user.token = response.token;
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          delete user['salt'];
+          delete user['hash'];
+          this._loggedIn = true;
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return user;
+      }
+    });
+  }
+
   logout() {
     // remove user from local storage to log user out
     this.token = null;
     this._loggedIn = false;
     localStorage.removeItem('currentUser');
   }
+
+  verify(): Observable<AuthResponse | AuthResponseError> {
+    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-state', this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+      // console.error('An error occurred:', err.error);
+      return Observable.of(err.error);
+    });
+  }
+  tmpVerify(token): Observable<AuthResponse | AuthResponseError> {
+    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-tmp-state?token=' + token, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+      // console.error('An error occurred:', err.error);
+      return Observable.of(err.error);
+    });
+  }
+
+  changePassword(email: string, oldPassword: string, password: string): Observable<AuthResponse | AuthResponseError> {
+    const body = JSON.stringify({ email: email, password: password, oldPassword: oldPassword });
+    return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'change-password', body, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+      return Observable.of(err.error);
+    });
+  }
+
 
   setToken(res) {
     const body = JSON.parse(res['_body']);
@@ -150,7 +178,7 @@ export class AuthService {
 
   jwtHttpClient() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(currentUser);
+    // console.log(currentUser);
     if (currentUser && currentUser.token) {
       let headers = new HttpHeaders({ 'x-access-token': currentUser.token });
       headers = headers.append('Content-Type', 'application/json');
@@ -166,5 +194,9 @@ export class AuthService {
       return headers;
     }
   }
+
+  getUser(): any {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  } 
 
 }

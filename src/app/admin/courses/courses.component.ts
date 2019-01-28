@@ -31,7 +31,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this._route.data.subscribe(
       (data: Data) => {
-        console.log(data);
+        // console.log(data);
         if (data.coursedoc) {
           this.courses = data.coursedoc.docs;
           this.page = data.coursedoc.page;
@@ -65,15 +65,17 @@ export class CoursesComponent implements OnInit, OnDestroy {
                 this.courses = coursedoc.docs;
               },
               (error) => {
-                this._toastr.error(error);
+                this._toastr.error(error.message);
               }
             );
           },
           (error) => {
-            this._toastr.error(error);
+            console.log(error)
+            this._toastr.error(error.error.message);
           }
         );
-      }).catch( () => {
+      }).catch( (error) => {
+        this._toastr.error(error.message);
         // Reject
         // console.log('no');
       });

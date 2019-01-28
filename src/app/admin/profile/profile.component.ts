@@ -78,9 +78,9 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSubmit(f: NgForm) {
-    console.log(this.old_password);
-    console.log(this.password);
-    console.log(this.confirm_password);
+    // console.log(this.old_password);
+    // console.log(this.password);
+    // console.log(this.confirm_password);
 
     this._confirmService.open('Do you want to submit?').then(
       () => {

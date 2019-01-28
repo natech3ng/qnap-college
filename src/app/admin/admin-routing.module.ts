@@ -22,7 +22,9 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['super admin', 'admin'] } 
       },
       {
         path: 'courses',
@@ -37,17 +39,23 @@ const routes: Routes = [
       {
         path: 'course/new',
         component: CourseNewComponent,
-        resolve: { categories: CategoryResolver}
+        resolve: { categories: CategoryResolver},
+        canActivate: [AuthGuard],
+        data: { roles: ['super admin', 'admin'] } 
       },
       {
         path: 'course/:id/edit',
         component: CourseEditComponent,
-        resolve: { categories: CategoryResolver, course: SingleCourseResolver}
+        resolve: { categories: CategoryResolver, course: SingleCourseResolver},
+        canActivate: [AuthGuard],
+        data: { roles: ['super admin', 'admin'] } 
       },
       {
         path: 'users',
         component: UsersComponent,
-        resolve: { users: UsersResolver }
+        resolve: { users: UsersResolver },
+        canActivate: [AuthGuard],
+        data: { roles: ['super admin'] } 
       },
       {
         path: 'user/new',
@@ -57,7 +65,8 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        canActivate: [AuthGuard]
       }
     ]
   },

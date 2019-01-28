@@ -28,7 +28,6 @@ export class UserNewComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    console.log(this.user);
     this._confirmService.open('Do you want to submit?').then(
       () => {
         this._usersService.create(this.user).subscribe(
