@@ -42,6 +42,8 @@ import { AddThisService } from './_services/addthis.service';
 import { FacebookModule } from 'ngx-facebook';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { RoleService } from './_services/role.service';
+import { EventBrokerService } from './_services/event.broker.service';
 
 
 const cookieConfig: NgcCookieConsentConfig = {
@@ -134,7 +136,9 @@ export function metaFactory(): MetaLoader {
     SearchService,
     ModalService,
     AuthService,
-    CourseResolver
+    CourseResolver,
+    RoleService,
+    EventBrokerService
   ],
   bootstrap: [AppComponent]
 })

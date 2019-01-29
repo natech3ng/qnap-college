@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user.model';
+import { GeneralResponse } from '../../_models/authresponse';
 
 @Injectable()
 export class UsersService {
@@ -29,5 +30,11 @@ export class UsersService {
   all(): Observable<User []> {
     const api_query = this.apiRoot + 'users';
     return this._httpClient.get<User []>(api_query, this._authService.jwtHttpClient());
+  }
+
+  setRole(uid: string, roleName: string) {
+    const api_query = this.apiRoot + `user/set_role/${uid}`;
+    const body = JSON.stringify({role: roleName});
+    return this._httpClient.put<User []>(api_query, body,this._authService.jwtHttpClient());
   }
 }

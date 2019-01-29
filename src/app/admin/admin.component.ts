@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, NavigationStart, NavigationEnd, NavigationCance
 import { AuthService } from './../auth/_services/auth.service';
 import { OnInit, AfterViewInit, OnDestroy, Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { EventBrokerService, IEventListener } from '../_services/event.broker.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -14,12 +15,20 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
   routeSub: Subscription;
   loading = false;
 
+  private _myEventListener: IEventListener;
+
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
     private _authService: AuthService,
-    private _location: Location) {
+    private _location: Location,
+    private _eventBroker: EventBrokerService) {
+
     this.loggedIn = this._authService.loggedIn;
+    this._myEventListener = this._eventBroker.listen<boolean>("loading",(value:boolean)=>{
+      // Waiting loading event in router-outlet, it's a workaround, because we don't have broker on router-outlet
+      this.loading = value;
+    });
   }
 
   ngOnInit() {
@@ -53,6 +62,10 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
     this._authService.logout();
     // this._router.navigateByUrl('/admin');
     location.reload();
+  }
+
+  onSetLoading(event) {
+    console.log(event);
   }
 
 }

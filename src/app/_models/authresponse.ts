@@ -10,3 +10,19 @@ export class AuthResponse implements AuthResponseError {
     token?: string;
     payload?: any;
 }
+
+export class GeneralResponse {
+    success: boolean;
+    message: string;
+    code: number;
+    payload: any
+   
+    constructor(success: boolean, message: string, code: number, payload?: any) {
+      this.success = success;
+      this.message = message;
+      this.code = code;
+      if (payload) {
+        this.payload = payload;
+      }
+    }
+  }
