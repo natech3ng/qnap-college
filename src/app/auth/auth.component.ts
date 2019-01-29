@@ -156,6 +156,10 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   }
 
+  onGoogleLogin() {
+    this._toastr.success("Google login is not ready yet.");
+  }
+
   onCheckPassword(f: NgForm) {
     if (f.value.password !== f.value.confirm_password) {
       this.regError = true;

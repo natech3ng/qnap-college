@@ -30,7 +30,8 @@
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/cookieconsent/build/cookieconsent.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/social-buttons.less"
             ],
             "scripts": [
               "node_modules/cookieconsent/build/cookieconsent.min.js"

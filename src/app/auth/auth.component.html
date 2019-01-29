@@ -28,7 +28,14 @@
         </ngx-invisible-recaptcha>
 				
 				<button type="submit" id="login-button" class="login-button" [disabled]="f.invalid">Login</button>
-				<div (click)="onFacebookLogin();">facebook login</div>
+				<div class='option-line'>
+					Or sign in with
+				</div>
+				<div class="social-button-container">
+					<!-- <button id="twitter"></button> -->
+					<button type="button" id="facebook" (click)="onFacebookLogin(e);"></button>
+					<button type="button" id="googleplus" (click)="onGoogleLogin(e);"></button>
+				</div>
 			</form>
 			<form class="form register-form" (ngSubmit)="onSignup(regf)" *ngIf="!signin" #regf='ngForm'>
 					<div class="login-error" *ngIf='regError'>{{regErrorMsg}}</div>
@@ -42,6 +49,14 @@
 								required 
 								(blur)="onCheckPassword(regf)"> 
 				<button type="submit" id="reg-button" class="reg-button" [disabled]="regf.invalid">Sign Up</button>
+				<div class='option-line'>
+						Or sign up with
+					</div>
+					<div class="social-button-container">
+						<!-- <button id="twitter"></button> -->
+						<button type="button" id="facebook" (click)="onFacebookLogin();"></button>
+						<button type="button" id="googleplus" (click)="onGoogleLogin();"></button>
+					</div>
 			</form>
 			<!-- <a href="#" *ngIf="signin" [routerLink]="['/signup']">Sign Up</a><a href="#" *ngIf="!signin" [routerLink]="['/login']">Sign In</a> -->
 		</div>

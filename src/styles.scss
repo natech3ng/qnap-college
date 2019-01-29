@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700,300);
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 // @import 'variables';
 // @import '../node_modules/font-awesome/scss/font-awesome';
 @import "./assets/scss/font-icons";
@@ -1174,4 +1175,40 @@ button.reg-button:disabled {
   background-color: #eee !important;
   color: rgba(5, 116, 158, .5) !important;
   cursor: text !important;
+}
+
+.btn {
+  font-family: "Poppins";
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .85rem 1.15rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  border-radius: .25rem;
+  -webkit-transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+}
+
+.btn-facebook {
+  color: #fff;
+  background-color: #4267b2;
+  margin: 15px;
+  padding: .85rem 1rem;
+}
+
+.btn-icon {
+  span {
+    padding-left: 0.85em;
+    vertical-align: middle;
+  }
 }
