@@ -18,7 +18,7 @@ module.exports = {
       ref: 'origin/master',
       repo: 'git@github.com:qqnc/qnap-college.git',
       path: '/var/www/qnapcollege',
-      'pre-setup': 'sudo rm -rf /var/www/qnapcollege/source',
+      'pre-setup': '',
       'post-setup': 'npm install --unsafe-perm',
       'pre-deploy-local' : '',
       'pre-deploy' : '',
