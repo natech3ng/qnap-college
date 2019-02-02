@@ -20,13 +20,13 @@ export class CoursesComponent implements OnInit, OnDestroy {
   sub: Subscription;
   page: number = 1;
   pages: number = 1;
+  search: string = '';
 
   constructor(
     private _route: ActivatedRoute,
     private _confirmService: ConfirmService,
     private _courseService: CourseService,
-    private _toastr: ToastrService,
-    private _router: Router) { }
+    private _toastr: ToastrService) { }
 
   ngOnInit() {
     this.sub = this._route.data.subscribe(
@@ -79,6 +79,17 @@ export class CoursesComponent implements OnInit, OnDestroy {
         // Reject
         // console.log('no');
       });
+  }
+
+  onModelChange(e) {
+    this._courseService.search(e).subscribe(
+      (courses) => {
+        this.courses = courses;
+      },
+      (err) => {
+        this._toastr.error('something went wrong.');
+      }
+    );
   }
 
 }

@@ -21,8 +21,8 @@ export class MaintenanceComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(this.container)
-    this._renderer.setStyle(this.container.nativeElement, 'display', 'block');
+    // console.log(this.container)
+    // this._renderer.setStyle(this.container.nativeElement, 'display', 'block');
   }
 
 }

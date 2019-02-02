@@ -52,6 +52,9 @@
                     <div class="header-stats-comment">
                       Watched
                     </div>
+                    <div class="header-stats-slide">
+                      <a (click)="onNavigate($event)" target='_blank' [attr.href]="course.slide_link" *ngIf="course.slide_link"><i class='far fa-file-powerpoint'></i></a>
+                    </div>
                   </div>
                 </div>
                 <div class="video-card-content-body">
