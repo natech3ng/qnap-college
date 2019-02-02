@@ -53,6 +53,34 @@ export class AuthService {
         }
       });
   }
+
+  googleLogin(googlePayload: any) {
+    const body = JSON.stringify(googlePayload);
+    // console.log(body);
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const options = {
+      headers: headers
+    };
+    return this.httpClient.post<AuthResponse>(`${this.apiRoot}googleLogin`, body, options)
+      .map((response:any) => {
+        console.log("[googleLogin]: ", response);
+        if (response.success === true) {
+          if (response.payload.code === ResCode.PASSWORD_HAS_NOT_BEEN_CREATED) {
+            return response.payload;
+          } else {
+            const ruser = response.payload;
+            ruser.token = response.token;
+            delete ruser['salt'];
+            delete ruser['hash'];
+            if (ruser && ruser.token) {
+              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              localStorage.setItem('currentUser', JSON.stringify(ruser));
+            }
+            return ruser;
+          }
+        }
+      });
+  }
  
   login(email: string, password: string): any {
     const body = JSON.stringify({ email: email, password: password });
@@ -129,6 +157,13 @@ export class AuthService {
   changePassword(email: string, oldPassword: string, password: string): Observable<AuthResponse | AuthResponseError> {
     const body = JSON.stringify({ email: email, password: password, oldPassword: oldPassword });
     return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'change-password', body, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+      return Observable.of(err.error);
+    });
+  }
+
+  resetPasswordAdmin(id: string): Observable<AuthResponse | AuthResponseError> {
+    return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'reset-password-admin/' + id, null, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
       console.error('An error occurred:', err.error);
       return Observable.of(err.error);
     });

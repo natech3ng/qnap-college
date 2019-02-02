@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/_services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmService } from './../../_services/confirm.service';
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
@@ -30,7 +31,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     private _toastr: ToastrService,
     private _usersService: UsersService,
     private _roleService: RoleService,
-    private _eventBroker: EventBrokerService) { }
+    private _eventBroker: EventBrokerService,
+    private _authService: AuthService) { }
 
   ngOnInit() {
     this.sub = this._route.data.subscribe(
@@ -75,7 +77,7 @@ export class UsersComponent implements OnInit, OnDestroy {
         });
       }).catch( () => {
         // Reject
-        this._toastr.error('Failed to add a user');
+        // this._toastr.error('Failed to add a user');
     });
   }
 
@@ -100,5 +102,26 @@ export class UsersComponent implements OnInit, OnDestroy {
         this._eventBroker.emit<boolean>("loading", false);
       }
     );
+  }
+
+  onSendResetPassword(user: User) {
+    this._confirmService.open(`Do you want to reset ${user.email}'s password?`).then(
+      () => {
+        this._authService.resetPasswordAdmin(user._id).subscribe(
+          (res: any) => {
+            if (res.success) {
+              this._toastr.success(`User's reset password email has been sent`);
+            }
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
+      }
+    ).catch( () => {
+      // Reject
+      // this._toastr.error('Failed to reset the password');
+    });
+    
   }
 }

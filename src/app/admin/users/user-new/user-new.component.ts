@@ -40,7 +40,7 @@ export class UserNewComponent implements OnInit {
         });
       }).catch( () => {
         // Reject
-        this._toastr.error('Failed to add a user');
+        // this._toastr.error('Failed to add a user');
     });
   }
 

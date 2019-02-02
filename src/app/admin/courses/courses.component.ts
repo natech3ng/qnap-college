@@ -75,7 +75,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
           }
         );
       }).catch( (error) => {
-        this._toastr.error(error.message);
+        // this._toastr.error(error.message);
         // Reject
         // console.log('no');
       });

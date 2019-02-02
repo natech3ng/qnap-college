@@ -94,7 +94,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         });
       }).catch( () => {
         // Reject
-        this._toastr.error('Failed to add a course');
+        // this._toastr.error('Failed to add a course');
     });
   }
 }

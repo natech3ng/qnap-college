@@ -1,3 +1,4 @@
+import { ConfirmationComponent } from './verification/confirmation';
 import { AuthGuard } from './_guards/auth.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
@@ -24,7 +25,8 @@ import { CreatePasswordComponent } from './create.password/create.password.compo
     VerificationComponent,
     VerificationSuccessComponent,
     VerificationFailedComponent,
-    CreatePasswordComponent
+    CreatePasswordComponent,
+    ConfirmationComponent
   ],
   providers: [
     AuthGuard

@@ -1,3 +1,4 @@
+import { ConfirmationComponent } from './auth/verification/confirmation';
 import { MetaGuard } from '@ngx-meta/core';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthComponent } from './auth/auth.component';
@@ -39,6 +40,9 @@ const routes: Routes = [
   },
   {
     path: 'user/create-password/:id', component: CreatePasswordComponent
+  },
+  {
+    path: 'confirmation', component: ConfirmationComponent
   },
   {
     path: '**', component: NotFoundComponent

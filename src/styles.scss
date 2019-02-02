@@ -71,12 +71,12 @@ a, a:hover, a:visited, a:focus {
 
 /* Loader */
 
-.loading .containloader {
-  display: block;
-}
-
 .loaded .containloader {
   display: none;
+}
+
+.loading .containloader {
+  display: block;
 }
 
 .containloader > .background, .v-modal-overlay {
@@ -817,7 +817,7 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
         width: 150px;
       }
       &.m-datatable-cell-action {
-        width: 50px;
+        width: 75px;
       }
 
       &.m-datatable-cell-tags {

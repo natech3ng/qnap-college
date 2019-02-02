@@ -55,7 +55,7 @@ const routes: Routes = [
         component: UsersComponent,
         resolve: { users: UsersResolver },
         canActivate: [AuthGuard],
-        data: { roles: ['super admin'] } 
+        data: { roles: ['super admin', 'admin'] } 
       },
       {
         path: 'user/new',

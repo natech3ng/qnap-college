@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
     // console.log('[canActivate]: roles: ' + roles);
     // console.log('[canActivate]: user: ', currentUser);
     if (roles) {
-      if (!roles.includes(currentUser.role)) {
+      if (!roles.includes(currentUser.role.name)) {
         this._toastr.error('You are not authorized.')
         return false;
       }

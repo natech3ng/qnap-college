@@ -54,7 +54,7 @@
                   </td>
                   <td class="m-datatable-cell m-datatable-cell-role" >
                     <div ngbDropdown class="d-inline-block">
-                      <span class='tag tag-wide tag-{{user.role | slugify}}' id="dropdownBasic-{{i}}" ngbDropdownToggle>{{ user.role | ucfirst }}</span>
+                      <span class='tag tag-wide tag-{{user.role.name | slugify}}' id="dropdownBasic-{{i}}" ngbDropdownToggle>{{ user.role.name | ucfirst }}</span>
                       <div ngbDropdownMenu attr.aria-labelledby="dropdownBasic-{{1}}">
                         <button class="dropdown-item" *ngFor="let role of roles" (click)="onSetRole(user._id, role.name)">{{role.name}}</button>
                       </div>
@@ -62,6 +62,7 @@
                   </td>
                   <td class="m-datatable-cell m-datatable-cell-action">
                     <span>
+                      <span (click)="onSendResetPassword(user)"><i class="fa fa-redo"></i></span>
                       <span [routerLink]="['/user', user._id, 'edit']"><i class="fa fa-edit"></i></span>
                       <span (click)="onDelete(user)"><i class="icon-trash"></i></span>
                     </span>

@@ -17,7 +17,7 @@ export class SecurityDirective implements OnInit {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     // console.log(currentUser);
 
-    if (currentUser && this.roles.includes(currentUser.role)) {
+    if (currentUser && this.roles.includes(currentUser.role.name)) {
 
     }
     else {
