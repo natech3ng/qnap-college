@@ -31,6 +31,10 @@ const routes: Routes = [
         resolve: { courses: SearchResolver }
       },
       {
+        path: 'tag/:tag_name', component: CategoryComponent,
+        resolve: { courses: CatCourseResolver }
+      },
+      {
         path: 'course/:id', component: CourseComponent,
         resolve: { course: CourseResolver },
         data: {

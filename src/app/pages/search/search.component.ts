@@ -15,10 +15,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   private routeSub: any;
   // @Output() search: EventEmitter<any> = new EventEmitter();
   courses: Course [];
-  func: String;
-  gridCol: Number;
-  gridClass: String;
-  category: String = null;
+  func: string;
+  gridCol: number;
+  gridClass: string;
+  category: string = null;
+  tag: string = null;
 
   constructor(
     private _route: ActivatedRoute,

@@ -17,6 +17,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
   courses: Course [] = [];
   category: String = '';
   func: String;
+  tag: string = '';
 
   gridCol: Number;
   gridClass: String;
@@ -31,6 +32,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this._route.params.subscribe(params => {
       this.category = params['name'];
+      this.tag = params['tag_name'];
     });
 
    this.routeSub = this._route.data.subscribe(

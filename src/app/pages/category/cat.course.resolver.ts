@@ -13,6 +13,9 @@ export class CatCourseResolver implements Resolve<Course []> {
     state: RouterStateSnapshot
   ): Observable<Course []> | Promise<Course []> | Course [] {
     this._categoryService.increase(route.params.name);
-    return this._courseService.allByCategory(route.params.name);
+    if(route.params.name)
+      return this._courseService.allByCategory(route.params.name);
+    else if(route.params.tag_name)
+    return this._courseService.allByTag(route.params.tag_name);
   }
 }

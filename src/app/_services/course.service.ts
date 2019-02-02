@@ -55,6 +55,14 @@ export class CourseService {
     return this._httpClient.get<Course []>(api_query, {headers: headers});
   }
 
+  allByTag(tag: String, orderBy?: String): Observable<Course []> {
+    const api_query = this.apiRoot + 'tag/'  + tag;
+    if(orderBy){
+    }
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+    return this._httpClient.get<Course []>(api_query, {headers: headers});
+  }
+
   get(id: any): Observable<Course> {
     const api_query = this.apiRoot + 'courses/' + id;
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');

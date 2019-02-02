@@ -24,7 +24,7 @@
                 <iframe width="420" height="315" [src]="youtubeSrc | safe" allowfullscreen=""></iframe>
               </div>
               <div class="tags"> 
-                Tags: <a class="tag" *ngFor="let tag of course.tags">{{tag}}</a>
+                Tags: <a class="tag" *ngFor="let tag of course.tags" [routerLink]="['/tag/', tag]">{{tag}}</a>
               </div>
             </div>
             <div class="col-md-12 video-desc single-post">
