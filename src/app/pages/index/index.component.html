@@ -76,14 +76,17 @@
                 
                 <div class="video-stats clearfix">
                   <div class="thumb-stats pull-left">
-                      <span>{{course.code_name}}</span>
+                    <span>{{course.code_name}}</span>
                   </div>
-                  <div class="thumb-stats pull-left">
-                      <i class="fa fa-heart"></i>
-                      <span>{{course.like}}</span>
+                  <div class="thumb-stats pull-left like">
+                    <i class="fa fa-heart"></i>
+                    <span>{{course.like}}</span>
                   </div>
+                  <!-- <div class="thumb-stats pull-left">
+                    <span >slide</span>
+                  </div> -->
                   <div class="thumb-stats pull-right">
-                      <span>{{course.duration | momentDuration}}</span>
+                    <span>{{course.duration | momentDuration}}</span>
                   </div>
                 </div>
               </div>
@@ -98,6 +101,9 @@
                     </div>
                     <div class="header-stats-comment">
                       Watched
+                    </div>
+                    <div class="header-stats-slide">
+                      <a (click)="onNavigate($event)" target='_blank' [attr.href]="course.slide_link" *ngIf="course.slide_link"><i class='far fa-file-powerpoint'></i></a>
                     </div>
                   </div>
                 </div>

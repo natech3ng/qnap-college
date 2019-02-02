@@ -1,9 +1,9 @@
 
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { AuthService } from './../_services/auth.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 
 import { ToastrService } from 'ngx-toastr';
@@ -59,6 +59,8 @@ export class AuthGuard implements CanActivate {
         localStorage.removeItem('currentUser');
         this._router.navigate(['/'], { queryParams: { returnUrl: state.url } });
         return false;
+      })).pipe(catchError((err) => {
+        return throwError(err);
       }));
   }
 }

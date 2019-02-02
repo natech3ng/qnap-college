@@ -16,4 +16,5 @@ export class Course {
   watched: Number;
   tags: String [];
   slug: string;
+  slide_link: string;
 }

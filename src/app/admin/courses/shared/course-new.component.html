@@ -73,6 +73,14 @@
             </div>
           </div>
           <div class="form-group m-form__group row">
+              <label for="slide-link-text-input" class="col-2 col-form-label offset-md-2">
+                Slide Link
+              </label>
+              <div class="col-6">
+                <input class="form-control m-input m-input-lg" type="text" [(ngModel)]="course.slide_link" required name="slide_link" required #name="ngModel" placeholder="Slide Link" id="slide_link-text-input">
+              </div>
+            </div>
+          <div class="form-group m-form__group row">
             <label for="example-text-input" class="col-2 col-form-label offset-md-2">
               Description
             </label>

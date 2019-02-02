@@ -173,4 +173,8 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
   }
+
+  onNavigate(e) {
+    e.stopPropagation();
+  }
 }

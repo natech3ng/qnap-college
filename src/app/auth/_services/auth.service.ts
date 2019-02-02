@@ -1,5 +1,5 @@
 
-import { of as observableOf,  Observable } from 'rxjs';
+import { of,  Observable, throwError } from 'rxjs';
 
 import {catchError, map} from 'rxjs/operators';
 import { AuthResponse, AuthResponseError } from './../../_models/authresponse';
@@ -145,15 +145,15 @@ export class AuthService {
   }
 
   verify(): Observable<AuthResponse | AuthResponseError> {
-    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-state', this.jwtHttpClient()).pipe(catchError((err: HttpErrorResponse) => {
+    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-state', this.jwtHttpClient()).pipe(catchError((err) => {
       // console.error('An error occurred:', err.error);
-      return observableOf(err.error);
+      return of(err);
     }));
   }
   tmpVerify(token): Observable<AuthResponse | AuthResponseError> {
     return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-tmp-state?token=' + token, this.jwtHttpClient()).pipe(catchError((err: HttpErrorResponse) => {
       // console.error('An error occurred:', err.error);
-      return observableOf(err.error);
+      return of(err.error);
     }));
   }
 
@@ -161,14 +161,14 @@ export class AuthService {
     const body = JSON.stringify({ email: email, password: password, oldPassword: oldPassword });
     return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'change-password', body, this.jwtHttpClient()).pipe(catchError((err: HttpErrorResponse) => {
       console.error('An error occurred:', err.error);
-      return observableOf(err.error);
+      return of(err.error);
     }));
   }
 
   resetPasswordAdmin(id: string): Observable<AuthResponse | AuthResponseError> {
     return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'reset-password-admin/' + id, null, this.jwtHttpClient()).pipe(catchError((err: HttpErrorResponse) => {
       console.error('An error occurred:', err.error);
-      return observableOf(err.error);
+      return of(err.error);
     }));
   }
 
