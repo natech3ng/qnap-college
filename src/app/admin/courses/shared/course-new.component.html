@@ -79,7 +79,14 @@
             <div class="col-6">
               <textarea class="form-control m-input m-input--air" id="desc-textarea" rows="3" name="desc" #name="ngModel" required  [(ngModel)]="course.desc" ></textarea>
             </div>
-          </div>
+          </div><div class="form-group m-form__group row">
+              <label for="example-text-input" class="col-2 col-form-label offset-md-2">
+                Slug
+              </label>
+              <div class="col-6">
+                <input class="form-control m-input m-input-lg" disabled type="text" [(ngModel)]="course.slug" required name="slug" required #name="ngModel" placeholder="" id="slug-text-input">
+              </div>
+            </div>
           <div class="form-group m-form__group row">
             <div class="col-md-3 offset-md-8">
               <button type="button" class="btn btn-danger btn-upload" [routerLink]="['/courses']">Back</button>

@@ -160,6 +160,14 @@ a, a:hover, a:visited, a:focus {
 .m-form__group label, .m-form__group label ~ div {
   // padding: 18px 0;
   line-height: 3.5em;
+
+  .form-control {
+    height: 100%;
+  }
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  height: 100%;
 }
 
 .m-input-large {

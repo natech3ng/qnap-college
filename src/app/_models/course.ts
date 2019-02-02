@@ -15,4 +15,5 @@ export class Course {
   rank: Number;
   watched: Number;
   tags: String [];
+  slug: string;
 }
