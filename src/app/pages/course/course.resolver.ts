@@ -11,9 +11,6 @@ export class CourseResolver implements Resolve<Course> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Course> | Promise<Course> | Course {
-    if(route.params.id)
-      return this._courseService.get(route.params.id);
-    else if (route.params.slug)
-    return this._courseService.get_by_slug(route.params.slug);
+    return this._courseService.get(route.params.id);
   }
 }

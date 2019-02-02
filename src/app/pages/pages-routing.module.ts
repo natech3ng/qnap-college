@@ -39,10 +39,6 @@ const routes: Routes = [
             overrider: true
           }
         }
-      },
-      {
-        path: 'course/s/:slug', component: CourseComponent,
-        resolve: { course: CourseResolver }
       }
     ]
   }
