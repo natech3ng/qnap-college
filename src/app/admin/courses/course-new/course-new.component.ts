@@ -5,7 +5,7 @@ import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Category } from '../../../_models/category';
-import { UcFirstPipe } from 'ngx-pipes';
+import { UcFirstPipe, SlugifyPipe } from 'ngx-pipes';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { ConfirmService } from '../../../_services/confirm.service';
@@ -30,6 +30,7 @@ export class CourseNewComponent implements OnInit, OnDestroy {
   constructor(
     private _route: ActivatedRoute,
     private _ucfirstPipe: UcFirstPipe,
+    private _slugifyPipe: SlugifyPipe,
     private _confirmService: ConfirmService,
     private _toastr: ToastrService,
     private _courseService: CourseService,
@@ -80,4 +81,11 @@ export class CourseNewComponent implements OnInit, OnDestroy {
         // this._toastr.error('Failed to add a course');
     });
   }
+  onModelChange(value) {
+    // console.log(this._slugifyPipe.transform(value));
+    this.course.slug = this._slugifyPipe.transform(value);
+  }
+  // onTopicChange(value) {
+  //   console.log(value);
+  // }
 }

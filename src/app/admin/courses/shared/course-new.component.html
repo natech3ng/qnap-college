@@ -9,7 +9,7 @@
               Topic
             </label>
             <div class="col-6">
-              <input class="form-control m-input" type="text" [(ngModel)]="course.title" name='title' #name="ngModel" required placeholder="Topic" id="title-text-input">
+              <input class="form-control m-input" type="text" [(ngModel)]="course.title" name='title' #name="ngModel" required placeholder="Topic" id="title-text-input" (ngModelChange)="onModelChange($event)">
             </div>
           </div>
           <div class="form-group m-form__group row">
