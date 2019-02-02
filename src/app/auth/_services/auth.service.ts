@@ -1,12 +1,15 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
+
+import {catchError, map} from 'rxjs/operators';
 import { AuthResponse, AuthResponseError } from './../../_models/authresponse';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {
   Headers,
 } from '@angular/http';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import 'rxjs/add/operator/catch';
+
 import * as ResCode from '../../_codes/response';
 
 @Injectable()
@@ -33,8 +36,8 @@ export class AuthService {
     const options = {
       headers: headers
     };
-    return this.httpClient.post<AuthResponse>(`${this.apiRoot}fbLogin`, body, options)
-      .map((response:any) => {
+    return this.httpClient.post<AuthResponse>(`${this.apiRoot}fbLogin`, body, options).pipe(
+      map((response:any) => {
         console.log("[fbLogin]: ", response);
         if (response.success === true) {
           if (response.payload.code === ResCode.PASSWORD_HAS_NOT_BEEN_CREATED) {
@@ -51,7 +54,7 @@ export class AuthService {
             return ruser;
           }
         }
-      });
+      }));
   }
 
   googleLogin(googlePayload: any) {
@@ -61,8 +64,8 @@ export class AuthService {
     const options = {
       headers: headers
     };
-    return this.httpClient.post<AuthResponse>(`${this.apiRoot}googleLogin`, body, options)
-      .map((response:any) => {
+    return this.httpClient.post<AuthResponse>(`${this.apiRoot}googleLogin`, body, options).pipe(
+      map((response:any) => {
         console.log("[googleLogin]: ", response);
         if (response.success === true) {
           if (response.payload.code === ResCode.PASSWORD_HAS_NOT_BEEN_CREATED) {
@@ -79,7 +82,7 @@ export class AuthService {
             return ruser;
           }
         }
-      });
+      }));
   }
  
   login(email: string, password: string): any {
@@ -90,8 +93,8 @@ export class AuthService {
       headers: headers
     };
 
-    return this.httpClient.post<AuthResponse>(`${this.apiRoot}login`, body, options)
-      .map((response: AuthResponse) => {
+    return this.httpClient.post<AuthResponse>(`${this.apiRoot}login`, body, options).pipe(
+      map((response: AuthResponse) => {
         console.log(response);
         // login successful if there's a jwt token in the response
         if (response.success === true) {
@@ -106,7 +109,7 @@ export class AuthService {
           }
           return user;
         }
-      });
+      }));
   }
 
   register(email: string, password: string, name: string): any {
@@ -116,8 +119,8 @@ export class AuthService {
     const options = {
       headers: headers
     };
-    return this.httpClient.post<AuthResponse>(`${this.apiRoot}register`, body, options)
-    .map((response: AuthResponse) => {
+    return this.httpClient.post<AuthResponse>(`${this.apiRoot}register`, body, options).pipe(
+    map((response: AuthResponse) => {
       // login successful if there's a jwt token in the response
       if (response.success === true) {
         const user = response.payload;
@@ -131,7 +134,7 @@ export class AuthService {
         }
         return user;
       }
-    });
+    }));
   }
 
   logout() {
@@ -142,31 +145,31 @@ export class AuthService {
   }
 
   verify(): Observable<AuthResponse | AuthResponseError> {
-    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-state', this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-state', this.jwtHttpClient()).pipe(catchError((err: HttpErrorResponse) => {
       // console.error('An error occurred:', err.error);
-      return Observable.of(err.error);
-    });
+      return observableOf(err.error);
+    }));
   }
   tmpVerify(token): Observable<AuthResponse | AuthResponseError> {
-    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-tmp-state?token=' + token, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+    return this.httpClient.get<AuthResponse | AuthResponseError>(this.apiRoot + 'check-tmp-state?token=' + token, this.jwtHttpClient()).pipe(catchError((err: HttpErrorResponse) => {
       // console.error('An error occurred:', err.error);
-      return Observable.of(err.error);
-    });
+      return observableOf(err.error);
+    }));
   }
 
   changePassword(email: string, oldPassword: string, password: string): Observable<AuthResponse | AuthResponseError> {
     const body = JSON.stringify({ email: email, password: password, oldPassword: oldPassword });
-    return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'change-password', body, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+    return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'change-password', body, this.jwtHttpClient()).pipe(catchError((err: HttpErrorResponse) => {
       console.error('An error occurred:', err.error);
-      return Observable.of(err.error);
-    });
+      return observableOf(err.error);
+    }));
   }
 
   resetPasswordAdmin(id: string): Observable<AuthResponse | AuthResponseError> {
-    return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'reset-password-admin/' + id, null, this.jwtHttpClient()).catch((err: HttpErrorResponse) => {
+    return this.httpClient.post<AuthResponse | AuthResponseError>(this.apiRoot + 'reset-password-admin/' + id, null, this.jwtHttpClient()).pipe(catchError((err: HttpErrorResponse) => {
       console.error('An error occurred:', err.error);
-      return Observable.of(err.error);
-    });
+      return observableOf(err.error);
+    }));
   }
 
 

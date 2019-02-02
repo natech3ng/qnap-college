@@ -1,9 +1,11 @@
+
+import {map} from 'rxjs/operators';
 import { AuthService } from './../_services/auth.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
+
+
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
@@ -37,7 +39,7 @@ export class AuthGuard implements CanActivate {
         return false;
       }
     }
-    return this._authService.verify().map(
+    return this._authService.verify().pipe(map(
       (data) => {
         // console.log('[AuthGuard] data: ', data);
         if (data !== null && data.success) {
@@ -57,6 +59,6 @@ export class AuthGuard implements CanActivate {
         localStorage.removeItem('currentUser');
         this._router.navigate(['/'], { queryParams: { returnUrl: state.url } });
         return false;
-      });
+      }));
   }
 }
