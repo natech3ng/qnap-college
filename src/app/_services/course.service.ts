@@ -61,6 +61,12 @@ export class CourseService {
     return this._httpClient.get<Course>(api_query, {headers: headers});
   }
 
+  get_by_slug(slug: string): Observable<Course> {
+    const api_query = this.apiRoot + 'courses/s/' + slug;
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+    return this._httpClient.get<Course>(api_query, {headers: headers});
+  }
+
   getYoutubeInfo(youtubeRef: String): Observable<Course> {
     const api_query = this.apiRoot + 'courses/' + youtubeRef + '/youtubeinfo';
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');

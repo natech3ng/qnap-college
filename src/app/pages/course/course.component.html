@@ -65,7 +65,7 @@
                   <h5>Most View Videos</h5>
                 </div>
                 <div class="widgetContent">
-                  <a class="media-object stack-for-small" *ngFor='let course of courses' [routerLink]="['/course', course._id]">
+                  <a class="media-object stack-for-small" *ngFor='let course of courses' [routerLink]="['/course/s/', course.slug]">
                     <div class="media-object-section">
                       <div class="recent-img">
                         <img src= "{{'//img.youtube.com/vi/' + course.youtube_ref + '/sddefault.jpg'}}" alt="recent">

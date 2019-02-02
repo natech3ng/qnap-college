@@ -12,6 +12,7 @@ import { CourseComponent } from './course/course.component';
 import { CourseResolver } from './course/course.resolver';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { MetaGuard } from '@ngx-meta/core';
+
 const routes: Routes = [
   {
     path: '',
@@ -39,6 +40,10 @@ const routes: Routes = [
             overrider: true
           }
         }
+      },
+      {
+        path: 'course/s/:slug', component: CourseComponent,
+        resolve: { course: CourseResolver }
       }
     ]
   }
