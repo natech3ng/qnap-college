@@ -1,3 +1,4 @@
+import { NgxCaptchaModule } from 'ngx-captcha';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { PagesComponent } from './pages.component';
 import { NgPipesModule } from 'ngx-pipes';
@@ -21,7 +22,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PagesRoutingModule,
     MomentModule,
     NgPipesModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxCaptchaModule
   ],
   declarations: [
     PagesComponent,

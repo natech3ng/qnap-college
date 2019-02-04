@@ -1,20 +1,21 @@
 export class Course {
-  _id: String;
-  title: String;
-  code_name: String;
-  desc: String;
-  keywords: String;
-  youtube_ref: String;
-  category: String;
+  _id: string;
+  title: string;
+  code_name: string;
+  desc: string;
+  keywords: string;
+  youtube_ref: string;
+  category: string;
   publishedDate: Date;
-  commentCount: Number;
-  duration: String;
-  favoriteCount: Number;
-  dislike: Number;
-  like: Number;
-  rank: Number;
-  watched: Number;
-  tags: String [];
+  commentCount: number;
+  duration: string;
+  favoriteCount: number;
+  dislike: number;
+  like: number;
+  rank: number;
+  watched: number;
+  tags: string [];
   slug: string;
   slide_link: string;
+  comments: string[];
 }

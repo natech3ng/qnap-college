@@ -1,3 +1,4 @@
+import { CommentService } from './_services/comment.service';
 import { ClickStopPropagation } from './_directives/click.stop.propagation.directive';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxScreensizeModule } from './modules/ngx-screensize/index';
@@ -140,7 +141,8 @@ export function metaFactory(): MetaLoader {
     AuthService,
     CourseResolver,
     RoleService,
-    EventBrokerService
+    EventBrokerService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

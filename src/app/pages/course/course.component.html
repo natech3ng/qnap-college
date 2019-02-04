@@ -1,9 +1,12 @@
  <!-- Single page share --> 
-<div id="main" class="row">
+<div id="main" class="row loading">
   <article class="support-index">
     <header #header>
       <div class="container">
-        <h2><a href="#"></a></h2>
+        <div class='pull-right log-btn'>
+            <span *ngIf="loggedIn">Hello, {{this.currentUser.name}} | <a (click)="onSignout($event);">Logout</a></span>
+            <a href="#" [routerLink]="['/login']" [queryParams]="{returnUrl: returnUrl}" *ngIf="!loggedIn">Login</a>
+        </div>
       </div>
     </header>
 
@@ -40,6 +43,45 @@
               </div>
               <div>
                 {{ course.desc }}
+              </div>
+              <div class='comments'>
+                <div class='single-post-comments'>
+                  Comments: 
+                </div>
+                <div class="comment-wrap" *ngIf="loggedIn">
+                  <div class="photo">
+                    <div class="avatar"><span class="initials">{{currentUserAbbvName}}</span></div>  
+                  </div>
+                  <!-- <div class="photo">
+                      <div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg')"></div>
+                  </div> -->
+                  <div class="comment-block">
+                    <form action="">
+                      <textarea name="comment" id="comment" cols="30" rows="3" [(ngModel)]="comment" (keyup.enter)="onEnterComment($event)"placeholder="Add comment..."></textarea>
+                      
+                    </form>
+   
+                  </div>
+                </div>
+                <div class="comment-wrap" *ngFor="let comment of comments">
+                    <div class="photo">
+                            <div class="avatar"><span class="initials">{{comment.poster_name}}</span></div>
+                      <!-- <div class="avatar"></div>  -->
+                      <!-- <div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg')"></div> -->
+                    </div>
+                    <div class="comment-block">
+                        <p class="comment-text">{{comment.comment}}</p>
+                        <div class="bottom-comment">
+                            <div class="comment-date">{{comment.createdAt | amDateFormat:'LL'}} @ {{ (comment.createdAt | amFromUnix) | amDateFormat:'hh:mmA'}}
+                              </div>
+                            <ul class="comment-actions">
+                              <li class="delete" *ngIf="comment.owner_id === currentUser._id">Delete</li>
+                                <!-- <li class="complain">Complain</li>
+                                <li class="reply">Reply</li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
@@ -204,4 +246,17 @@
       </div>
     </section>
   </article>
+
+  <ngx-invisible-recaptcha #captchaElem
+                            [siteKey]="siteKey"
+                            (reset)="handleReset()"
+                            (ready)="handleReady()"
+                            (load)="handleLoad()"
+                            (success)="handleSuccess($event)"
+                            [useGlobalDomain]="false"
+                            [type]="type"
+                            [badge]="badge"
+                            [ngModel]="recaptcha"
+                            [ngModelOptions]="{ standalone: true }">
+  </ngx-invisible-recaptcha>
 </div>

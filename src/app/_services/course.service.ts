@@ -1,3 +1,4 @@
+import { Comment } from './../_models/comment';
 import { CourseDoc } from './../_models/document';
 import { AuthService } from './../auth/_services/auth.service';
 import { Injectable } from '@angular/core';
@@ -61,6 +62,12 @@ export class CourseService {
     }
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this._httpClient.get<Course []>(api_query, {headers: headers});
+  }
+
+  allCommentsByCourseId(courseId: String): Observable<Comment []>  {
+    const api_query = this.apiRoot + 'comments/course/'  + courseId;
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+    return this._httpClient.get<Comment []>(api_query, {headers: headers});
   }
 
   get(id: any): Observable<Course> {

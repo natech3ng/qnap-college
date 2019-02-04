@@ -1,13 +1,20 @@
+import { EventBrokerService } from './../../_services/event.broker.service';
+import { CommentService } from './../../_services/comment.service';
+import { UsersService } from './../../auth/_services/users.service';
+import { AuthService } from './../../auth/_services/auth.service';
 import { CourseDoc } from './../../_models/document';
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from '../../_models/course';
 import { CourseService } from '../../_services/course.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AddThisService } from '../../_services/addthis.service';
 import { MetaService } from '@ngx-meta/core';
-import { FacebookService, InitParams, UIParams, UIResponse } from 'ngx-facebook';
+import { FacebookService, InitParams } from 'ngx-facebook';
+import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../environments/environment';
+import { ReCaptchaV3Service, InvisibleReCaptchaComponent } from 'ngx-captcha';
 
 @Component({
   selector: 'app-course',
@@ -23,14 +30,47 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   courses: Course [];
   youtubeSrc;
   keywords;
+  comments: any [];
+  currentUser = null;
+  loggedIn:boolean = false;
+  returnUrl = '';
+  currentUserAbbvName = 'JD';
+  private cdr: ChangeDetectorRef;
+
+  public captchaIsLoaded = false;
+  public captchaSuccess = false;
+  public captchaResponse?: string;
+  public captchaIsReady = false;
+
+  public badge: 'bottomleft' | 'bottomright' | 'inline' = 'inline';
+  public type: 'image' | 'audio';
+
+  public recaptcha: any = null;
+
+  comment = '';
+
+  @ViewChild('captchaElem') captchaElem: InvisibleReCaptchaComponent;
+  @ViewChild('langInput') langInput: ElementRef;
+
+  public readonly siteKey = environment.recapctchaSitekey;
+  recaptchaToken = null;
+  // siteKey = '6LeVt3cUAAAAADO9qIyWsIHZOaiFUKr0PwWvVes9';
+
+  loading: false;
+
   constructor(
     private _route: ActivatedRoute, 
     private _courseService: CourseService, 
     private _router: Router,
     private _addThis: AddThisService,
     private readonly _meta: MetaService,
-    private _fb: FacebookService) {
-
+    private _fb: FacebookService,
+    private _toastr: ToastrService,
+    private _authService: AuthService,
+    private _usersService: UsersService,
+    private reCaptchaV3Service: ReCaptchaV3Service,
+    private _commentService: CommentService,
+    private _eventBroker: EventBrokerService) {
 
     let initParams: InitParams = {
       appId: '482418502252290',
@@ -60,6 +100,21 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     this._meta.setTag('og:description', 'Course description');
     this._meta.setTag('og:url', 'https://college.qnap.com/course/5b5105d1e449ca649bbc1675');
 
+    this._authService.verify().subscribe(
+      (res) => {
+        if (res && res.success) {
+          this.loggedIn = true;
+          this.currentUser = this._authService.getUser();
+          console.log(this.currentUser);
+          this.currentUserAbbvName = this.currentUser.name.split(" ").map((n)=>n[0]).join("")
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    // console.log(this.loggedIn);
+    // console.log(this._authService.getUser());
     this.sub = this._route.params.subscribe(params => {
     });
 
@@ -70,6 +125,31 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
           this._courseService.quickClicked(this.course);
           this.youtubeSrc = 'https://www.youtube.com/embed/' + this.course.youtube_ref;
           this.course.tags = this.course.keywords.split(',');
+          // console.log(this.course);
+
+          this._courseService.allCommentsByCourseId(this.course._id).subscribe(
+            (comments) => {
+              this.comments = comments;
+              let i = 0;
+              for (let comment of this.comments) {
+                let idx = i;
+                this._usersService.getAbbv(comment['owner_id']).subscribe(
+                  (res) => {
+                    this.comments[idx]['poster_name'] = res['name'];
+                    // console.log(idx);
+                    // console.log(this.comments);
+                  },
+                  (err) => {
+                    console.log(err);
+                  }
+                );
+                i++;
+              }
+            },
+            (error) => {
+              this._toastr.error('Couldn\'t get comments')
+            }
+          );
           // this._meta.setTitle(`${this.course.title}`);
           // this._meta.setTag('og:image', `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`);
           // let params: UIParams = {
@@ -102,6 +182,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
           //   });;
         }
       });
+
+    this.returnUrl = this._route.snapshot['_routerState'].url;
   }
 
   ngAfterViewInit() {
@@ -128,6 +210,14 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
         scriptOnPage = true;
     }
     return scriptOnPage;
+  }
+
+  onSignout(e) {
+    e.stopPropagation();
+    // remove user from local storage to log user out
+    this.loggedIn = false;
+    localStorage.removeItem('currentUser');
+    // this._authService.logout();
   }
 
   addScript() {
@@ -160,4 +250,73 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
       document.body.appendChild(script);
     }
   };
+
+  onEnterComment(e) {
+    // console.log(e.target.value);
+    // console.log(this.comment);
+    this._eventBroker.emit<boolean>("loading", true);
+    this.reCaptchaV3Service.execute(this.siteKey, 'homepage', (token) => {
+      console.log('This is your token: ', token);
+      this.recaptchaToken = token
+      this._commentService.post(this.course._id, e.target.value, this.recaptchaToken).subscribe(
+        (res) => {
+          console.log(res);
+          this.comment = '';
+
+          this._courseService.allCommentsByCourseId(this.course._id).subscribe(
+            (comments) => {
+              this.comments = comments;
+              let i = 0;
+              for (let comment of this.comments) {
+                let idx = i;
+                this._usersService.getAbbv(comment['owner_id']).subscribe(
+                  (res) => {
+                    this.comments[idx]['poster_name'] = res['name'];
+                    // console.log(idx);
+                    // console.log(this.comments);
+                  },
+                  (err) => {
+                    console.log(err);
+                  }
+                );
+                i++;
+              }
+            },
+            (error) => {
+              this._toastr.error('Couldn\'t get comments')
+            });
+          this._eventBroker.emit<boolean>("loading", false);
+        },
+        (err) => {
+          console.log(err);
+          this.comment = '';
+          this._eventBroker.emit<boolean>("loading", false);
+        }
+      );
+    }, {
+      useGlobalDomain: false // optional
+    });
+  }
+
+  execute(): void {
+    this.captchaElem.execute();
+  }
+
+  handleReset(): void {
+    this.captchaSuccess = false;
+    this.captchaResponse = undefined;
+  }
+
+  handleSuccess(captchaResponse: string): void {
+    this.captchaSuccess = true;
+    this.captchaResponse = captchaResponse;
+  }
+
+  handleLoad(): void {
+    this.captchaIsLoaded = true;
+  }
+
+  handleReady(): void {
+    this.captchaIsReady = true;
+  }
 };

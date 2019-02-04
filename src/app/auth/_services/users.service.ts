@@ -37,4 +37,8 @@ export class UsersService {
     const body = JSON.stringify({role: roleName});
     return this._httpClient.put<User []>(api_query, body,this._authService.jwtHttpClient());
   }
+  getAbbv(uid: string) {
+    const api_query = this.apiRoot + `user/abvn/${uid}`;
+    return this._httpClient.get<User []>(api_query, this._authService.jwtHttpClient());
+  }
 }

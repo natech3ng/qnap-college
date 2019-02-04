@@ -1,3 +1,4 @@
+import { IEventListener, EventBrokerService } from './../_services/event.broker.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ModalService } from '../_services/modal.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
@@ -59,6 +60,8 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   private statusChangeSubscription: Subscription;
   private revokeChoiceSubscription: Subscription;
 
+  private _myEventListener: IEventListener;;
+
   @HostListener('document:keydown', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
     // console.log(event);
@@ -93,7 +96,8 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _httpClient: HttpClient,
     private _sanitizer: DomSanitizer,
     private _addThis: AddThisService,
-    private reCaptchaV3Service: ReCaptchaV3Service) {
+    private reCaptchaV3Service: ReCaptchaV3Service,
+    private _eventBroker: EventBrokerService) {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
       // console.log(this.deviceInfo);
@@ -104,6 +108,11 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
           (<any>window).ga('set', 'page', event.urlAfterRedirects);
           (<any>window).ga('send', 'pageview');
         }
+      });
+
+      this._myEventListener = this._eventBroker.listen<boolean>("loading",(value:boolean)=>{
+        // Waiting loading event in router-outlet, it's a workaround, because we don't have broker on router-outlet
+        this.loading = value;
       });
     }
 
