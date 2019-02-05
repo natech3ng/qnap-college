@@ -46,6 +46,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { RoleService } from './_services/role.service';
 import { EventBrokerService } from './_services/event.broker.service';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { AddScriptService } from './_services/addscript.service';
 
 
 const cookieConfig: NgcCookieConsentConfig = {
@@ -142,7 +143,8 @@ export function metaFactory(): MetaLoader {
     CourseResolver,
     RoleService,
     EventBrokerService,
-    CommentService
+    CommentService,
+    AddScriptService
   ],
   bootstrap: [AppComponent]
 })

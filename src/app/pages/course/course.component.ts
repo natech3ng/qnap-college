@@ -15,6 +15,7 @@ import { FacebookService, InitParams } from 'ngx-facebook';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service, InvisibleReCaptchaComponent } from 'ngx-captcha';
+import { ConfirmService } from '../../_services/confirm.service';
 
 @Component({
   selector: 'app-course',
@@ -35,6 +36,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   loggedIn:boolean = false;
   returnUrl = '';
   currentUserAbbvName = 'JD';
+  commentError: boolean = false;
+  commentErrorMessage: string = 'Please make sure the comment format is correct.';
   private cdr: ChangeDetectorRef;
 
   public captchaIsLoaded = false;
@@ -56,7 +59,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   recaptchaToken = null;
   // siteKey = '6LeVt3cUAAAAADO9qIyWsIHZOaiFUKr0PwWvVes9';
 
-  loading: false;
+  loading: boolean = false;
 
   constructor(
     private _route: ActivatedRoute, 
@@ -70,7 +73,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     private _usersService: UsersService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     private _commentService: CommentService,
-    private _eventBroker: EventBrokerService) {
+    private _eventBroker: EventBrokerService, 
+    private _confirmService: ConfirmService) {
 
     let initParams: InitParams = {
       appId: '482418502252290',
@@ -251,16 +255,33 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   };
 
+  setloading(value: boolean) {
+    this._eventBroker.emit<boolean>("loading", value);
+  }
+
   onEnterComment(e) {
-    // console.log(e.target.value);
+    
+    console.log(e.keyCode);
+    let comment_html = e.target.value;
+    comment_html = comment_html.replace(/\r?\n/g, '<br />');
     // console.log(this.comment);
-    this._eventBroker.emit<boolean>("loading", true);
-    this.reCaptchaV3Service.execute(this.siteKey, 'homepage', (token) => {
-      console.log('This is your token: ', token);
+    this.setloading(true);
+    this.reCaptchaV3Service.execute(this.siteKey, 'postcomment', (token) => {
+      // console.log('This is your token: ', token);
       this.recaptchaToken = token
-      this._commentService.post(this.course._id, e.target.value, this.recaptchaToken).subscribe(
+
+      if(e.target.value.length < 32) {
+        this.commentErrorMessage = 'The comment must be longer than 32 characters.';
+        this.commentError = true;
+        this.setloading(false);
+        return;
+      } else {
+        this.commentError = false;
+      }
+      this._commentService.post(this.course._id, comment_html, this.recaptchaToken).subscribe(
         (res) => {
-          console.log(res);
+          
+          // console.log(res);
           this.comment = '';
 
           this._courseService.allCommentsByCourseId(this.course._id).subscribe(
@@ -285,17 +306,64 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
             (error) => {
               this._toastr.error('Couldn\'t get comments')
             });
-          this._eventBroker.emit<boolean>("loading", false);
+          this.setloading(false);
         },
         (err) => {
           console.log(err);
           this.comment = '';
-          this._eventBroker.emit<boolean>("loading", false);
+          this.setloading(false);
         }
       );
     }, {
       useGlobalDomain: false // optional
     });
+  }
+
+  onCommentCheckBlur(e) {
+    if(e.target.value.length < 32 && e.target.value.length > 0) {
+      this.commentErrorMessage = 'The comment must be longer than 32 characters.';
+      this.commentError = true;
+    } else {
+      this.commentError = false;
+    }
+  }
+
+  onCommentCheckChange(e) {
+    if(this.commentError) {
+      if(e.target.value.length >= 32 || e.target.value.length === 0) {
+        this.commentError = false;
+      }
+    }
+  }
+  onDelete(commentId) {
+    this._confirmService.open("Do you want to delete the comment?").then(
+      () => {
+        this.setloading(true);
+        setTimeout(() => {
+          this._commentService.delete(commentId).subscribe(
+            (res) => { 
+              if (res && res.success) {
+                for (let i = 0; i < this.comments.length; i = i+1) {
+                  if (commentId === this.comments[i]._id) {
+                    const coms = this.comments.slice();
+                    coms.splice(i, 1);
+                    this.comments = coms;
+                  }
+                }
+                this.setloading(false);
+                this._toastr.success('Successfully deleted the comment');
+              } else {
+                this.setloading(false);
+                this._toastr.success('Nothing happened');
+              }
+            },
+            (err) => {
+              this.loading = false;
+              this._toastr.error('Something went wrong.')
+            }
+          ); 
+        }, 1000)  
+    }).catch(()=>{})
   }
 
   execute(): void {

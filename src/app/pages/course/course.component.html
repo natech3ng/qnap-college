@@ -47,6 +47,9 @@
               <div class='comments'>
                 <div class='single-post-comments'>
                   Comments: 
+                  <span *ngIf="!loggedIn">
+                    (<a href="#" [routerLink]="['/login']" [queryParams]="{returnUrl: returnUrl}">Log in</a> to comment)
+                  </span>
                 </div>
                 <div class="comment-wrap" *ngIf="loggedIn">
                   <div class="photo">
@@ -57,10 +60,10 @@
                   </div> -->
                   <div class="comment-block">
                     <form action="">
-                      <textarea name="comment" id="comment" cols="30" rows="3" [(ngModel)]="comment" (keyup.enter)="onEnterComment($event)"placeholder="Add comment..."></textarea>
+                      <textarea class='comment' [ngClass]="{'comment-error': commentError}" name="comment" id="comment" cols="30" rows="3" [(ngModel)]="comment" (keydown.enter)="onEnterComment($event); false" (keydown.shift.Enter)="true" placeholder="Add comment, Shift + Enter to change line..." (keydown)="onCommentCheckChange($event);" (blur)="onCommentCheckBlur($event);"></textarea>
                       
                     </form>
-   
+                    <div *ngIf="commentError" class='comment-error-message'> {{commentErrorMessage}} </div>
                   </div>
                 </div>
                 <div class="comment-wrap" *ngFor="let comment of comments">
@@ -70,12 +73,12 @@
                       <!-- <div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg')"></div> -->
                     </div>
                     <div class="comment-block">
-                        <p class="comment-text">{{comment.comment}}</p>
+                        <p class="comment-text" [innerHTML]="comment.comment"></p>
                         <div class="bottom-comment">
                             <div class="comment-date">{{comment.createdAt | amDateFormat:'LL'}} @ {{ (comment.createdAt | amFromUnix) | amDateFormat:'hh:mmA'}}
                               </div>
                             <ul class="comment-actions">
-                              <li class="delete" *ngIf="comment.owner_id === currentUser._id">Delete</li>
+                              <li class="delete" *ngIf="currentUser && ( currentUser.role.level >= 9 || (comment.owner_id === currentUser._id))" (click)="onDelete(comment._id)">Delete</li>
                                 <!-- <li class="complain">Complain</li>
                                 <li class="reply">Reply</li> -->
                             </ul>

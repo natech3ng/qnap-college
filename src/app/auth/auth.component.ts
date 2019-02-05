@@ -2,12 +2,13 @@ import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 import { User } from './_models/user.model';
 import { AuthService } from './_services/auth.service';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, NgZone, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ReCaptchaV3Service, ReCaptcha2Component } from 'ngx-captcha';
 import { environment } from '../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import * as ResCode from '../_codes/response';
+import { AddScriptService } from '../_services/addscript.service';
 
 declare var gapi: any;
 
@@ -16,7 +17,7 @@ declare var gapi: any;
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements OnInit, OnDestroy {
+export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
   signing: boolean = false;
   registering: boolean = false;
   returnUrl: string;
@@ -54,7 +55,8 @@ export class AuthComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private _toastr: ToastrService, 
     private fb: FacebookService,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,
+    private _addScript: AddScriptService) {
       // console.log(this._route.snapshot.url[0].path);
       this._route.url.subscribe(
         (url) => {
@@ -63,7 +65,7 @@ export class AuthComponent implements OnInit, OnDestroy {
       );
 
       let initParams: InitParams = {
-        appId: '482418502252290',
+        appId: environment.FBId,
         xfbml: true,
         version: 'v2.8'
       };
@@ -72,14 +74,16 @@ export class AuthComponent implements OnInit, OnDestroy {
       gapi.load('auth2', () => {
         console.log('[gapi.load] auth2 ready', )
         gapi.auth2.init({
-          'clientId': '230327847455-6l12nf0ek6nhs0iui3iomk2mhtad3e59.apps.googleusercontent.com'
+          'clientId': environment.GoogleClientID
           // 'scope': 'profile'
           // 'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
         }).then((onInit) => {
-          // console.log('qapi:auth2 loaded');
+          console.log('qapi:auth2 loaded');
           this.GoogleAuth = gapi.auth2.getAuthInstance();
           
         }, (onError) => {
+          this.loading = false;
+          console.log(onError);
 
         });
       });
@@ -94,6 +98,13 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.signing = false;
+  }
+
+  ngAfterViewInit() {
+    this._addScript.addMeta({
+      name: 'google-signin-client_id',
+      content: environment.GoogleClientID
+    })
   }
 
   onSignin(f: NgForm) {
@@ -189,6 +200,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   onGoogleLogin() {
     this.loading = true;
     this.signing = true;
+    // console.log(this.GoogleAuth);
     if (this.GoogleAuth) {
       this.GoogleAuth.signIn(
         {
@@ -219,11 +231,11 @@ export class AuthComponent implements OnInit, OnDestroy {
                 
               this._router.navigate(['/user/create-password', res.uid], { queryParams: { token:  res.token, from: 'google'} });
             } else {
-              console.log('logged in');
+              // console.log('logged in');
               if (res.role.name === 'normal') {
                 this.returnUrl = '/profile';
               }
-              console.log('Navigate to', this.returnUrl);
+              // console.log('Navigate to', this.returnUrl);
               this._navigate([this.returnUrl]);
               // this._router.navigate([this.returnUrl]);
             }
@@ -231,12 +243,18 @@ export class AuthComponent implements OnInit, OnDestroy {
           (err: any) => {
             this.loading = false;
             this.signing = false;
-            console.log(err); 
+            // console.log(err); 
           }
         );
       },
       (error) => {
-        console.log('signed in failed, ', error);
+        // console.log('signed in failed, ', error);
+        this.loading = false;
+        this.signing = false;
+      }).catch((err) => {
+        this.loading = false;
+        this.signing = false;
+        // console.log(err)
       });
     }
   }

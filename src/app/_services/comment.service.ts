@@ -28,4 +28,13 @@ export class CommentService {
         })
       );
   }
+
+  delete(commentId: string): Observable<any> {
+    return this.httpClient.delete<any>(this.apiRoot + 'comment/' + commentId, this._authService.jwtHttpClient())
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
 }
