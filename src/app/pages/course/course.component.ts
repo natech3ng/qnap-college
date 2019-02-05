@@ -57,6 +57,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public readonly siteKey = environment.recapctchaSitekey;
   recaptchaToken = null;
+  commentLength: number = 0;
   // siteKey = '6LeVt3cUAAAAADO9qIyWsIHZOaiFUKr0PwWvVes9';
 
   loading: boolean = false;
@@ -109,7 +110,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
         if (res && res.success) {
           this.loggedIn = true;
           this.currentUser = this._authService.getUser();
-          console.log(this.currentUser);
+          // console.log(this.currentUser);
           this.currentUserAbbvName = this.currentUser.name.split(" ").map((n)=>n[0]).join("")
         }
       },
@@ -219,8 +220,12 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   onSignout(e) {
     e.stopPropagation();
     // remove user from local storage to log user out
+    this.setloading(true);
     this.loggedIn = false;
     localStorage.removeItem('currentUser');
+    setTimeout(() => {
+      this.setloading(false);
+    }, 500)
     // this._authService.logout();
   }
 
@@ -261,7 +266,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onEnterComment(e) {
     
-    console.log(e.keyCode);
+    // console.log(e.keyCode);
     let comment_html = e.target.value;
     comment_html = comment_html.replace(/\r?\n/g, '<br />');
     // console.log(this.comment);
@@ -283,6 +288,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
           
           // console.log(res);
           this.comment = '';
+          this.commentLength = e.target.value.length + 1;
 
           this._courseService.allCommentsByCourseId(this.course._id).subscribe(
             (comments) => {
@@ -311,6 +317,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
         (err) => {
           console.log(err);
           this.comment = '';
+          this.commentLength = e.target.value.length+1;
           this.setloading(false);
         }
       );
@@ -320,8 +327,13 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onCommentCheckBlur(e) {
+    this.commentLength = e.target.value.length+1;
+
     if(e.target.value.length < 32 && e.target.value.length > 0) {
       this.commentErrorMessage = 'The comment must be longer than 32 characters.';
+      this.commentError = true;
+    } else if (e.target.value.length > 512) {
+      this.commentErrorMessage = 'The comment can not be longer than 512 characters.';
       this.commentError = true;
     } else {
       this.commentError = false;
@@ -329,8 +341,10 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onCommentCheckChange(e) {
+    this.commentLength = e.target.value.length+1;
+
     if(this.commentError) {
-      if(e.target.value.length >= 32 || e.target.value.length === 0) {
+      if(e.target.value.length >= 32 || e.target.value.length === 0 || e.target.value.length <= 512) {
         this.commentError = false;
       }
     }

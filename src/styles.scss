@@ -109,6 +109,7 @@ a, a:hover, a:visited, a:focus {
   display: inline-block;
   line-height: 16px;
   z-index: 1050;
+  margin-top:25%;
 
   .bigSqr {
     position: relative;
@@ -1227,4 +1228,8 @@ button.reg-button:disabled {
     padding-left: 0.85em;
     vertical-align: middle;
   }
+}
+
+.grecaptcha-badge { 
+  bottom:125px !important; 
 }

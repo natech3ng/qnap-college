@@ -62,7 +62,7 @@
                   </td>
                   <td class="m-datatable-cell m-datatable-cell-action">
                     <span>
-                      <span (click)="onSendResetPassword(user)"><i class="fa fa-redo"></i></span>
+                      <span (click)="onSendResetPassword(user)" style="margin-right: 8px;"><i class="fa fa-redo"></i></span>
                       <span [routerLink]="['/user', user._id, 'edit']"><i class="fa fa-edit"></i></span>
                       <span (click)="onDelete(user)"><i class="icon-trash"></i></span>
                     </span>

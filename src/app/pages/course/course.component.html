@@ -63,7 +63,7 @@
                       <textarea class='comment' [ngClass]="{'comment-error': commentError}" name="comment" id="comment" cols="30" rows="3" [(ngModel)]="comment" (keydown.enter)="onEnterComment($event); false" (keydown.shift.Enter)="true" placeholder="Add comment, Shift + Enter to change line..." (keydown)="onCommentCheckChange($event);" (blur)="onCommentCheckBlur($event);"></textarea>
                       
                     </form>
-                    <div *ngIf="commentError" class='comment-error-message'> {{commentErrorMessage}} </div>
+                    <span class="pull-right" style="color: #bbb">{{commentLength}}/512</span><div *ngIf="commentError" class='comment-error-message'> {{commentErrorMessage}} </div>
                   </div>
                 </div>
                 <div class="comment-wrap" *ngFor="let comment of comments">
@@ -78,7 +78,7 @@
                             <div class="comment-date">{{comment.createdAt | amDateFormat:'LL'}} @ {{ (comment.createdAt | amFromUnix) | amDateFormat:'hh:mmA'}}
                               </div>
                             <ul class="comment-actions">
-                              <li class="delete" *ngIf="currentUser && ( currentUser.role.level >= 9 || (comment.owner_id === currentUser._id))" (click)="onDelete(comment._id)">Delete</li>
+                              <li class="delete" *ngIf="currentUser && ( currentUser.role.level >= 9 || (comment.owner_id === currentUser._id))" (click)="onDelete(comment._id)"><i class="icon-trash"></i></li>
                                 <!-- <li class="complain">Complain</li>
                                 <li class="reply">Reply</li> -->
                             </ul>
@@ -250,7 +250,7 @@
     </section>
   </article>
 
-  <ngx-invisible-recaptcha #captchaElem
+  <!-- <ngx-invisible-recaptcha #captchaElem
                             [siteKey]="siteKey"
                             (reset)="handleReset()"
                             (ready)="handleReady()"
@@ -261,5 +261,5 @@
                             [badge]="badge"
                             [ngModel]="recaptcha"
                             [ngModelOptions]="{ standalone: true }">
-  </ngx-invisible-recaptcha>
+  </ngx-invisible-recaptcha> -->
 </div>
