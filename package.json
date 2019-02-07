@@ -14,6 +14,7 @@
     "build:client-and-server-bundles": "node --max_old_space_size=8192 'node_modules/@angular/cli/bin/ng' build --prod --aot && ng run qnap-college:server",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "deploy:production": "pm2 deploy production setup; pm2 deploy production",
+    "deploy:staging": "pm2 deploy staging setup; pm2 deploy staging",
     "postinstall": "npm run build:ssr"
   },
   "keywords": [],
