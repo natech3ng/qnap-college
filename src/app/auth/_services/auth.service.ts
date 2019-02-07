@@ -112,8 +112,8 @@ export class AuthService {
       }));
   }
 
-  register(email: string, password: string, name: string): any {
-    const body = JSON.stringify({ email: email, password: password, name: name });
+  register(email: string, password: string, firstName: string, lastName: string): any {
+    const body = JSON.stringify({ email: email, password: password, firstName: firstName, lastName:lastName });
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     const options = {

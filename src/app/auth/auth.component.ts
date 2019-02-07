@@ -20,7 +20,7 @@ declare var gapi: any;
 export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
   signing: boolean = false;
   registering: boolean = false;
-  returnUrl: string;
+  returnUrl: string = null;
   signin: boolean;
   loginError = false;
   loginErrorMsg = '';
@@ -117,7 +117,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
     this._authService.login(f.value.email, f.value.password).subscribe(
       (user: User) => {
         console.log(user);
-        if (user.role.level === 1) {
+        if (user.role.level === 1 && this.returnUrl == '/admin') {
           this.returnUrl = '/profile';
         }
         this.loading = false;
@@ -140,7 +140,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loading = true;
     this.registering = true;
 
-    this._authService.register(f.value.email, f.value.password, f.value.name).subscribe(
+    this._authService.register(f.value.email, f.value.password, f.value.firstName, f.value.lastName).subscribe(
       (user: User) => {
         // console.log(user);
         this.loading = false;
@@ -172,7 +172,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
                 
                 this._router.navigate(['/user/create-password', res.uid], { queryParams: { token:  res.token, from: 'fb'} });
               } else {
-                if (res.role.name === 'normal') {
+                if (res.role.name === 'normal' && this.returnUrl == '/admin') {
                   this.returnUrl = '/profile';
                 }
                 this._router.navigate([this.returnUrl]);
@@ -219,6 +219,9 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
         const payload = {
           id: profile.getId(),
           name: profile.getName(),
+          email: profile.getEmail(),
+          firstName: profile.getGivenName(),
+          lastName: profile.getFamilyName(),
           picture: profile.getImageUrl(),
           accessToken: id_token
         }
@@ -232,8 +235,9 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
               this._router.navigate(['/user/create-password', res.uid], { queryParams: { token:  res.token, from: 'google'} });
             } else {
               // console.log('logged in');
-              if (res.role.name === 'normal') {
-                this.returnUrl = '/profile';
+              console.log(this.returnUrl)
+              if (res.role.name === 'normal' && this.returnUrl == '/admin') {
+                  this.returnUrl = '/profile';
               }
               // console.log('Navigate to', this.returnUrl);
               this._navigate([this.returnUrl]);

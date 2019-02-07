@@ -53,7 +53,8 @@
 			<form class="form register-form" (ngSubmit)="onSignup(regf)" *ngIf="!signin" #regf='ngForm'>
 					<div class="login-error" *ngIf='regError'>{{regErrorMsg}}</div>
 				<input type="text" placeholder="Email" ngModel name="email" required [email]="true">
-				<input type="text" placeholder="Name" ngModel name="name" required>
+				<input type="text" placeholder="First Name" ngModel name="firstName" required>
+				<input type="text" placeholder="Last Name" ngModel name="lastName" required>
 				<input type="password" placeholder="Password" ngModel name="password" required>
 				<input 	type="password" 
 								placeholder="Confirm Password" 

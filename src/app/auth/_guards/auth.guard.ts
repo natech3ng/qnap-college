@@ -35,7 +35,8 @@ export class AuthGuard implements CanActivate {
     // console.log('[canActivate]: user: ', currentUser);
     if (roles) {
       if (!roles.includes(currentUser.role.name)) {
-        this._toastr.error('You are not authorized.')
+        this._toastr.error('You are not authorized. Redirected to Profile');
+        this._router.navigate(['/profile']);
         return false;
       }
     }

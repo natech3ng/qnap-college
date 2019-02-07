@@ -29,12 +29,16 @@ const routes: Routes = [
       {
         path: 'courses',
         component: CoursesComponent,
-        resolve: { coursedoc: CourseResolver}
+        resolve: { coursedoc: CourseResolver},
+        canActivate: [AuthGuard],
+        data: { roles: ['super admin', 'admin'] } 
       },
       {
         path: 'courses/:page',
         component: CoursesComponent,
-        resolve: { coursedoc: CourseResolver}
+        resolve: { coursedoc: CourseResolver},
+        canActivate: [AuthGuard],
+        data: { roles: ['super admin', 'admin'] } 
       },
       {
         path: 'course/new',
