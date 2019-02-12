@@ -27,6 +27,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
   regError = false;
   regErrorMsg = '';
   loading: boolean = false;
+  passwordStrength: number = 0;
   public readonly siteKey = environment.recapctchaSitekey;
 
   public captchaIsLoaded = false;
