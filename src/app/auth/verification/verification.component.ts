@@ -18,6 +18,7 @@ export class VerificationComponent implements OnInit, AfterViewInit, OnDestroy {
   valid = true;
   private uid: string;
   private token: string;
+  private reset:boolean = false;
 
   @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
 
@@ -35,11 +36,11 @@ export class VerificationComponent implements OnInit, AfterViewInit, OnDestroy {
     this.querySub = this._route.queryParams.subscribe(params => {
 
       this.token = params['token'];
+      this.reset = +params['reset'] === 1 ? true : false;
     });
   }
   ngAfterViewInit() {
-    
-    this.authService.verifyEmail(this.uid, this.token).subscribe(
+    this.authService.verifyEmail(this.uid, this.token, this.reset).subscribe(
       (res: any) => {
         // this._router.navigate([this.returnUrl]);
         console.log('[Validation Component]: ', res)

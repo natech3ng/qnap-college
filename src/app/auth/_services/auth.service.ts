@@ -85,8 +85,8 @@ export class AuthService {
       }));
   }
  
-  login(email: string, password: string): any {
-    const body = JSON.stringify({ email: email, password: password });
+  login(email: string, password: string, recaptchaToken?: string): any {
+    const body = JSON.stringify({ email: email, password: password, recaptchaToken: recaptchaToken });
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     const options = {
@@ -95,7 +95,7 @@ export class AuthService {
 
     return this.httpClient.post<AuthResponse>(`${this.apiRoot}login`, body, options).pipe(
       map((response: AuthResponse) => {
-        console.log(response);
+        // console.log(response);
         // login successful if there's a jwt token in the response
         if (response.success === true) {
           const user = response.payload;
@@ -133,6 +133,8 @@ export class AuthService {
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
         return user;
+      } else {
+        throw new Error(response.message);
       }
     }));
   }
@@ -199,9 +201,10 @@ export class AuthService {
     this._loggedIn = value;
   }
 
-  verifyEmail(uid: string, token: string): Observable<{success: boolean, message: string}> {
+  verifyEmail(uid: string, token: string, ifReset?: boolean): Observable<{success: boolean, message: string}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<{success: boolean, message: string}>(`${this.apiRoot}user/verification/${uid}?token=${token}`, {}, { headers: headers });
+    const reset = ifReset ? '&reset=1' : '&reset=0';
+    return this.httpClient.post<{success: boolean, message: string}>(`${this.apiRoot}user/verification/${uid}?token=${token}${reset}`, {}, { headers: headers });
   }
 
   resendVerification(uid: string): Observable<{success: boolean, message: string}> {
@@ -213,6 +216,17 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = JSON.stringify({password: password});
     return this.httpClient.post<{success: boolean, message: string}>(`${this.apiRoot}user/create_password/${uid}?token=${token}`, body, { headers: headers });
+  }
+
+  prepareForgetPassword(seed: string): Observable<{success: boolean, message: string, payload: Object}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<{success: boolean, message: string, payload: Object}>(`${this.apiRoot}forget-password/${seed}`, { headers: headers });
+  }
+
+  postForgetPassword(tuid: string, token: string, email: string): Observable<{success: boolean, message: string, payload: Object}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = JSON.stringify({token: token, email: email});
+    return this.httpClient.post<{success: boolean, message: string, payload: Object}>(`${this.apiRoot}forget-password/${tuid}`, body, { headers: headers });
   }
 
 

@@ -1,7 +1,7 @@
 import { ConfirmationComponent } from './verification/confirmation';
 import { AuthGuard } from './_guards/auth.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { NgxCaptchaModule } from 'ngx-captcha';
+import { NgxCaptchaModule } from 'ngx-captcha';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -19,7 +19,7 @@ import { ForgetPasswordComponent } from './forget.password.component/forget.pass
     FormsModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    // NgxCaptchaModule
+    NgxCaptchaModule
   ],
   declarations: [
     AuthComponent,

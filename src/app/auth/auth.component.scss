@@ -132,9 +132,9 @@ body :-ms-input-placeholder {
     .zgroup {
       display: none;
       position: relative;
-      line-height: 16px;
+      // line-height: 16px;
       z-index: 1050;
-
+      margin-top: 15% !important;
       .square {
         background: rgba(255,255,255,.8);
       }
@@ -322,4 +322,16 @@ button.btn-facebook {
   a:visited {
     color: #fff;
   }
+}
+
+.recaptcha {
+  width:300px;
+  margin: 5px auto;
+  box-sizing: border-box;
+}
+
+button:disabled {
+  cursor: text !important;
+  background-color: rgba(255,255,255,.8) !important;
+  color: rgba(5,116,158,.8) !important;
 }
