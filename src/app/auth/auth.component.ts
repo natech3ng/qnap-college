@@ -105,6 +105,8 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
       name: 'google-signin-client_id',
       content: environment.GoogleClientID
     })
+
+    this._addScript.addScript('https://www.google.com/recaptcha/api.js?render=6LeVt3cUAAAAADO9qIyWsIHZOaiFUKr0PwWvVes9');
   }
 
   onSignin(f: NgForm) {

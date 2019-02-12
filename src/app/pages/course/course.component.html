@@ -2,8 +2,8 @@
 <div id="main" class="row loading">
   <article class="support-index">
     <header #header>
-      <div class="container">
-        <div class='pull-right log-btn'>
+      <div class="container"> &nbsp;
+        <div *ngIf="commentEnabled" class='pull-right log-btn'>
             <span *ngIf="loggedIn">Hello, {{this.currentUser.name}} | <a (click)="onSignout($event);">Logout</a></span>
             <a href="#" [routerLink]="['/login']" [queryParams]="{returnUrl: returnUrl}" *ngIf="!loggedIn">Login</a>
         </div>
@@ -44,7 +44,7 @@
               <div>
                 {{ course.desc }}
               </div>
-              <div class='comments'>
+              <div class='comments' *ngIf="commentEnabled">
                 <div class='single-post-comments'>
                   Comments: 
                   <span *ngIf="!loggedIn">

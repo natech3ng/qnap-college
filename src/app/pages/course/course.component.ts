@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service, InvisibleReCaptchaComponent } from 'ngx-captcha';
 import { ConfirmService } from '../../_services/confirm.service';
+import { AddScriptService } from '../../_services/addscript.service';
 
 @Component({
   selector: 'app-course',
@@ -50,6 +51,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public recaptcha: any = null;
 
+  public commentEnabled: boolean = false;
+
   comment = '';
 
   @ViewChild('captchaElem') captchaElem: InvisibleReCaptchaComponent;
@@ -75,7 +78,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     private reCaptchaV3Service: ReCaptchaV3Service,
     private _commentService: CommentService,
     private _eventBroker: EventBrokerService, 
-    private _confirmService: ConfirmService) {
+    private _confirmService: ConfirmService,
+    private _addScript: AddScriptService) {
 
     let initParams: InitParams = {
       appId: '482418502252290',
@@ -98,6 +102,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.commentEnabled = environment.comment_enable;
 
     this._meta.setTitle('Course Course Course');
     this._meta.setTag('og:image', '//img.youtube.com/vi/tcGIYGr4guA/sddefault.jpg');
@@ -192,6 +197,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this._addScript.addScript('https://www.google.com/recaptcha/api.js', { render: '6LeVt3cUAAAAADO9qIyWsIHZOaiFUKr0PwWvVes9'});
     window.scrollTo(0, 0);
     this.addThisSub = this._addThis.initAddThis('ra-5a0dd7aa711366bd', false).subscribe();
   }

@@ -15,25 +15,25 @@ export class AddScriptService {
     return scriptOnPage;
   }
 
-  addScript(scriptPath: string, params: Object) {
+  addScript(scriptPath: string, params?: Object) {
     // if script is already on page, do nothing
     if (this.checkForScript(scriptPath)) {
       return;
     }
 
-    // const profileId = 'ra-5a0dd7aa711366bd';
-    // const baseUrl = '//s7.addthis.com/js/300/addthis_widget.js';
     const scriptInFooter = true;
-    // var url;
 
-    // if(profileId) {
-    //     // preference the site's profile ID in the URL, if available
-    //     url = baseUrl + '#pubid=' + profileId;
-    // } else {
-    //     url = baseUrl;
-    // }
+    let allParams = '?'
+    if (params) {
+      for (let key in params) {
+        // console.log(params[key]);
+        allParams = `${allParams}&${key}=${params[key]}`;
+      }
 
-    // create SCRIPT element
+      scriptPath = scriptPath + allParams;
+    }
+
+    // console.log(scriptPath);
     let script = document.createElement('script');
     script.src = scriptPath;
 
@@ -47,7 +47,7 @@ export class AddScriptService {
   };
 
   addMeta(params: Object) {
-    console.log('add Meta')
+    // console.log('add Meta')
     let meta = document.createElement('meta');
 
     for (let key in params) {

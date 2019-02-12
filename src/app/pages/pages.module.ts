@@ -13,6 +13,7 @@ import { RunScriptsDirective } from '../_directives/run.scripts.directives';
 import { CourseComponent } from './course/course.component';
 import { MomentModule } from 'ngx-moment';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TermsOfUseComponent } from './termsofuse/termsofuse.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     NotFoundComponent,
     RunScriptsDirective,
     CourseComponent,
+    TermsOfUseComponent,
     SafePipe
   ]
 })

@@ -16,7 +16,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { NgxScreensizeService } from '../modules/ngx-screensize/_services/ngx-screensize.service';
 import { HttpClient } from '@angular/common/http';
 import { AddThisService } from '../_services/addthis.service';
-import { ReCaptchaV3Service } from 'ngx-captcha';
+// import { ReCaptchaV3Service } from 'ngx-captcha';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -96,7 +96,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _httpClient: HttpClient,
     private _sanitizer: DomSanitizer,
     private _addThis: AddThisService,
-    private reCaptchaV3Service: ReCaptchaV3Service,
+    // private reCaptchaV3Service: ReCaptchaV3Service,
     private _eventBroker: EventBrokerService) {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
@@ -140,9 +140,9 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
         this.youtubeSrc = 'https://www.youtube.com/embed/' + youtubeRef;
         this.modalOpen = true;
         this.firstOpened = true;
-        this.reCaptchaV3Service.execute(environment.recapctchaSitekey, 'modal pop', (token) => {
-          console.log('This is your token: ', token);
-        });
+        // this.reCaptchaV3Service.execute(environment.recapctchaSitekey, 'modal pop', (token) => {
+        //   console.log('This is your token: ', token);
+        // });
         let startTime = 0;
         if (localStorage.getItem(this.youtubeRef)) {
           startTime = +localStorage.getItem(this.youtubeRef);

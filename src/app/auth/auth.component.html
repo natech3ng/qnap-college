@@ -28,7 +28,7 @@
 				<input type="text" placeholder="Email" ngModel name="email" required [email]="true">
 				<input type="password" placeholder="Password" ngModel name="password" required>
 
-				<ngx-invisible-recaptcha #captchaElem
+				<!-- <ngx-invisible-recaptcha #captchaElem
 					[siteKey]="siteKey"
 					(ready)="handleReady()"
 					(load)="handleLoad()"
@@ -37,7 +37,7 @@
 					[badge]="badge"
 					[ngModel]="recaptcha"
 					[ngModelOptions]="{ standalone: true }">
-        </ngx-invisible-recaptcha>
+        </ngx-invisible-recaptcha> -->
 				
 				<button type="submit" id="login-button" class="login-button" [disabled]="f.invalid">Login</button>
 				<div class='option-line'>
@@ -48,6 +48,12 @@
 					<button type="button" id="facebook" (click)="onFacebookLogin(e);"></button>
 					<button type="button" id="googleplus" (click)="onGoogleLogin(e);"></button>
 					<!-- <div  ></div> -->
+				</div>
+				<div class='option-line'>
+					Don't have an account? <a [routerLink]="['/signup']"> Sign up</a>
+				</div>
+				<div class='option-line'>
+					<a [routerLink]="['/forget-password']">Forget your password?</a>
 				</div>
 			</form>
 			<form class="form register-form" (ngSubmit)="onSignup(regf)" *ngIf="!signin" #regf='ngForm'>
@@ -71,8 +77,11 @@
 						<button type="button" id="facebook" (click)="onFacebookLogin();"></button>
 						<button type="button" id="googleplus" (click)="onGoogleLogin();"></button>
 					</div>
+
+					<div class='option-line' style='margin-top: 20px;'>
+						<a [routerLink]="['/login']">Go back to login page</a>
+					</div>
 			</form>
-			<!-- <a href="#" *ngIf="signin" [routerLink]="['/signup']">Sign Up</a><a href="#" *ngIf="!signin" [routerLink]="['/login']">Sign In</a> -->
 		</div>
 	</div>
 	

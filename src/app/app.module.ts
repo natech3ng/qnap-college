@@ -42,7 +42,7 @@ import { MaintenanceComponent } from './pages/maintenance/maintenance.component'
 import { AddThisService } from './_services/addthis.service';
 import { FacebookModule } from 'ngx-facebook';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxCaptchaModule } from 'ngx-captcha';
+// import { NgxCaptchaModule } from 'ngx-captcha';
 import { RoleService } from './_services/role.service';
 import { EventBrokerService } from './_services/event.broker.service';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
@@ -126,7 +126,6 @@ export function metaFactory(): MetaLoader {
     }),
     FacebookModule.forRoot(),
     ReactiveFormsModule,
-    NgxCaptchaModule,
     NgxPageScrollCoreModule.forRoot()
   ],
   providers: [

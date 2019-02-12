@@ -12,6 +12,7 @@ import { CourseComponent } from './course/course.component';
 import { CourseResolver } from './course/course.resolver';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { MetaGuard } from '@ngx-meta/core';
+import { TermsOfUseComponent } from './termsofuse/termsofuse.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,9 @@ const routes: Routes = [
       {
         path: 'course/s/:slug', component: CourseComponent,
         resolve: { course: CourseResolver }
+      },
+      {
+        path: 'termsofuse', component: TermsOfUseComponent
       }
     ]
   }
