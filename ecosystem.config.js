@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name      : 'goqnapcom',
+    name      : 'qnapcollege',
     script    : 'dist/server.js',
     env: {
       NODE_ENV: 'production'
@@ -22,7 +22,7 @@ module.exports = {
       'post-setup': 'npm install --unsafe-perm',
       'pre-deploy-local' : '',
       'pre-deploy' : '',
-      'post-deploy' : 'cp ~/environment/college/.env ./; pm2 restart ecosystem.config.js --env production; sudo chown -R deploy:deploy node_modules',
+      'post-deploy' : 'cp ~/environment/college/.env ./; sudo pm2 restart ecosystem.config.js --env production; sudo chown -R deploy:deploy node_modules',
       env: {
         NODE_ENV: 'production'
       }

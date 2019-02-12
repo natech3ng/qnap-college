@@ -60,16 +60,7 @@
               Date
             </label>
             <div class="col-6">
-                <input class="form-control m-input" disabled type="text" value="{{course.publishedDate  | amDateFormat: 'YYYY-MM-DD'}}" placeholder="Date" id="date-text-input">
-                <!-- <div class="input-group">
-                <input class="form-control" placeholder="YYYY-MM-DD"
-                name="dp" [(ngModel)]="course.publishedDate" ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                    <i class="fa fa-calendar"></i>
-                  </button> 
-                </div>
-              </div> -->
+              <input class="form-control m-input" disabled type="text" value="{{course.publishedDate  | amDateFormat: 'YYYY-MM-DD'}}" placeholder="Date" id="date-text-input">
             </div>
           </div>
           <div class="form-group m-form__group row">
@@ -77,7 +68,7 @@
                 Slide Link
               </label>
               <div class="col-6">
-                <input class="form-control m-input m-input-lg" type="text" [(ngModel)]="course.slide_link" name="slide_link" required #name="ngModel" placeholder="Slide Link" id="slide_link-text-input">
+                <input class="form-control m-input m-input-lg" type="text" [(ngModel)]="course.slide_link" name="slide_link" #name="ngModel" placeholder="Slide Link" id="slide_link-text-input">
               </div>
             </div>
           <div class="form-group m-form__group row">
@@ -92,7 +83,7 @@
                 Slug
               </label>
               <div class="col-6">
-                <input class="form-control m-input m-input-lg" disabled type="text" [(ngModel)]="course.slug" required name="slug" required #name="ngModel" placeholder="" id="slug-text-input">
+                <input class="form-control m-input m-input-lg" disabled type="text" [(ngModel)]="course.slug" name="slug" required #name="ngModel" placeholder="" id="slug-text-input">
               </div>
             </div>
           <div class="form-group m-form__group row">
