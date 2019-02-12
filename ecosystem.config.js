@@ -22,7 +22,7 @@ module.exports = {
       'post-setup': 'npm install --unsafe-perm',
       'pre-deploy-local' : '',
       'pre-deploy' : '',
-      'post-deploy' : 'cp ~/environment/college/.env ./; sudo pm2 restart ecosystem.config.js --env production; sudo chown -R deploy:deploy node_modules',
+      'post-deploy' : 'cp ~/environment/college/.env ./; pm2 restart ecosystem.config.js --env production; sudo chown -R deploy:deploy node_modules',
       env: {
         NODE_ENV: 'production'
       }
@@ -31,7 +31,7 @@ module.exports = {
       winkey: '/c/Users/nate/.ssh/google_cloud_deploy_openSSH',
       key: '~/.ssh/id_rsa_deploy_google_cloud',
       user: 'deploy',
-      host: ['staging-college.natecheng.me'],
+      host: ['104.198.157.126', 'staging-go.natecheng.me'],
       ref: 'origin/master',
       repo: 'git@github.com:qqnc/qnap-college.git',
       path: '/var/www/qnapcollege/staging',
@@ -39,7 +39,7 @@ module.exports = {
       'post-setup': 'npm install --unsafe-perm',
       'pre-deploy-local' : '',
       'pre-deploy' : '',
-      'post-deploy' : 'cp ~/environment/college/staging/.env ./; sudo pm2 restart ecosystem.config.js --env staging; sudo chown -R deploy:deploy node_modules',
+      'post-deploy' : 'cp ~/environment/college/staging/.env ./;pm2 restart ecosystem.config.js --env staging; sudo chown -R deploy:deploy node_modules',
       env: {
         NODE_ENV: 'staging'
       }
