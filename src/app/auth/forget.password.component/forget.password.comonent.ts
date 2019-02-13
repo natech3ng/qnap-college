@@ -23,6 +23,7 @@ export class ForgetPasswordComponent implements OnInit {
   tuid = '';
   token = '';
   aFormGroup: FormGroup;
+  email = null;
   public readonly siteKey = environment.recaptchaV2Sitekey;
 
   public captchaIsLoaded = false;
@@ -49,7 +50,8 @@ export class ForgetPasswordComponent implements OnInit {
   }
   ngOnInit() {
     this.aFormGroup = this.formBuilder.group({
-      recaptcha: ['', Validators.required]
+      recaptcha: ['', Validators.required],
+      email: ['', Validators.email]
     });
     this._authService.prepareForgetPassword(this.seed).subscribe(
       (res) => {
@@ -66,6 +68,7 @@ export class ForgetPasswordComponent implements OnInit {
   onSubmit(f: NgForm) {
     this._confirmService.open("Send the reset email link?").then(
       () => {
+        console.log(f.value);
         this._authService.postForgetPassword(this.tuid, this.token, f.value.email).subscribe(
           (res) => {
             if (res.success)

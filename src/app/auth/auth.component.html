@@ -24,20 +24,10 @@
 		<div class='form-container'>
 		
 			<form class="form login-form" *ngIf="signin" (ngSubmit)="onSignin(f)" #f='ngForm'>
-				<div class="login-error" *ngIf='loginError'>{{loginErrorMsg}}</div>
+				<div class="login-error" *ngIf='loginError' [innerHTML]="loginErrorMsg"></div>
+				<div class="login-error" *ngIf='verifyError'>This email hasn't been verified, <a style='cursor: pointer' (click)="resend()">resend</a></div>
 				<input type="text" placeholder="Email" ngModel name="email" required [email]="true">
 				<input type="password" placeholder="Password" ngModel name="password" required>
-
-				<!-- <ngx-invisible-recaptcha #captchaElem
-					[siteKey]="siteKey"
-					(ready)="handleReady()"
-					(load)="handleLoad()"
-					(success)="handleSuccess($event)"
-					[type]="type"
-					[badge]="badge"
-					[ngModel]="recaptcha"
-					[ngModelOptions]="{ standalone: true }">
-        </ngx-invisible-recaptcha> -->
 				
 				<button type="submit" id="login-button" class="login-button" [disabled]="f.invalid">Login</button>
 				<div class='option-line'>
@@ -69,6 +59,9 @@
 								required 
 								(blur)="onCheckPassword(regf)"> 
 				<button type="submit" id="reg-button" class="reg-button" [disabled]="regf.invalid">Sign Up</button>
+				<div class="option-line policy">
+					By clicking Sign Up, you agree to our <a [routerLink]="['/termsofuse']" target='_blank'>Terms</a>, <a href="https://www.qnap.com/en/privacy-notice/qnap" target="_blank">Data Policy</a> and <a href="https://www.qnap.com/en/privacy-notice/qnap" target="_blank">Cookies Policy</a>. 
+				</div>
 				<div class='option-line'>
 						Or sign up with
 					</div>

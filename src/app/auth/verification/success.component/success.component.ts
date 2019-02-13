@@ -18,7 +18,7 @@ export class VerificationSuccessComponent implements OnInit {
       case ResCode.PASSWORD_HAS_NOT_BEEN_CREATED:
         this._router.navigate(['/user/create-password', this.payload.uid], { queryParams: { token:  this.payload.token} });
         break;
-      case ResCode.GENEROR_SUCCESS:
+      case ResCode.GENERAL_SUCCESS:
         break;
       default:
         break;

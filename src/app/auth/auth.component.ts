@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import * as ResCode from '../_codes/response';
 import { AddScriptService } from '../_services/addscript.service';
 import { Subscription } from 'rxjs';
+import { ConfirmService } from '../_services/confirm.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var gapi: any;
 
@@ -24,7 +26,8 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
   returnUrl: string = null;
   signin: boolean;
   loginError = false;
-  loginErrorMsg = '';
+  loginErrorMsg: any = '';
+  verifyError = false;
   regError = false;
   regErrorMsg = '';
   loading: boolean = false;
@@ -48,6 +51,8 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
 
   GoogleAuth: any;
 
+  uid='';
+
   @ViewChild('captchaElem') captchaElem: ReCaptcha2Component;
 
   constructor(
@@ -60,7 +65,9 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
     private _toastr: ToastrService, 
     private fb: FacebookService,
     private ngZone: NgZone,
-    private _addScript: AddScriptService) {
+    private _addScript: AddScriptService,
+    private _confirmService: ConfirmService,
+    private sanitizer: DomSanitizer) {
       // console.log(this._route.snapshot.url[0].path);
       this.seed = Math.floor(Math.random()*10000000);
 
@@ -137,10 +144,19 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
           this._router.navigate([this.returnUrl]);
         },
         (error) => {
+          console.log(error);
           this.signing = false;
           this.loading = false;
-          this.loginError = true;
-          this.loginErrorMsg = error.error.message;
+          
+          if (error.error.payload && 
+              error.error.payload.code && 
+              error.error.payload.code === ResCode.EMAIL_IS_NOT_VERIFIED) {
+            this.uid = error.error.payload.uid;
+            this.verifyError = true;
+          } else {
+            this.loginError = true;
+            this.loginErrorMsg = error.error.message;
+          }
         }
       );
     });
@@ -179,7 +195,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
           this.registering = false;
           this.regError = true;
           this.regErrorMsg = error;
-          this._toastr.error('Error');
+          // this._toastr.error('Error');
         }
       );
     });
@@ -324,5 +340,15 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
     this.captchaSuccess = false;
     this.captchaResponse = undefined;
     this.captchaIsExpired = false;
+  }
+
+  resend() {
+
+    this._authService.resendVerification(this.uid).subscribe(
+      (res) => {
+        this._toastr.success("Validation email has been sent.");
+      },
+      (err) => {}
+    );
   }
 }

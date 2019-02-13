@@ -116,7 +116,7 @@ body :-ms-input-placeholder {
   .login-container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 80px 0;
+    // padding: 80px 0;
     height: 400px;
     text-align: center;
   }
@@ -321,6 +321,11 @@ button.btn-facebook {
   a:link, 
   a:visited {
     color: #fff;
+  }
+
+  &.policy {
+    margin-top: 10px;
+    font-size: 12px;
   }
 }
 
