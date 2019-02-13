@@ -103,12 +103,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
       // console.log(this.deviceInfo);
       const url = this._router.url;
       this.checkBanner(url);
-      this._router.events.subscribe(event => {
-        if (event instanceof NavigationEnd) {
-          (<any>window).ga('set', 'page', event.urlAfterRedirects);
-          (<any>window).ga('send', 'pageview');
-        }
-      });
+      
 
       this._myEventListener = this._eventBroker.listen<boolean>("loading",(value:boolean)=>{
         // Waiting loading event in router-outlet, it's a workaround, because we don't have broker on router-outlet
@@ -194,7 +189,13 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
   ngAfterViewInit() {
-
+    this._router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        (<any>window).ga('set', 'page', event.urlAfterRedirects);
+        (<any>window).ga('send', 'pageview');
+      }
+    });
+    
     if (this._ssService.getScreensize().x <= 768 ) {
       this.youtubeVideoWidth = this._ssService.getScreensize().x;
       this.youtubeVideoHeight = Math.trunc(this.youtubeVideoWidth * (480 / 853));

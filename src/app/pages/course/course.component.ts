@@ -200,6 +200,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     this._addScript.addScript('https://www.google.com/recaptcha/api.js', { render: '6LeVt3cUAAAAADO9qIyWsIHZOaiFUKr0PwWvVes9'});
     window.scrollTo(0, 0);
     this.addThisSub = this._addThis.initAddThis('ra-5a0dd7aa711366bd', false).subscribe();
+
+    this._meta.setTag('og:title', 'This is course of ' + this.course.title);
   }
 
   ngOnDestroy() {
