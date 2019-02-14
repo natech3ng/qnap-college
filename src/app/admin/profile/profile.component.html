@@ -6,8 +6,9 @@
         <div class="tab-container">
           <nav class='tab-nav'>
             <ul class="tabs">
-              <li class="tab" [ngClass]="{'active': tab == 1}" (click)="selectTab(1)"><span>Information</span></li>
-              <li class="tab"[ngClass]="{'active': tab == 2}" (click)="selectTab(2)"><span>Change Password</span></li>
+              <li class="tab" [ngClass]="{'active': tab === 1}" (click)="selectTab(1)"><span>Information</span></li>
+              <li class="tab"[ngClass]="{'active': tab === 2}" (click)="selectTab(2)"><span>Change Password</span></li>
+              <li class="tab"[ngClass]="{'active': tab === 3}" (click)="selectTab(3)"><span>Account</span></li>
               <li class="tab slider"></li>
             </ul>
           </nav>
@@ -76,6 +77,43 @@
                   </div>
                 </div>
               </form>
+            </div>
+          </div>
+          <div class="tab-content tab3" [@tabState]="tabs[2].state">
+            <div class="account row col-12">
+              <div class="profile-container col-8">
+                <form (ngSubmit)="onChangeName(f)" #f="ngForm">
+                  <span class='title'>Name</span>
+                  <div class="row col-12 name-fields">
+                    <!-- <div class="col-5"> -->
+                      <input class="form-control m-input m-input-large col-5 first-name" type="text" [(ngModel)]="firstName" name="firstName" required #name="ngModel" placeholder="First Name" >
+                    <!-- </div> -->
+                    <!-- <div class="col-5"> -->
+                      <input class="form-control m-input m-input-large col-5" type="text" [(ngModel)]="lastName" name="lastName" required #name="ngModel" placeholder="Last Name" >
+                    <!-- </div> -->
+                  </div>
+                  <div class="row col-12 btns">
+                    <button class="btn btn-primary btn-lg">Change Name</button>
+                  </div>
+                </form>
+                <span class='title'>Delete account</span>
+                <span class="desc">Once you delete your account, there is no going back. Please be certain.</span>
+                <span class='btns'>
+                    <button 
+                      class="btn btn-danger btn-upload btn-lg" 
+                      type="button"
+                      (click)="onDeleteAccount(user)">Delete Your Account</button>
+
+                      <span class='confirm-field' [ngClass]="{'enabled': confirmOpen}"><input class="form-control m-input m-input-large" type="text" [(ngModel)]="confirm_email" name='confirm_email' required #name="ngModel" required placeholder="Confirm your email"></span>
+                </span>
+              </div>
+              <div class="col-4">
+                <div class="title">Profile Picture</div>
+                <div class="avatar">
+                  <img class="avatar rounded-2" src="https://avatars0.githubusercontent.com/u/4175853?s=400&amp;v=4" width="200" height="200" alt="@qqnc">
+                </div>
+              </div>
+              
             </div>
           </div>
         </div>

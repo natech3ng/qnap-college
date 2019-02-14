@@ -13,6 +13,7 @@ import {
 } from '@angular/animations';
 import { ConfirmService } from '../../_services/confirm.service';
 import { Location } from '@angular/common';
+import { UsersService } from '../../auth/_services/users.service';
 
 @Component({
   selector: 'app-profile',
@@ -39,9 +40,12 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   app = 'profile';
   tab = 1;
   user: User;
+  confirm_email: '';
+  confirmError = false;
   tabs = [
     { id: 1, name: 'Information', state: 'active' },
-    { id: 2, name: 'Change Password', state: 'inactive'}
+    { id: 2, name: 'Change Password', state: 'inactive'},
+    { id: 3, name: 'Account', state: 'inactive'}
   ];
 
   error: boolean;
@@ -50,14 +54,20 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   old_password = '';
   password = '';
   confirm_password = '';
+  confirmOpen = false;
+  firstName = '';
+  lastName = '';
 
   constructor(
     private _authService: AuthService,
     private _confirmService: ConfirmService,
     private _toastr: ToastrService,
+    private _userService: UsersService,
     private _location: Location
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.firstName = this.user.firstName;
+    this.lastName = this.user.lastName;
     this.error = false;
     this.errorMsg = '';
   }
@@ -74,7 +84,9 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       t.state = 'inactive';
     }
 
-    this.tabs[tab - 1].state = 'active';
+    console.log(this.tab)
+
+    this.tabs[this.tab - 1].state = 'active';
   }
 
   onSubmit(f: NgForm) {
@@ -107,5 +119,30 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       () => {
       }
     );
+  }
+
+  onDeleteAccount(user) {
+    if (!this.confirmOpen) {
+      this.confirmOpen = true;
+      return;
+    }
+
+    if (this.user.email !== this.confirm_email) {
+      this.confirmError = true;
+      this._confirmService.alert('Please confirm your email');
+      return;
+    }
+  }
+
+  onChangeName(f) {
+    this._confirmService.open('Are you sure you want to change name').then(
+      () => {
+        this._userService.updateName(this.firstName, this.lastName).subscribe(
+          (res) => {
+            console.log(res)
+          },
+          (err) => console.log(err));
+      }
+    ).catch(e => {})
   }
 }

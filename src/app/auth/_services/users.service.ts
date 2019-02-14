@@ -41,4 +41,10 @@ export class UsersService {
     const api_query = this.apiRoot + `user/abvn/${uid}`;
     return this._httpClient.get<User []>(api_query, this._authService.jwtHttpClient());
   }
+
+  updateName(firstName: string, lastName: string) {
+    const api_query = this.apiRoot + `user/updateName`;
+    const body = JSON.stringify({firstName:firstName, lastName: lastName})
+    return this._httpClient.post<User []>(api_query, body, this._authService.jwtHttpClient());
+  }
 }
