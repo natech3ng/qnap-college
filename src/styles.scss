@@ -9,6 +9,15 @@
 @import "~ngx-toastr/toastr.css";
 @import "assets/scss/responsive.scss";
 
+// colors
+$red: #e74c3c;
+$orange: #e67e22;
+$green: #2ecc71;
+$blue: #3498db;
+$white: #fff;
+
+$dark-blue-light: #34495e;
+$dark-blue-heavy: #2c3e50;
 * {
   box-sizing: border-box;
 }
@@ -1236,4 +1245,91 @@ button.reg-button:disabled {
 
 .grecaptcha-badge { 
   bottom:125px !important; 
+}
+
+.input-icon {
+  position: relative;
+  padding: 0;
+  width: 100%;
+}
+
+.input-icon-right {
+  .form-control {
+    padding-right: 2.8rem;
+  }
+}
+
+.input-icon {
+  .input-icon_icon {
+    position: absolute;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    top: 0;
+    width: 3.2rem;
+    
+    span {
+      display: table;
+      height: 100%;
+      width: 100%;
+
+      i {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 0;
+      }
+    }
+    &.input-icon_icon-right {
+      right: 0;
+    }
+  }
+}
+
+.password-wrapper {
+  .strength-lines {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    right: 0;
+    width: calc(100%);
+    height: 4px;
+    z-index: 3;
+
+    .line:first-of-type {
+      left: 4px;
+      right: 68%;
+    }
+
+    .line:not(:first-of-type):not(:last-of-type) {
+      left: 33%;
+      right: 33%;
+    }
+
+    .line:last-of-type {
+      left: 68%;
+      right: 4px;
+    }
+
+    .line {
+      position: absolute;
+      background-color: transparent;
+      height: 4px;
+      border-radius: 2px;
+      transition: background-color 0.25s ease-in;
+
+      &.bg-transparent {
+        background-color: transparent !important;
+      }
+      &.bg-red {
+        background-color: $red !important;
+      }
+      &.bg-orange {
+        background-color: $orange !important;
+      }
+      &.bg-green {
+        background-color: $green !important;
+      }
+    }
+  }
 }

@@ -96,16 +96,18 @@
                     <button class="btn btn-primary btn-lg">Change Name</button>
                   </div>
                 </form>
-                <span class='title'>Delete account</span>
-                <span class="desc">Once you delete your account, there is no going back. Please be certain.</span>
-                <span class='btns'>
-                    <button 
-                      class="btn btn-danger btn-upload btn-lg" 
-                      type="button"
-                      (click)="onDeleteAccount(user)">Delete Your Account</button>
-
-                      <span class='confirm-field col-7' [ngClass]="{'enabled': confirmOpen}"><input class="form-control m-input m-input-large" type="text" [(ngModel)]="confirm_email" name='confirm_email' required #name="ngModel" required placeholder="Confirm your email"></span>
-                </span>
+                <form (ngSubmit)="onDeleteAccount(user)">
+                  <span class='title'>Delete account</span>
+                  <span class="desc">Once you delete your account, there is no going back. Please be certain.</span>
+                  <span class='btns'>
+                      <button 
+                        class="btn btn-danger btn-upload btn-lg" 
+                        type="submit"
+                        >Delete Your Account</button>
+  
+                        <span class='confirm-field col-7' [ngClass]="{'enabled': confirmOpen}"><input class="form-control m-input m-input-large" type="text" [(ngModel)]="confirm_email" name='confirm_email' required #name="ngModel" required placeholder="Confirm your email"></span>
+                  </span>
+                </form>
               </div>
               <div class="col-4">
                 <div class="title">Profile Picture</div>

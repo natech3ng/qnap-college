@@ -2,7 +2,7 @@ import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 import { User } from './_models/user.model';
 import { AuthService } from './_services/auth.service';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, NgZone, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, NgZone, AfterViewInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ReCaptchaV3Service, ReCaptcha2Component } from 'ngx-captcha';
 import { environment } from '../../environments/environment';
@@ -12,6 +12,7 @@ import { AddScriptService } from '../_services/addscript.service';
 import { Subscription } from 'rxjs';
 import { ConfirmService } from '../_services/confirm.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PasswordService } from './_services/password.service';
 
 declare var gapi: any;
 
@@ -31,9 +32,11 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
   regError = false;
   regErrorMsg = '';
   loading: boolean = false;
-  passwordStrength: number = 0;
+  passwordStrength: string = '';
   seed: number;
   sub: Subscription;
+  showPassword = false;
+  showConfirmPassword = false;
   public readonly siteKey = environment.recapctchaSitekey;
 
   public captchaIsLoaded = false;
@@ -54,6 +57,8 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
   uid='';
 
   @ViewChild('captchaElem') captchaElem: ReCaptcha2Component;
+  @ViewChild('password') passwordField: ElementRef;
+  @ViewChild('confirmPassword') confirmPasswordField: ElementRef;
 
   constructor(
     private _router: Router,
@@ -66,6 +71,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
     private fb: FacebookService,
     private ngZone: NgZone,
     private _addScript: AddScriptService,
+    private _passwordService: PasswordService,
     private _confirmService: ConfirmService,
     private sanitizer: DomSanitizer) {
       // console.log(this._route.snapshot.url[0].path);
@@ -181,7 +187,8 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
       this._authService.register(f.value.email, f.value.password, f.value.firstName, f.value.lastName).subscribe(
         (res: any) => {
           this.loading = false;
-          if (res && !res['success']) {
+          console.log(res);
+          if (!res) {
             this.loading = false;
             this.registering = false;
             this.regError = true;
@@ -350,5 +357,23 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
       },
       (err) => {}
     );
+  }
+
+  inputPassword(f: NgForm) {
+    console.log(this._passwordService.checkPassStrength(f.value.password));
+    this.passwordStrength = this._passwordService.checkPassStrength(f.value.password);
+
+  }
+
+  togglePassword() {
+    console.log(this.passwordField.nativeElement.type);
+    this.showPassword = !this.showPassword;
+    this.passwordField.nativeElement.type === 'password' ? this.passwordField.nativeElement.type = 'text' : this.passwordField.nativeElement.type = 'password';
+  }
+
+  toggleConfirmPassword() {
+    console.log(this.confirmPasswordField.nativeElement.value);
+    this.showConfirmPassword = !this.showConfirmPassword;
+    this.confirmPasswordField.nativeElement.type === 'password' ? this.confirmPasswordField.nativeElement.type = 'text' : this.confirmPasswordField.nativeElement.type = 'password';
   }
 }

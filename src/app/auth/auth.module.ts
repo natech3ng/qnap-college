@@ -12,6 +12,7 @@ import { VerificationSuccessComponent } from './verification/success.component/s
 import { VerificationFailedComponent } from './verification/failure.component/failure.component';
 import { CreatePasswordComponent } from './create.password/create.password.component';
 import { ForgetPasswordComponent } from './forget.password.component/forget.password.comonent';
+import { PasswordService } from './_services/password.service';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { ForgetPasswordComponent } from './forget.password.component/forget.pass
     ForgetPasswordComponent
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    PasswordService
   ],
   entryComponents: [
     VerificationSuccessComponent,

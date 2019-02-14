@@ -1,9 +1,17 @@
 <!-- <a *ngIf="loggedIn" (click)="onSignout()" style='position: relative'>Sign out</a> -->
 <nav class="main-menu">
   <ul>
+    <li>
+      <a href="#" [routerLink]="['/']">
+        <i class="fa fa-home fa-qnap fa-qnap-2x"></i>
+        <span class="nav-text">
+          QNAP College
+        </span>
+      </a>
+    </li>
     <li [appSecurity]="['super admin','admin']">
         <a href="#" [routerLink]="['/admin']">
-            <i class="fa fa-home fa-qnap fa-qnap-2x"></i>
+            <i class="fas fa-chart-line fa-qnap fa-qnap-2x"></i>
             <span class="nav-text">
                 Dashboard
             </span>

@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+
 * {
   box-sizing: border-box;
 }
@@ -38,7 +39,7 @@ body :-ms-input-placeholder {
   margin: 0 auto 10px auto;
   padding: 14px 0;
   border-radius: 5px;
-  width: 300px;
+  width: 100%;
   background-color: #ca3535;
   color: #fff;
 }
@@ -93,6 +94,7 @@ body :-ms-input-placeholder {
       h1 {
         -webkit-transform: translateY(85px);
                 transform: translateY(85px);
+        margin: 0;
       }
       .zgroup {
         margin-top: 20px;
@@ -127,6 +129,7 @@ body :-ms-input-placeholder {
       transition-duration: 1s;
       transition-timing-function: ease-in-put;
       font-weight: 200;
+      margin: 0;
     }
 
     .zgroup {
@@ -152,10 +155,10 @@ body :-ms-input-placeholder {
         outline: 0;
         border: 1px solid rgba(255, 255, 255, 0.4);
         background-color: rgba(255, 255, 255, 0.2);
-        width: 300px;
+        width: 100%;
         border-radius: 3px;
         padding: 10px 15px;
-        margin: 0 auto 10px auto;
+        margin: 0 0 10px 0;
         display: block;
         text-align: center;
         font-size: 18px;
@@ -168,7 +171,7 @@ body :-ms-input-placeholder {
       }
       input:focus {
         background-color: white;
-        width: 300px;
+        width: 100%;
         color: #05749e;
       }
       button {
@@ -178,13 +181,16 @@ body :-ms-input-placeholder {
         padding: 10px 15px;
         color: #05749e;
         border-radius: 3px;
-        width: 300px;
+        width: 100%;
         cursor: pointer;
         font-size: 18px;
         transition-duration: 0.25s;
       }
       button:hover {
         background-color: #f5f7f9;
+      }
+      .form-group {
+        margin: 0 auto;
       }
     }
   }
@@ -312,7 +318,7 @@ button.btn-facebook {
 }
 
 .option-line {
-  margin: 5px 0px;
+  margin: 10px 0px;
   a {
     text-decoration: underline;
 
@@ -330,7 +336,7 @@ button.btn-facebook {
 }
 
 .recaptcha {
-  width:300px;
+  width:100%;
   margin: 5px auto;
   box-sizing: border-box;
 }
@@ -339,4 +345,8 @@ button:disabled {
   cursor: text !important;
   background-color: rgba(255,255,255,.8) !important;
   color: rgba(5,116,158,.8) !important;
+}
+
+article.support-index header {
+  background: transparent;
 }

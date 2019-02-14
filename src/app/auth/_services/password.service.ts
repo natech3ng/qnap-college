@@ -32,7 +32,8 @@ export class PasswordService {
 
   checkPassStrength = (pass): string => {
     let score = this.scorePassword(pass);
-    if (score > 80)
+    // console.log(score);
+    if (score > 75)
         return "strong";
     if (score > 60)
         return "good";

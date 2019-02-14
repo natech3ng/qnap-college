@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmService } from '../../_services/confirm.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PasswordService } from '../_services/password.service';
 
 @Component({
   templateUrl: './create.password.component.html',
@@ -26,12 +27,20 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
   createError: boolean = false;
   createErrorMsg: string = null;
 
+  showPassword = false;
+  showConfirmPassword = false;
+  passwordStrength = '';
+
+  @ViewChild('password') passwordField: ElementRef;
+  @ViewChild('confirmPassword') confirmPasswordField: ElementRef;
+
   constructor(
     private _authService: AuthService,
     private _route: ActivatedRoute,
     private renderer: Renderer2,
     private _toastr: ToastrService,
-    private _router: Router
+    private _router: Router,
+    private _passwordService: PasswordService
   ) {
     this.sub = this._route.params.subscribe(params => {
       // console.log(params);
@@ -83,7 +92,7 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   onCreate(f: NgForm) {
-    if (f.value.password !== f.value.cPassword){
+    if (f.value.password !== f.value.confirm_password){
       this._toastr.error('Password doesn\'t match');
       return false;
     }
@@ -104,11 +113,29 @@ export class CreatePasswordComponent implements OnInit, AfterViewInit, OnDestroy
     // console.log('Check Password');
     // console.log(f.value.password);
     // console.log(f.value.cPassword);
-    if (f.value.password !== f.value.cPassword) {
+    if (f.value.password !== f.value.confirm_password) {
       this.createError = true;
       this.createErrorMsg = 'Password doesn\'t match';
     } else {
       this.createError = false;
     }
+  }
+
+  inputPassword(f: NgForm) {
+    console.log(this._passwordService.checkPassStrength(f.value.password));
+    this.passwordStrength = this._passwordService.checkPassStrength(f.value.password);
+
+  }
+
+  togglePassword() {
+    console.log(this.passwordField.nativeElement.type);
+    this.showPassword = !this.showPassword;
+    this.passwordField.nativeElement.type === 'password' ? this.passwordField.nativeElement.type = 'text' : this.passwordField.nativeElement.type = 'password';
+  }
+
+  toggleConfirmPassword() {
+    console.log(this.confirmPasswordField.nativeElement.value);
+    this.showConfirmPassword = !this.showConfirmPassword;
+    this.confirmPasswordField.nativeElement.type === 'password' ? this.confirmPasswordField.nativeElement.type = 'text' : this.confirmPasswordField.nativeElement.type = 'password';
   }
 }
