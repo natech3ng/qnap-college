@@ -1,3 +1,4 @@
+import { EventBrokerService } from './../../_services/event.broker.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthResponse } from './../../_models/authresponse';
 import { AuthService } from './../../auth/_services/auth.service';
@@ -63,7 +64,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     private _confirmService: ConfirmService,
     private _toastr: ToastrService,
     private _userService: UsersService,
-    private _location: Location
+    private _location: Location,
+    private _eventBroker: EventBrokerService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.firstName = this.user.firstName;
@@ -77,6 +79,10 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+
+  setloading(value: boolean) {
+    this._eventBroker.emit<boolean>("loading", value);
+  }
 
   selectTab(tab) {
     this.tab = tab;
@@ -131,18 +137,53 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       this.confirmError = true;
       this._confirmService.alert('Please confirm your email');
       return;
+    } else {
+      this._confirmService.open('Once you delete your account, there is no going back. Please be certain.').then(() => {
+        this.setloading(true);
+        this._userService.destroy().subscribe(
+          (res) => {
+            setTimeout(() => {
+              this.setloading(false);
+              this._authService.logout();
+              location.reload();
+            }, 1000)
+            
+          },
+          (err) => {
+            this._toastr.error('Something went wrong, please contact admistrator');
+          }
+        );
+      }).catch(()=>{})
     }
   }
 
   onChangeName(f) {
     this._confirmService.open('Are you sure you want to change name').then(
       () => {
+        this.setloading(true);
         this._userService.updateName(this.firstName, this.lastName).subscribe(
-          (res) => {
-            console.log(res)
+          (res: any) => {
+            this.user = res.payload;
+            this.updateContent();
+            console.log(res);
+            this._toastr.success("Success");
+            this.setloading(false);
           },
-          (err) => console.log(err));
+          (err) => { 
+            console.log(err);
+          });
       }
     ).catch(e => {})
+  }
+
+  updateContent() {
+    this.firstName = this.user.firstName;
+    this.lastName = this.user.lastName;
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    currentUser.firstName = this.firstName;
+    currentUser.lastName = this.lastName;
+    currentUser.name = `${this.firstName} ${this.lastName}`;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
   }
 }

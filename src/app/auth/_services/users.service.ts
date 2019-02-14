@@ -27,6 +27,11 @@ export class UsersService {
     return this._httpClient.delete<User []>(api_query, this._authService.jwtHttpClient());
   }
 
+  destroy() {
+    const api_query = this.apiRoot + `user/destroy`;
+    return this._httpClient.delete<User []>(api_query, this._authService.jwtHttpClient());
+  }
+
   all(): Observable<User []> {
     const api_query = this.apiRoot + 'users';
     return this._httpClient.get<User []>(api_query, this._authService.jwtHttpClient());
