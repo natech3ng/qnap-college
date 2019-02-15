@@ -6,5 +6,6 @@ export const environment = {
   GoogleClientID: '230327847455-6l12nf0ek6nhs0iui3iomk2mhtad3e59.apps.googleusercontent.com',
   comment_enable: false,
   recaptchaV2Sitekey: '6LciEZEUAAAAAHGoFhOOhbuz_jYg-rj23R9uMbNW',
-  recaptchaV2InvSitekey: '6LdmEZEUAAAAAIKNbWs4ST0sVc4kcHOl_eazTVjz'
+  recaptchaV2InvSitekey: '6LdmEZEUAAAAAIKNbWs4ST0sVc4kcHOl_eazTVjz',
+  user_per_page: 10
 };

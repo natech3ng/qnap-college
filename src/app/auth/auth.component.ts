@@ -56,6 +56,8 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
 
   uid='';
 
+  socialReady = false;
+
   @ViewChild('captchaElem') captchaElem: ReCaptcha2Component;
   @ViewChild('password') passwordField: ElementRef;
   @ViewChild('confirmPassword') confirmPasswordField: ElementRef;
@@ -97,6 +99,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
           // 'scope': 'profile'
           // 'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
         }).then((onInit) => {
+          this.socialReady = true;
           console.log('qapi:auth2 loaded');
           this.GoogleAuth = gapi.auth2.getAuthInstance();
           

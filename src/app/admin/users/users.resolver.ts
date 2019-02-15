@@ -5,7 +5,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { UsersService } from '../../auth/_services/users.service';
-
+import { environment } from '../../../environments/environment';
 @Injectable()
 export class UsersResolver implements Resolve<User []> {
   constructor(
@@ -17,7 +17,7 @@ export class UsersResolver implements Resolve<User []> {
     if (route.params && route.params['page'])
       page = +route.params['page'];
 
-    return this._usersService.all(page, 10).pipe(
+    return this._usersService.all(page, environment.user_per_page).pipe(
       catchError((error) => {
         this._toastr.error('You are not authorized.');
         return throwError(error);

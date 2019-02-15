@@ -56,6 +56,15 @@ export class CommentsService {
       );
   }
 
+  getCountOfCommentsByUserId(uid: string): Observable<any> {
+    let api_query = this.apiRoot + 'comments/user/' + uid + '/count';
+    return this.httpClient.get<any>(api_query, this._authService.jwtHttpClient())
+      .pipe(
+        catchError((err) => {
+          return throwError(err);
+        })
+      );
+  }
   searchCommentsOnUser(uid:string, query: string) {
     let api_query = this.apiRoot + 'comments/user/' + uid + '/search?query=' + query;
     return this.httpClient.get<any>(api_query, this._authService.jwtHttpClient())

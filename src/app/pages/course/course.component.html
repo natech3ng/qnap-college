@@ -63,7 +63,7 @@
                       <textarea class='comment' [ngClass]="{'comment-error': commentError}" name="comment" id="comment" cols="30" rows="3" [(ngModel)]="comment" (keydown.enter)="onEnterComment($event); false" (keydown.shift.Enter)="true" placeholder="Add comment, Shift + Enter to change line..." (keydown)="onCommentCheckChange($event);" (blur)="onCommentCheckBlur($event);"></textarea>
                       
                     </form>
-                    <span class="pull-right" style="color: #bbb">{{commentLength}}/512</span><div *ngIf="commentError" class='comment-error-message'> {{commentErrorMessage}} </div>
+                    <span class="pull-right" [ngStyle]="{'color': commentError ? 'red' : '#bbb', 'font-weight': 100}">{{commentLength}}/512</span><div *ngIf="commentError" class='comment-error-message'> {{commentErrorMessage}} </div>
                   </div>
                 </div>
                 <div class="comment-wrap" *ngFor="let comment of comments">
@@ -249,17 +249,4 @@
       </div>
     </section>
   </article>
-
-  <!-- <ngx-invisible-recaptcha #captchaElem
-                            [siteKey]="siteKey"
-                            (reset)="handleReset()"
-                            (ready)="handleReady()"
-                            (load)="handleLoad()"
-                            (success)="handleSuccess($event)"
-                            [useGlobalDomain]="false"
-                            [type]="type"
-                            [badge]="badge"
-                            [ngModel]="recaptcha"
-                            [ngModelOptions]="{ standalone: true }">
-  </ngx-invisible-recaptcha> -->
 </div>

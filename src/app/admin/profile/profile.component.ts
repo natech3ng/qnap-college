@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   showConfirmPassword = false;
   passwordStrength = '';
 
-  @ViewChild('password') passwordField: ElementRef;
+  @ViewChild('Password') passwordField: ElementRef;
   @ViewChild('oldPassword') oldPasswordField: ElementRef;
   @ViewChild('confirmPassword') confirmPasswordField: ElementRef;
 
@@ -110,10 +110,11 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     // console.log(this.password);
     // console.log(this.confirm_password);
 
-    this._confirmService.open('Do you want to submit?').then(
+    this._confirmService.open('Are you sure you want to change password?').then(
       () => {
 
-
+        console.log(this.password);
+        console.log(this.confirm_password)
         if (this.password !== this.confirm_password) {
           this.error = true;
           this.errorMsg = 'Confirmed password does not match';

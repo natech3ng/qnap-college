@@ -50,6 +50,9 @@
                   <th class="m-datatable-cell m-datatable-cell-name">
                     <span>Name</span>
                   </th>
+                  <th class="m-datatable-cell m-datatable-cell-comment-count">
+                    <span>comments</span>
+                  </th>
                   <th class="m-datatable-cell m-datatable-cell-verified">
                     <span>Verified?</span>
                   </th>
@@ -78,6 +81,9 @@
                   <td class="m-datatable-cell m-datatable-cell-name">
                     <span>{{user.name}}</span>
                   </td>
+                  <td class="m-datatable-cell m-datatable-cell-comment-count">
+                      <span>{{user.commentCount}}</span>
+                    </td>
                   <td class="m-datatable-cell m-datatable-cell-verified">
                     <span>{{ user.isVerified === true ? 'Yes': 'No'}}</span>
                   </td>

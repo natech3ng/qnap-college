@@ -288,6 +288,11 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
         this.commentError = true;
         this.setloading(false);
         return;
+      } else if (e.target.value.length > 512) {
+        this.commentErrorMessage = 'The comment can not be longer than 512 characters.';
+        this.commentError = true;
+        this.setloading(false);
+        return;
       } else {
         this.commentError = false;
       }
@@ -355,6 +360,10 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
       if(e.target.value.length >= 32 || e.target.value.length === 0 || e.target.value.length <= 512) {
         this.commentError = false;
       }
+    }
+    if (e.target.value.length > 512) {
+      this.commentError = true;
+      this.commentErrorMessage = 'The comment can not be longer than 512 characters.';
     }
   }
   onDelete(commentId) {

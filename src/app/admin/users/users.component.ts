@@ -9,6 +9,8 @@ import { UsersService } from '../../auth/_services/users.service';
 import Role from '../../_models/role';
 import { RoleService } from '../../_services/role.service';
 import { EventBrokerService } from '../../_services/event.broker.service';
+import { CommentsService } from '../../_services/comment.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-users',
@@ -26,6 +28,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   users: User [];
   roles: Role [];
   search = '';
+  user_per_page = environment.user_per_page;
   @Output() loading: EventEmitter<any> = new EventEmitter();
 
   checkb = '<i class="fa fa-check"></i>';
@@ -37,7 +40,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     private _usersService: UsersService,
     private _roleService: RoleService,
     private _eventBroker: EventBrokerService,
-    private _authService: AuthService) { }
+    private _authService: AuthService,
+    private _commentsService: CommentsService) { }
 
   ngOnInit() {
     this.sub = this._route.data.subscribe(
@@ -46,6 +50,17 @@ export class UsersComponent implements OnInit, OnDestroy {
         if (data.doc) {
           this.doc = data.doc;
           this.users = this.doc.docs;
+
+          for (const user of this.users) {
+            setTimeout(() => {
+              this._commentsService.getCountOfCommentsByUserId(user._id).subscribe(
+                (res) => {
+                  user.commentCount = res.payload;
+                },
+                (err) => {}
+              );
+            }, 500)
+          }
           this.page = this.doc.page;
           this.pages = this.doc.pages;
           this.total = this.doc.total;
@@ -96,9 +111,11 @@ export class UsersComponent implements OnInit, OnDestroy {
     this._eventBroker.emit<boolean>("loading", true);
     this._usersService.setRole(uid, roleName).subscribe(
       (res: any) => {
-        this._usersService.all().subscribe(
-          (users) => {
-            this.users = users;
+        console.log(this.user_per_page)
+        this._usersService.all(this.page, this.user_per_page).subscribe(
+          (res: any) => {
+            console.log(res);
+            this.users = res.docs;
             this._eventBroker.emit<boolean>("loading", false);
           },
           (err) => {

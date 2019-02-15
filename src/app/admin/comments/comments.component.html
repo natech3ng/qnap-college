@@ -37,13 +37,16 @@
           <table class="m-datatable-table">
             <thead class="m-datatable-head">
               <tr class="m-datatable-row">
-                <th class="m-datatable-cell m-datatable-cell-check m-datatable-center">
+                <!-- <th class="m-datatable-cell m-datatable-cell-check m-datatable-center">
                   <span>
                     <label class="m-checkbox">
                       <input type="checkbox">
                       <span ></span>
                     </label>
                   </span>
+                </th> -->
+                <th class="m-datatable-cell m-datatable-cell-course m-datatable-center">
+                  <span>Date</span>
                 </th>
                 <th class="m-datatable-cell m-datatable-cell-course">
                   <span>Course ID</span>
@@ -58,17 +61,20 @@
             </thead>
             <tbody class="m-datatable-body">
               <tr class="m-datatable-row" *ngFor="let comment of comments; let i = index">
-                  <td class="m-datatable-cell m-datatable-cell-check m-datatable-center">
-                    <span>
-                      <label class="m-checkbox">
-                        <input type="checkbox" value="1">
-                        <span >
-                        </span>
+                <!-- <td class="m-datatable-cell m-datatable-cell-check m-datatable-center">
+                  <span>
+                    <label class="m-checkbox">
+                      <input type="checkbox" value="1">
+                      <span >
+                      </span>
                     </label>
                   </span>
+                </td> -->
+                <td class="m-datatable-cell m-datatable-cell-course m-datatable-center" data-field="type">
+                  <span> {{comment.createdAt | amDateFormat:'YYYY/MM/DD'}}</span>
                 </td>
                 <td class="m-datatable-cell m-datatable-cell-course" data-field="type">
-                  <span> {{comment.course_id}} </span>
+                  <span> <a [routerLink]="['/course', 's', comment.course.slug]">{{comment.course.code_name}} </a></span>
                 </td>
                 <td class="m-datatable-cell m-datatable-cell-comment">
                   <span>{{comment.comment}}</span>

@@ -108,7 +108,7 @@
                   </div>
                 </div>
                 <div class="video-card-content-body">
-                    {{course.desc}}
+                    {{course.desc | shorten: 96: '...'}}
                 </div>
               </div>
             </div>

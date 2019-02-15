@@ -64,7 +64,8 @@
                   </div>
                   <div class="col-6">
                     <div class="form-control input-icon input-icon-right password-wrapper" style="border: 0px; height: 100%;">
-                      <input class="form-control m-input m-input-large" type="password" placeholder="New Password" (keydown)="inputPassword(passf)" ngModel name="password" required #password>
+
+                      <input class="form-control m-input m-input-large" [(ngModel)]="password" type="password" placeholder="New Password" (keydown)="inputPassword(passf)" name="password" required #Password="ngModel">
                       <span class="input-icon_icon input-icon_icon-right" (click)="togglePassword('showPassword', 'passwordField')">
                         <span><i class="icon" [ngClass]="{'icon-eye': !showPassword, 'icon-eye-close': showPassword}"></i></span>
                       </span>
@@ -93,7 +94,6 @@
                             <span><i class="icon" [ngClass]="{'icon-eye': !showOldPassword, 'icon-eye-close': showConfirmPassword}"></i></span>
                           </span>
                         </div>
-                    <input class="form-control m-input m-input-large" type="password" [(ngModel)]="confirm_password" name="name" required #name="ngModel" placeholder="Confirm Password" >
                   </div>
                 </div>
                 <div class="form-group m-form__group">
@@ -136,8 +136,8 @@
                 </form>
               </div>
               <div class="col-4">
-                <div class="title">Profile Picture</div>
-                <div class="avatar">
+                <div class="title" *ngIf='false'>Profile Picture</div>
+                <div class="avatar" *ngIf='false'>
                   <img class="avatar rounded-2" src="/assets/img/avatar.svg" width="200" height="200" alt="@qqnc">
                 </div>
               </div>

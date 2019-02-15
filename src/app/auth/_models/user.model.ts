@@ -7,6 +7,7 @@ export class User {
   name: string;
   firstName: string;
   lastName: string;
+  commentCount: number;
   role: {
     name: string;
     level: number;
@@ -15,5 +16,6 @@ export class User {
   constructor(email?: string, name?: string) {
     this.email = email ? email: '';
     this.name = name ? name: '';
+    this.commentCount = 0;
   }
 }

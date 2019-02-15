@@ -105,7 +105,7 @@
 				<div class="social-button-container">
 					<!-- <button id="twitter"></button> -->
 					<button type="button" id="facebook" (click)="onFacebookLogin();"></button>
-					<button type="button" id="googleplus" (click)="onGoogleLogin();"></button>
+					<button type="button" id="googleplus" (click)="onGoogleLogin();" [disabled]="socialReady"></button>
 				</div>
 				<div class="option-line policy">
 					By clicking Sign Up, you agree to our <a [routerLink]="['/termsofuse']" target='_blank'>Terms</a>, <a href="https://www.qnap.com/en/privacy-notice/qnap" target="_blank">Data Policy</a> and <a href="https://www.qnap.com/en/privacy-notice/qnap" target="_blank">Cookies Policy</a>. 
