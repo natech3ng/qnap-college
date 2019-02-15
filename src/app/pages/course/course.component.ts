@@ -197,7 +197,8 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._addScript.addScript('https://www.google.com/recaptcha/api.js', { render: '6LeVt3cUAAAAADO9qIyWsIHZOaiFUKr0PwWvVes9'});
+    const sitekey = environment.recapctchaSitekey;
+    this._addScript.addScript('https://www.google.com/recaptcha/api.js', { render: sitekey });
     window.scrollTo(0, 0);
     this.addThisSub = this._addThis.initAddThis('ra-5a0dd7aa711366bd', false).subscribe();
 
