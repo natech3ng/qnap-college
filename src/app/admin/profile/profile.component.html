@@ -46,6 +46,7 @@
                       Old Password
                     </label>
                   </div>   
+                  
                   <div class="col-6">
                     <input class="form-control m-input m-input-large" type="password" [(ngModel)]="old_password" name='old password' required #name="ngModel" required placeholder="Old Password">
                   </div>
@@ -56,8 +57,22 @@
                       New Password
                     </label>
                   </div>
-                  <div class="col-6">
-                    <input class="form-control m-input m-input-large" type="password" [(ngModel)]="password" name="password" required #name="ngModel" placeholder="New Password" >
+                  <div class="form-group col-6">
+                    <div class="form-control input-icon input-icon-right password-wrapper">
+                      <input class="form-control m-input m-input-large" type="password" placeholder="New Password" (keydown)="inputPassword(f)" ngModel name="password" required #password>
+                      <span class="input-icon_icon input-icon_icon-right" (click)="togglePassword()">
+                        <span><i class="icon" [ngClass]="{'icon-eye': !showPassword, 'icon-eye-close': showPassword}"></i></span>
+                      </span>
+                      
+                      <div class="strength-lines">
+                        <div class="line" 
+                          [ngClass]="{'bg-transparent': f.value.password === '', 'bg-red': (f.value.password !== '' && passwordStrength === '') || passwordStrength === 'weak', 'bg-orange': passwordStrength === 'good' , 'bg-green': passwordStrength === 'strong'}"></div>
+                        <div class="line"
+                          [ngClass]="{'bg-transparent': passwordStrength === '' || passwordStrength === 'weak', 'bg-orange': passwordStrength === 'good' , 'bg-green': passwordStrength === 'strong'}"></div>
+                        <div class="line bg-transparent"
+                          [ngClass]="{'bg-transparent': passwordStrength === '' || passwordStrength === 'weak' || passwordStrength === 'good' , 'bg-green': passwordStrength === 'strong'}"></div>
+                        </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group m-form__group row">
@@ -112,7 +127,7 @@
               <div class="col-4">
                 <div class="title">Profile Picture</div>
                 <div class="avatar">
-                  <img class="avatar rounded-2" src="https://avatars0.githubusercontent.com/u/4175853?s=400&amp;v=4" width="200" height="200" alt="@qqnc">
+                  <img class="avatar rounded-2" src="/assets/img/avatar.svg" width="200" height="200" alt="@qqnc">
                 </div>
               </div>
               

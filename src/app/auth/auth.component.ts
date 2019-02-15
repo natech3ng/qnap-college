@@ -245,7 +245,10 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
           this._toastr.error('Something went wrong!');
         }
       })
-      .catch((error: any) => console.error(error));
+      .catch((error: any) =>  {
+        console.error(error);
+        this.loading = false;
+      });
 
   }
 

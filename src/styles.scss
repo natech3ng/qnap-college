@@ -180,6 +180,12 @@ a, a:hover, a:visited, a:focus {
   height: 100%;
 }
 
+
+.ng-select input {
+  display: block !important;
+  height:100% !important;
+}
+
 .m-input-large {
   height: 3.5em
 }

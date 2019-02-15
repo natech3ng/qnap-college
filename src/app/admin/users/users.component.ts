@@ -19,8 +19,13 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   app = 'Users';
   sub: Subscription;
+  doc: any;
+  page = 1;
+  pages = 1;
+  total = 0;
   users: User [];
   roles: Role [];
+  search = '';
   @Output() loading: EventEmitter<any> = new EventEmitter();
 
   checkb = '<i class="fa fa-check"></i>';
@@ -37,8 +42,13 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this._route.data.subscribe(
       (data: Data) => {
-        if (data.users) {
-          this.users = data.users;
+        console.log(data)
+        if (data.doc) {
+          this.doc = data.doc;
+          this.users = this.doc.docs;
+          this.page = this.doc.page;
+          this.pages = this.doc.pages;
+          this.total = this.doc.total;
         }
       });
     
@@ -104,6 +114,11 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
   }
 
+  onModelChange(e) {
+
+    
+  }
+
   onSendResetPassword(user: User) {
     this._confirmService.open(`Do you want to reset ${user.email}'s password?`).then(
       () => {
@@ -124,4 +139,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     });
     
   }
+
+
 }

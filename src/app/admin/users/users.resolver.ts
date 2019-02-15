@@ -13,7 +13,11 @@ export class UsersResolver implements Resolve<User []> {
     private _toastr: ToastrService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User []> | Promise<User []>| User[] {
-    return this._usersService.all().pipe(
+    let page = 1;
+    if (route.params && route.params['page'])
+      page = +route.params['page'];
+
+    return this._usersService.all(page, 10).pipe(
       catchError((error) => {
         this._toastr.error('You are not authorized.');
         return throwError(error);

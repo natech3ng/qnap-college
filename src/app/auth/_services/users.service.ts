@@ -32,8 +32,15 @@ export class UsersService {
     return this._httpClient.delete<User []>(api_query, this._authService.jwtHttpClient());
   }
 
-  all(): Observable<User []> {
-    const api_query = this.apiRoot + 'users';
+  all(page?: number, limit?: number): Observable<User []> {
+    let api_query = this.apiRoot + 'users?';
+    if (page) {
+      api_query += 'page=' + page + '&';
+    }
+
+    if (limit) {
+      api_query += 'limit=' + limit;
+    }
     return this._httpClient.get<User []>(api_query, this._authService.jwtHttpClient());
   }
 

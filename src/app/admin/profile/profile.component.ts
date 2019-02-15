@@ -4,7 +4,7 @@ import { AuthResponse } from './../../_models/authresponse';
 import { AuthService } from './../../auth/_services/auth.service';
 import { NgForm } from '@angular/forms';
 import { User } from './../../auth/_models/user.model';
-import { OnInit, AfterViewInit, OnDestroy, Component } from '@angular/core';
+import { OnInit, AfterViewInit, OnDestroy, Component, ElementRef, ViewChild } from '@angular/core';
 import {
   trigger,
   state,
@@ -15,6 +15,7 @@ import {
 import { ConfirmService } from '../../_services/confirm.service';
 import { Location } from '@angular/common';
 import { UsersService } from '../../auth/_services/users.service';
+import { PasswordService } from '../../auth/_services/password.service';
 
 @Component({
   selector: 'app-profile',
@@ -58,6 +59,10 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   confirmOpen = false;
   firstName = '';
   lastName = '';
+  showPassword = false;
+  passwordStrength = '';
+
+  @ViewChild('password') passwordField: ElementRef;
 
   constructor(
     private _authService: AuthService,
@@ -65,7 +70,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     private _toastr: ToastrService,
     private _userService: UsersService,
     private _location: Location,
-    private _eventBroker: EventBrokerService
+    private _eventBroker: EventBrokerService,
+    private _passwordService: PasswordService
   ) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
     this.firstName = this.user.firstName;
@@ -185,5 +191,15 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     currentUser.name = `${this.firstName} ${this.lastName}`;
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
+  }
+
+  togglePassword() {
+
+  }
+
+  inputPassword(f: NgForm) {
+    console.log(this.password)
+    this.passwordStrength = this._passwordService.checkPassStrength(f.value.password);
+    console.log(this.passwordStrength);
   }
 }
