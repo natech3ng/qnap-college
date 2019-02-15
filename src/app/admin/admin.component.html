@@ -27,6 +27,14 @@
         </span>
       </a>
     </li>
+    <li>
+        <a href="#" [routerLink]="['/admin/comments']">
+            <i class="fa fa-comment fa-qnap fa-qnap-2x"></i>
+            <span class="nav-text">
+                Comments
+            </span>
+        </a>   
+      </li>
     <li [appSecurity]="['super admin', 'admin']">
       <a href="#" [routerLink]="['/admin/users']">
           <i class="fa fa-users fa-qnap fa-qnap-2x"></i>

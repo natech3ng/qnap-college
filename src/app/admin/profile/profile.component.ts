@@ -60,9 +60,13 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   firstName = '';
   lastName = '';
   showPassword = false;
+  showOldPassword = false;
+  showConfirmPassword = false;
   passwordStrength = '';
 
   @ViewChild('password') passwordField: ElementRef;
+  @ViewChild('oldPassword') oldPasswordField: ElementRef;
+  @ViewChild('confirmPassword') confirmPasswordField: ElementRef;
 
   constructor(
     private _authService: AuthService,
@@ -193,12 +197,14 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  togglePassword() {
-
+  togglePassword(toggleName: string, elName: string) {
+  
+    this[toggleName] = !this[toggleName] ;
+    console.log(this[elName]);
+    this[elName].nativeElement.type === 'password' ? this[elName].nativeElement.type = 'text' : this[elName].nativeElement.type = 'password';
   }
 
   inputPassword(f: NgForm) {
-    console.log(this.password)
     this.passwordStrength = this._passwordService.checkPassStrength(f.value.password);
     console.log(this.passwordStrength);
   }

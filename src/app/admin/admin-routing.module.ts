@@ -1,3 +1,4 @@
+import { CommentsResolver } from './comments/comments.resolver';
 import { AuthGuard } from './../auth/_guards/auth.guard';
 import { CourseNewComponent } from './courses/course-new/course-new.component';
 import { CoursesComponent } from './courses/courses.component';
@@ -13,6 +14,7 @@ import { UsersComponent } from './users/users.component';
 import { UserNewComponent } from './users/user-new/user-new.component';
 import { UsersResolver } from './users/users.resolver';
 import { ProfileComponent } from './profile/profile.component';
+import { CommentsComponent } from './comments/comments.component';
 
 
 const routes: Routes = [
@@ -67,6 +69,16 @@ const routes: Routes = [
         resolve: { doc: UsersResolver },
         canActivate: [AuthGuard],
         data: { roles: ['super admin', 'admin'] } 
+      },
+      {
+        path: 'comments',
+        component: CommentsComponent,
+        resolve: { doc: CommentsResolver }
+      },
+      {
+        path: 'comments/:page',
+        component: CommentsComponent,
+        resolve: { doc: CommentsResolver }
       },
       {
         path: 'user/new',

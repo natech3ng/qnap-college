@@ -1,3 +1,4 @@
+import { CommentsResolver } from './../admin/comments/comments.resolver';
 import { ConfirmationComponent } from './verification/confirmation';
 import { AuthGuard } from './_guards/auth.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +34,8 @@ import { PasswordService } from './_services/password.service';
   ],
   providers: [
     AuthGuard,
-    PasswordService
+    PasswordService,
+    CommentsResolver
   ],
   entryComponents: [
     VerificationSuccessComponent,

@@ -1,3 +1,4 @@
+import { CommentsComponent } from './comments/comments.component';
 import { SecurityDirective } from './_directives/security.directive';
 import { NgxDaterangepickerModule } from '@qqnc/ngx-daterangepicker';
 import { KeywordService } from './../_services/keyword.services';
@@ -55,7 +56,8 @@ import { ProfileComponent } from './profile/profile.component';
     UsersComponent,
     UserNewComponent,
     ProfileComponent,
-    SecurityDirective
+    SecurityDirective,
+    CommentsComponent
   ],
   providers: [
     CourseResolver,

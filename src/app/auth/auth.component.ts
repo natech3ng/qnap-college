@@ -369,7 +369,6 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   togglePassword() {
-    console.log(this.passwordField.nativeElement.type);
     this.showPassword = !this.showPassword;
     this.passwordField.nativeElement.type === 'password' ? this.passwordField.nativeElement.type = 'text' : this.passwordField.nativeElement.type = 'password';
   }

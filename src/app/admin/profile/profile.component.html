@@ -36,7 +36,7 @@
           </div>
           <div class="tab-content tab2" [@tabState]="tabs[1].state">
             <div class="change-password">
-              <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+              <form (ngSubmit)="onSubmit(passf)" #passf="ngForm">
                 <div class="form-group m-form__group row">
                   <div class="change-password-error col-8" *ngIf='error'>{{errorMsg}}</div>
                 </div>
@@ -48,7 +48,12 @@
                   </div>   
                   
                   <div class="col-6">
-                    <input class="form-control m-input m-input-large" type="password" [(ngModel)]="old_password" name='old password' required #name="ngModel" required placeholder="Old Password">
+                    <div class="form-control input-icon input-icon-right password-wrapper" style="border: 0px; height: 100%;">
+                      <input class="form-control m-input m-input-large" type="password" [(ngModel)]="old_password" name='old password' required #name="ngModel" required placeholder="Old Password" #oldPassword>
+                      <span class="input-icon_icon input-icon_icon-right" (click)="togglePassword('showOldPassword', 'oldPasswordField')">
+                        <span><i class="icon" [ngClass]="{'icon-eye': !showOldPassword, 'icon-eye-close': showOldPassword}"></i></span>
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group m-form__group row">
@@ -57,16 +62,16 @@
                       New Password
                     </label>
                   </div>
-                  <div class="form-group col-6">
-                    <div class="form-control input-icon input-icon-right password-wrapper">
-                      <input class="form-control m-input m-input-large" type="password" placeholder="New Password" (keydown)="inputPassword(f)" ngModel name="password" required #password>
-                      <span class="input-icon_icon input-icon_icon-right" (click)="togglePassword()">
+                  <div class="col-6">
+                    <div class="form-control input-icon input-icon-right password-wrapper" style="border: 0px; height: 100%;">
+                      <input class="form-control m-input m-input-large" type="password" placeholder="New Password" (keydown)="inputPassword(passf)" ngModel name="password" required #password>
+                      <span class="input-icon_icon input-icon_icon-right" (click)="togglePassword('showPassword', 'passwordField')">
                         <span><i class="icon" [ngClass]="{'icon-eye': !showPassword, 'icon-eye-close': showPassword}"></i></span>
                       </span>
                       
                       <div class="strength-lines">
                         <div class="line" 
-                          [ngClass]="{'bg-transparent': f.value.password === '', 'bg-red': (f.value.password !== '' && passwordStrength === '') || passwordStrength === 'weak', 'bg-orange': passwordStrength === 'good' , 'bg-green': passwordStrength === 'strong'}"></div>
+                          [ngClass]="{'bg-transparent': passf.value.password === '', 'bg-red': (passf .value.password !== '' && passwordStrength === '') || passwordStrength === 'weak', 'bg-orange': passwordStrength === 'good' , 'bg-green': passwordStrength === 'strong'}"></div>
                         <div class="line"
                           [ngClass]="{'bg-transparent': passwordStrength === '' || passwordStrength === 'weak', 'bg-orange': passwordStrength === 'good' , 'bg-green': passwordStrength === 'strong'}"></div>
                         <div class="line bg-transparent"
@@ -82,6 +87,12 @@
                     </label>
                   </div>
                   <div class="col-6">
+                      <div class="form-control input-icon input-icon-right password-wrapper" style="border: 0px; height: 100%;">
+                          <input class="form-control m-input m-input-large" type="password"  [(ngModel)]="confirm_password" name="name" required #name="ngModel" placeholder="Confirm Password" #confirmPassword>
+                          <span class="input-icon_icon input-icon_icon-right" (click)="togglePassword('showConfirmPassword', 'confirmPasswordField')">
+                            <span><i class="icon" [ngClass]="{'icon-eye': !showOldPassword, 'icon-eye-close': showConfirmPassword}"></i></span>
+                          </span>
+                        </div>
                     <input class="form-control m-input m-input-large" type="password" [(ngModel)]="confirm_password" name="name" required #name="ngModel" placeholder="Confirm Password" >
                   </div>
                 </div>

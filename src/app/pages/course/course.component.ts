@@ -1,5 +1,5 @@
 import { EventBrokerService } from './../../_services/event.broker.service';
-import { CommentService } from './../../_services/comment.service';
+import { CommentsService } from './../../_services/comment.service';
 import { UsersService } from './../../auth/_services/users.service';
 import { AuthService } from './../../auth/_services/auth.service';
 import { CourseDoc } from './../../_models/document';
@@ -76,7 +76,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     private _authService: AuthService,
     private _usersService: UsersService,
     private reCaptchaV3Service: ReCaptchaV3Service,
-    private _commentService: CommentService,
+    private _CommentsService: CommentsService,
     private _eventBroker: EventBrokerService, 
     private _confirmService: ConfirmService,
     private _addScript: AddScriptService) {
@@ -291,7 +291,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
       } else {
         this.commentError = false;
       }
-      this._commentService.post(this.course._id, comment_html, this.recaptchaToken).subscribe(
+      this._CommentsService.post(this.course._id, comment_html, this.recaptchaToken).subscribe(
         (res) => {
           
           // console.log(res);
@@ -362,7 +362,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
       () => {
         this.setloading(true);
         setTimeout(() => {
-          this._commentService.delete(commentId).subscribe(
+          this._CommentsService.delete(commentId).subscribe(
             (res) => { 
               if (res && res.success) {
                 for (let i = 0; i < this.comments.length; i = i+1) {
