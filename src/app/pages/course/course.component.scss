@@ -336,6 +336,19 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   }
 }
 
+.download-slide {
+  display: inline-block;
+  background: #05749e;
+  color: #fff !important;
+  font-size: 13px;
+  text-transform: capitalize;
+  padding: 10px;
+  border-radius: 3px;
+  margin: 5px;
+  line-height: 13px;
+  cursor: pointer;
+}
+
 
 .comments {
   margin: 2.5rem auto 0;

@@ -26,9 +26,13 @@
               <div class="flex-video widescreen">
                 <iframe width="420" height="315" [src]="youtubeSrc | safe" allowfullscreen=""></iframe>
               </div>
-              <div class="tags"> 
-                Tags: <a class="tag" *ngFor="let tag of course.tags" [routerLink]="['/tag/', tag]">{{tag}}</a>
+              <div style='display: inline-block; width:100%'>
+                <div class="tags" style="display: inline-block; width: 70%"> 
+                  Tags: <a class="tag" *ngFor="let tag of course.tags" [routerLink]="['/tag/', tag]">{{tag}}</a>
+                </div>
+                <div *ngIf="course.slide_link" class='pull-right'><a class="download-slide" href="{{course.slide_link}}" target="_blank">Slideshare</a></div>
               </div>
+              
             </div>
             <div class="col-md-12 video-desc single-post">
               <div>
