@@ -15,7 +15,10 @@
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "deploy:production": "pm2 deploy production setup; pm2 deploy production",
     "deploy:staging": "pm2 deploy staging setup; pm2 deploy staging",
-    "postinstall": "npm run build:ssr"
+    "postinstall": "npm run build:ssr",
+    "build:prerender": "npm run build:client-and-server-bundles && npm run compile:server && npm run generate:prerender",
+    "generate:prerender": "cd dist && node prerender",
+    "compile:server": "tsc -p server.tsconfig.json"
   },
   "keywords": [],
   "author": "",
@@ -60,7 +63,7 @@
     "morgan": "^1.9.0",
     "ng-bootstrap": "^1.6.3",
     "ngx-captcha": "^6.0.4",
-    "ngx-chips": "^1.9.2",
+    "ngx-chips": "^1.9.8",
     "ngx-cookieconsent": "^2.0.0",
     "ngx-device-detector": "^1.2.2",
     "ngx-facebook": "^2.4.0",
