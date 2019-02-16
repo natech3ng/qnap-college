@@ -32,9 +32,6 @@ const routes: Routes = [
     path: 'admin', loadChildren: './admin/admin.module#AdminModule',
     canActivate: [AuthGuard]
   },
-  // {
-  //   path: 'maintenance', component: MaintenanceComponent
-  // },
   {
     path: 'user/verification/:id', component: VerificationComponent
   },
