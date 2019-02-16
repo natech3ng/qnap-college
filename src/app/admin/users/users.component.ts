@@ -88,9 +88,9 @@ export class UsersComponent implements OnInit, OnDestroy {
         (res: any) => {
           this._toastr.success("Successfully delete a user");
           this._router.navigate(['/admin/users']);
-          this._usersService.all().subscribe(
-            (users) => {
-              this.users = users;
+          this._usersService.all(this.page, this.user_per_page).subscribe(
+            (res: any) => {
+              this.users = res.docs;
             },
             (err) => {
               this._toastr.error("Failed to pull users data");
@@ -111,7 +111,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     this._eventBroker.emit<boolean>("loading", true);
     this._usersService.setRole(uid, roleName).subscribe(
       (res: any) => {
-        console.log(this.user_per_page)
         this._usersService.all(this.page, this.user_per_page).subscribe(
           (res: any) => {
             console.log(res);
