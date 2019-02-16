@@ -30,7 +30,7 @@
 		
 			<form class="form login-form" *ngIf="signin" (ngSubmit)="onSignin(f)" #f='ngForm'>
 				<div class="login-error col-7" *ngIf='loginError' [innerHTML]="loginErrorMsg"></div>
-				<div class="login-error col-7" *ngIf='verifyError'>This email hasn't been verified, <a style='cursor: pointer' (click)="resend()">resend</a></div>
+				<div class="login-error col-7" *ngIf='verifyError'>This email hasn't been verified, <a style='text-decoration: underline; cursor: pointer' (click)="resend()">resend</a></div>
 				<div class="form-group col-7">
 					<input type="text" placeholder="Email" ngModel name="email" required [email]="true">
 				</div>
@@ -61,7 +61,7 @@
 				</div>
 			</form>
 			<form class="form register-form" (ngSubmit)="onSignup(regf)" *ngIf="!signin" #regf='ngForm'>
-				<div class="login-error col-7" *ngIf='regError'>{{regErrorMsg}}</div>
+				<div class="login-error col-7" *ngIf='regError' [innerHTML]="regErrorMsg"></div>
 				<div class="form-group col-7"><input type="text" placeholder="Email" ngModel name="email" required [email]="true"></div>
 				<div class="form-group col-7"><input type="text" placeholder="First Name" ngModel name="firstName" required></div>
 				<div class="form-group col-7"><input type="text" placeholder="Last Name" ngModel name="lastName" required></div>

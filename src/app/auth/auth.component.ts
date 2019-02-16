@@ -195,7 +195,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
             this.loading = false;
             this.registering = false;
             this.regError = true;
-            this.regErrorMsg = res['message'];
+            this.regErrorMsg = "Oops, account exists. <a [routerLink]=\"['/login']\">Login</a> with your account?";
           } else {
             this._toastr.success('A validation email has been sent, please validate by clicking the link in email');
           }
@@ -204,7 +204,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
           this.loading = false;
           this.registering = false;
           this.regError = true;
-          this.regErrorMsg = error;
+          this.regErrorMsg = "Oops, account exists. <a [routerLink]=\"['/login']\">Login</a> with your account?";;
           // this._toastr.error('Error');
         }
       );
