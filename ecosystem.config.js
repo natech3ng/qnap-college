@@ -12,7 +12,7 @@ module.exports = {
   deploy: {
     production: {
       key: '/c/Users/nate/.ssh/google_cloud_deploy_openSSH',
-      mackey: '~/.ssh/id_rsa_deploy_google_cloud',
+      key: '~/.ssh/id_rsa_deploy_google_cloud',
       user: 'deploy',
       host: ['blog.qnap.com'],
       ref: 'origin/master',
@@ -28,7 +28,7 @@ module.exports = {
       }
     },
     staging: {
-      winkey: '/c/Users/nate/.ssh/google_cloud_deploy_openSSH',
+      winkey: '~/.ssh/google_cloud_deploy_openSSH',
       key: '~/.ssh/id_rsa_deploy_google_cloud',
       user: 'deploy',
       host: ['104.198.157.126', 'staging-go.natecheng.me'],
