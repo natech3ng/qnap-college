@@ -11,7 +11,7 @@ import { CourseService } from '../../_services/course.service';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AddThisService } from '../../_services/addthis.service';
 import { MetaService } from '@ngx-meta/core';
-import { FacebookService, InitParams } from 'ngx-facebook/dist/umd';
+import { FacebookService, InitParams } from 'ngx-facebook';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service, InvisibleReCaptchaComponent } from 'ngx-captcha';

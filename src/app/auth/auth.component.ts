@@ -1,4 +1,4 @@
-import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook/dist/umd';
+import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 import { User } from './_models/user.model';
 import { AuthService } from './_services/auth.service';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';

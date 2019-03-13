@@ -40,7 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CourseResolver } from './pages/course/course.resolver';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { AddThisService } from './_services/addthis.service';
-import { FacebookModule } from 'ngx-facebook/dist/umd';
+import { FacebookModule } from 'ngx-facebook';
 import { ReactiveFormsModule } from '@angular/forms';
 // import { NgxCaptchaModule } from 'ngx-captcha';
 import { RoleService } from './_services/role.service';

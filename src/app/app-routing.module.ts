@@ -23,6 +23,7 @@ import { CreatePasswordComponent } from './auth/create.password/create.password.
 const routes: Routes = [
   {
     // path: '', component: PagesComponent
+    path: '',
     loadChildren: './pages/pages.module#PagesModule',
   },
   {
