@@ -80,11 +80,11 @@ export function metaFactory(): MetaLoader {
   return new MetaStaticLoader({
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
     pageTitleSeparator: ' - ',
-    applicationName: 'Tour of (lazy/busy) heroes',
+    applicationName: 'QNAP College',
     defaults: {
-      title: 'Mighty mighty mouse',
-      description: 'Mighty Mouse is an animated superhero mouse character',
-      'og:image': 'https://upload.wikimedia.org/wikipedia/commons/f/f8/superraton.jpg',
+      title: 'QNAP College',
+      description: 'High-Quality Online Courses! Free for everyone who would like to learn more about how to use QNAP as your private cloud storage.',
+      'og:image': 'https://www.qnap.com/i/_index/en-us/images/indexSect-spe1-bkd.jpg',
       'og:type': 'website',
       'og:locale': 'en_US',
       'og:locale:alternate': 'en_US,nl_NL,tr_TR'
