@@ -25,7 +25,13 @@ const routes: Routes = [
       },
       {
         path: 'category/:name', component: CategoryComponent,
-        resolve: { courses: CatCourseResolver }
+        resolve: { courses: CatCourseResolver },
+        data: {
+          meta: {
+            title: 'Category',
+            description: 'Different level of courses.'
+          }
+        }
       },
       {
         path: 'search/:keywords', component: SearchComponent,
@@ -48,7 +54,14 @@ const routes: Routes = [
       },
       {
         path: 'course/s/:slug', component: CourseComponent,
-        resolve: { course: CourseResolver }
+        resolve: { course: CourseResolver },
+        data: {
+          meta: {
+            title: 'Course',
+            description: 'Course, course, course, and course....',
+            overrider: true
+          }
+        }
       },
       {
         path: 'termsofuse', component: TermsOfUseComponent

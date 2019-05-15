@@ -90,7 +90,7 @@
                   </div>
                 </div>
               </div>
-              <div class="video-card-content" [routerLink]="['/course/s/', course.slug]">
+              <a class="video-card-content" [routerLink]="['/course/s/', course.slug]">
                 <div class="video-card-content-header">
                   <div class="header-info">
                     {{course.title}}
@@ -110,7 +110,7 @@
                 <div class="video-card-content-body">
                     {{course.desc | shorten: 96: '...'}}
                 </div>
-              </div>
+              </a>
             </div>
           </div>
         </div>
