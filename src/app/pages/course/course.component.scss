@@ -336,7 +336,7 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   }
 }
 
-.download-slide {
+.download-slide, .edit-button {
   display: inline-block;
   background: #05749e;
   color: #fff !important;
@@ -347,6 +347,10 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   margin: 5px;
   line-height: 13px;
   cursor: pointer;
+}
+
+.edit-button {
+  background: #fc1f8d;
 }
 
 

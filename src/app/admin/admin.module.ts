@@ -1,5 +1,4 @@
 import { CommentsComponent } from './comments/comments.component';
-import { SecurityDirective } from './_directives/security.directive';
 import { NgxDaterangepickerModule } from '@qqnc/ngx-daterangepicker';
 import { KeywordService } from './../_services/keyword.services';
 import { MomentModule } from 'ngx-moment';
@@ -30,6 +29,7 @@ import { UsersResolver } from './users/users.resolver';
 import { UsersService } from '../auth/_services/users.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileComponent } from './profile/profile.component';
+import { SecurityModule } from './_directives/security.module';
 
 @NgModule({
   imports: [
@@ -45,7 +45,8 @@ import { ProfileComponent } from './profile/profile.component';
     BootstrapModalModule,
     FontAwesomeModule,
     NgxDaterangepickerModule,
-    NgbModule
+    NgbModule,
+    SecurityModule
   ],
   declarations: [
     DashboardComponent,
@@ -56,7 +57,6 @@ import { ProfileComponent } from './profile/profile.component';
     UsersComponent,
     UserNewComponent,
     ProfileComponent,
-    SecurityDirective,
     CommentsComponent
   ],
   providers: [

@@ -31,10 +31,11 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let roles = route.data["roles"] as Array<string>;
-    // console.log('[canActivate]: roles: ' + roles);
-    // console.log('[canActivate]: user: ', currentUser);
+    console.log('[canActivate]: roles: ' + roles);
+    console.log('[canActivate]: user: ', currentUser);
     if (roles) {
-      if (!roles.includes(currentUser.role.name)) {
+      console.log('into roles')
+      if (!currentUser || !roles.includes(currentUser.role.name)) {
         this._toastr.error('You are not authorized. Redirected to Profile');
         this._router.navigate(['/profile']);
         return false;

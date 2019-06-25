@@ -19,9 +19,11 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   app = 'edit course';
   func = 'edit';
   paramSub: Subscription;
+  queryParamSub: Subscription;
   dataSub: Subscription;
   course: Course;
   categories: Category [];
+  returnUrl: string = null;
   constructor(
     private _route: ActivatedRoute,
     private ucfirstPipe: UcFirstPipe,
@@ -32,7 +34,16 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     private _router: Router ) {
     this.paramSub = this._route.params.subscribe(
       (params) => {
-        // console.log(params);
+        // this.returnUrl = params['returnUrl'];
+
+        console.log(params);
+      }
+    );
+    this.queryParamSub = this._route.queryParams.subscribe(
+      (params) => {
+        this.returnUrl = params['returnUrl'];
+
+        console.log(params);
       }
     );
 
@@ -62,6 +73,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.paramSub.unsubscribe();
     this.dataSub.unsubscribe();
+    this.queryParamSub.unsubscribe();
   }
 
   onSubmit(f: NgForm) {
@@ -88,7 +100,12 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this._courseService.update(f.value).subscribe(
           (course: Course) => {
             this._toastr.success('Success');
-            this._router.navigate(['/courses']);
+            if (this.returnUrl) {
+              this._router.navigate([this.returnUrl]);
+            } else { 
+              this._router.navigate(['/courses']);
+            }
+            
         }, (error) => {
           this._toastr.error('Failed to add a course');
         });

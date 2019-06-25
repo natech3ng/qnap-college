@@ -3,7 +3,7 @@ import { CommentsService } from './../../_services/comment.service';
 import { UsersService } from './../../auth/_services/users.service';
 import { AuthService } from './../../auth/_services/auth.service';
 import { CourseDoc } from './../../_models/document';
-import { Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef, ApplicationRef } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Course } from '../../_models/course';
@@ -79,7 +79,9 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     private _CommentsService: CommentsService,
     private _eventBroker: EventBrokerService, 
     private _confirmService: ConfirmService,
-    private _addScript: AddScriptService) {
+    private _addScript: AddScriptService,
+    private _appRef: ApplicationRef,
+    private _cdRef:ChangeDetectorRef) {
 
     let initParams: InitParams = {
       appId: '482418502252290',
@@ -232,8 +234,11 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     this.setloading(true);
     this.loggedIn = false;
     localStorage.removeItem('currentUser');
+    const url = this._route.snapshot['_routerState'].url;
     setTimeout(() => {
       this.setloading(false);
+      this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this._router.navigate([url]));
     }, 500)
     // this._authService.logout();
   }

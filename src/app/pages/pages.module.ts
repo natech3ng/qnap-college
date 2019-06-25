@@ -14,6 +14,7 @@ import { CourseComponent } from './course/course.component';
 import { MomentModule } from 'ngx-moment';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TermsOfUseComponent } from './termsofuse/termsofuse.component';
+import { SecurityModule } from '../admin/_directives/security.module';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { TermsOfUseComponent } from './termsofuse/termsofuse.component';
     MomentModule,
     NgPipesModule,
     InfiniteScrollModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
+    SecurityModule
   ],
   declarations: [
     PagesComponent,
