@@ -23,6 +23,7 @@ export class CourseNewComponent implements OnInit, OnDestroy {
   categories: Category [] = [];
   tags: string [] = [];
   course: Course;
+  returnUrl: string = null;
   courseDate: NgbDateStruct;
   public options = {
     placeholder: ''
