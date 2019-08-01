@@ -47,6 +47,7 @@ import { RoleService } from './_services/role.service';
 import { EventBrokerService } from './_services/event.broker.service';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { AddScriptService } from './_services/addscript.service';
+import { FavService } from './_services/favorite.service';
 
 
 const cookieConfig: NgcCookieConsentConfig = {
@@ -143,7 +144,8 @@ export function metaFactory(): MetaLoader {
     RoleService,
     EventBrokerService,
     CommentsService,
-    AddScriptService
+    AddScriptService,
+    FavService
   ],
   bootstrap: [AppComponent]
 })

@@ -495,7 +495,13 @@ article.support-index section.sp-section h4, article.support-list section.sp-sec
   width: 100%;
   left: 0;
   padding: 0 10px;
+  .like {
+    i {
+      margin-top: 8px;
+    }
+  }
 }
+
 .video-stats .thumb-stats {
   display: inline-block;
   background: rgba(0, 0, 0, 0.8);
