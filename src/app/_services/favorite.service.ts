@@ -19,4 +19,15 @@ export class FavService {
     const api_query = this.apiRoot + 'favorites/is/' + fid;
     return this._httpClient.get(api_query, this._authService.jwtHttpClient());
   }
+
+  public ToggleFavAndupdateInLocalStorage(cid: string): void {
+    const currentUser = this._authService.getUser();
+    const favIndex = currentUser.favorites.indexOf(cid);
+    if ( favIndex != -1) {
+      currentUser.favorites.splice(favIndex, 1);
+    } else {
+      currentUser.favorites.push(cid);
+    }
+    this._authService.updateCurrentUser(currentUser);
+  }
 }

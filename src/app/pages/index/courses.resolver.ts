@@ -24,13 +24,28 @@ export class CoursesResolver implements Resolve<CourseDoc> {
     }
     
     let cs_value;
+    let promise;
     for (const option of this._courseService.options) {
       if (option['name'] === cs) {
         cs_value = option['value'];
         break;
       }
     }
-    return this._courseService.all(6, cs_value).pipe(catchError(err => {
+
+    let currentUser = localStorage.getItem('currentUser');
+
+    if (currentUser !== null && typeof cs_value === 'undefined') {
+      // console.log('favorite')
+      promise = this._courseService.getFavoritedCourses(6)
+    } else {
+      // console.log('not favorite')
+      if (typeof cs_value === 'undefined') {
+        cs_value = 'publishedDate';
+      }
+      console.log(cs_value)
+      promise = this._courseService.all(6, cs_value) ;
+    }
+    return promise.pipe(catchError(err => {
       this._router.navigate(['/maintenance']);
       return throwError(err);
     }));

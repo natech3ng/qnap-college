@@ -11,6 +11,8 @@ import { NgxScreensizeService } from '../../modules/ngx-screensize/_services/ngx
 import { CourseService } from '../../_services/course.service';
 
 import * as _ from 'lodash';
+import { AuthService } from '../../auth/_services/auth.service';
+import { FavService } from '../../_services/favorite.service';
 
 @Component({
   selector: 'app-index',
@@ -38,6 +40,9 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
   loadingmore = false;
   totalPages = 0;
   finished = false;
+  loggedIn: boolean = false;
+  currentUser = null;
+  currentUserAbbvName = 'JD';
 
   @HostListener('window:scroll', ['$event'])
   currentPosition() {
@@ -50,11 +55,13 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private _categoryService: CategoryService,
+    private _favService: FavService,
     private _route: ActivatedRoute,
     private _modalService: ModalService,
     private _ssService: NgxScreensizeService,
     private _courseService: CourseService,
-    private _router: Router) {
+    private _router: Router,
+    private _authService: AuthService) {
     }
 
   ngOnInit() {
@@ -69,6 +76,40 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.displayOptions = this._courseService.options;
     this.loading = false;
     this.cs = localStorage.getItem('currentDisplay');
+
+    this._authService.verify().subscribe(
+      (res) => {
+        if (res && res.success) {
+          this.loggedIn = true;
+          this.displayOptions.push({name: 'My Favorite', value: 'favorites'});
+          // console.log(this.displayOptions)
+          
+          this.currentUser = this._authService.getUser();
+          
+          this.currentUserAbbvName = this.currentUser.name.split(" ").map((n)=>n[0]).join("")
+
+          if (this.currentUser && this.currentUser.favorites != []) {
+            this.courses.forEach((item, index) => {
+              if (this.currentUser.favorites.indexOf(this.courses[index]._id) != -1)
+                this.courses[index].isFavorited = true;
+              else
+                this.courses[index].isFavorited = false;
+            })
+
+            // console.log(this.courses)
+          } else {
+            // Should remove my favorite
+            this.removeFavoriteOption();
+          }
+        }
+
+        // console.log(this.currentUser);
+      },
+      (err) => {
+        // console.log(err);
+      }
+    );
+
     this.sub = this._route.data.subscribe(
       (data: Data) => {
         if (data.coursedoc) {
@@ -136,9 +177,18 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cs = option.value;
     this.page = 1;
     this.toggleMenu();
-    this._courseService.all(6, option.value, this.page).subscribe(
+    let promise;
+
+    if (this.loggedIn && option.value === 'favorites'){
+      promise = this._courseService.getFavoritedCourses(6, this.page);
+    } else {
+      promise = this._courseService.all(6, option.value, this.page);
+    }
+    
+    promise.subscribe(
       (coursedoc: CourseDoc) => {
         this.courses = coursedoc.docs;
+        this.runCheckFavorites(this.courses);
         this.loading = false;
       },
       (error) => {
@@ -152,11 +202,29 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     // console.log('scrolled!!');
     this.loadingmore = true;
     this.page += 1;
+    let promise;
 
-    this._courseService.all(6, this.cs, this.page).subscribe(
+    if (this.loggedIn && this.cs === 'My Favorite'){
+      promise = this._courseService.getFavoritedCourses(6, this.page);
+    } else {
+      if (this.cs === 'My Favorite') {
+        this.cs === 'publishedDate';
+        this.changeDisplayTo({name: 'Latest', value: 'publishedDate'})
+      }
+      promise = this._courseService.all(6, this.cs, this.page);
+    }
+    promise.subscribe(
       (newcoursedoc: CourseDoc) => {
         // console.log(newcoursedoc);
         for ( const doc of newcoursedoc.docs) {
+          if (this.currentUser && this.currentUser.favorites != []) {
+            if (this.currentUser.favorites.indexOf(doc._id) != -1) {
+              doc.isFavorited = true;
+            }
+            else {
+              doc.isFavorited = false;
+            }
+          }
           this.courses.push(doc);
         }
 
@@ -176,5 +244,46 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onNavigate(e) {
     e.stopPropagation();
+  }
+
+  onToggleFavorite(e, cid: string) {
+    e.stopPropagation();
+    if(!this.loggedIn) {
+      this._router.navigate(['/login'], { queryParams: { returnUrl: '/' }})
+      return;
+    }
+    this._favService.toggleFav(cid).subscribe(
+      (res) => {
+        if (res['success']) {
+          this.courses.forEach((item, index) => {
+            if (this.courses[index]._id === cid) {
+              this.courses[index].isFavorited = !this.courses[index].isFavorited;
+            }
+          })
+          this._favService.ToggleFavAndupdateInLocalStorage(cid);
+        }
+      }, (error) =>{
+      }
+    )
+  }
+  removeFavoriteOption() {
+    this.displayOptions.forEach((option, index) => {
+      if (this.displayOptions[index].value === 'favorites') {
+        this.displayOptions.splice(index,1);
+      }
+    });
+  }
+
+  runCheckFavorites(docs){
+    for ( const doc of docs) {
+      if (this.currentUser && this.currentUser.favorites != []) {
+        if (this.currentUser.favorites.indexOf(doc._id) != -1) {
+          doc.isFavorited = true;
+        }
+        else {
+          doc.isFavorited = false;
+        }
+      }
+    }
   }
 }

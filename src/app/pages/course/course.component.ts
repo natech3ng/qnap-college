@@ -455,10 +455,9 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
       (res) => {
         if (res['success']) {
           this.favorited = !this.favorited;
+          this._favService.ToggleFavAndupdateInLocalStorage(this.course._id);
         }
-        // this._toastr.success('Success');
       }, (error) =>{
-        // this._toastr.error('Fail');
       }
     )
   }
