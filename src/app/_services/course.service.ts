@@ -11,12 +11,20 @@ import { environment } from '../../environments/environment';
 export class CourseService {
   apiRoot: string = environment.apiUrl;
   public options;
+  public optionsMapping;
   constructor(private _httpClient: HttpClient, private _authService: AuthService) {
     this.options = [
       { name: 'Latest', value: 'publishedDate'},
       { name: 'Most Viewed', value: 'watched'},
       { name: 'Most Liked', value: 'like'}
     ];
+
+    this.optionsMapping = {
+      'Latest': 'publishedDate',
+      'Most Viewed': 'watched',
+      'Most Liked' : 'like',
+      'My Favorite': 'favorites'
+    }
   }
   all(limit?: number, getBy?: string, page?: number): Observable<CourseDoc> {
     let api_query = this.constructParams(limit, getBy, page)

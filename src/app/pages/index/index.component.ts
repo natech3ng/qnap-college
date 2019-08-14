@@ -75,7 +75,11 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.menuOpenForStyle = false;
     this.displayOptions = this._courseService.options;
     this.loading = false;
-    this.cs = localStorage.getItem('currentDisplay');
+    this.currentDisplay = localStorage.getItem('currentDisplay');
+    if (this.currentDisplay) {
+      this.cs = this._courseService.optionsMapping[this.currentDisplay];
+    }
+    
 
     this._authService.verify().subscribe(
       (res) => {
@@ -138,7 +142,6 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     // const cs = localStorage.getItem('currentDisplay');
     setTimeout(() => {
       if (this.cs) {
-        this.currentDisplay = this.cs;
       } else {
         this.currentDisplay = 'Latest';
       }
@@ -204,12 +207,15 @@ export class IndexComponent implements OnInit, AfterViewInit, OnDestroy {
     this.page += 1;
     let promise;
 
-    if (this.loggedIn && this.cs === 'My Favorite'){
+    console.log(this.loggedIn)
+    console.log(this.cs)
+    if (this.loggedIn && this.cs === 'favorites'){
       promise = this._courseService.getFavoritedCourses(6, this.page);
     } else {
-      if (this.cs === 'My Favorite') {
+      if (this.cs === 'favorites') {
         this.cs === 'publishedDate';
         this.changeDisplayTo({name: 'Latest', value: 'publishedDate'})
+        
       }
       promise = this._courseService.all(6, this.cs, this.page);
     }

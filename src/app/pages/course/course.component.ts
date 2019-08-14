@@ -226,6 +226,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     window.scrollTo(0, 0);
     this.addThisSub = this._addThis.initAddThis('ra-5a0dd7aa711366bd', false).subscribe();
 
+    // debugger
     this._meta.setTag('og:title', 'This is course of ' + this.course.title);
   }
 
