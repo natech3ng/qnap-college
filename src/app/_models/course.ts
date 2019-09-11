@@ -18,4 +18,5 @@ export class Course {
   slug: string;
   slide_link: string;
   comments: string[];
+  isFavorited: boolean;
 }

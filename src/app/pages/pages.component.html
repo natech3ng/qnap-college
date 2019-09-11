@@ -30,6 +30,10 @@
   <article class="support-index">
     <header #header [ngStyle]="{'display': bannerShow?'block':'none'}">
       <div class="container">
+          <div *ngIf="true" class='pull-right log-btn'>
+              <span *ngIf="loggedIn">Hello, <a [routerLink]="['/profile']">{{this.currentUser.name}}</a> | <a (click)="onSignout($event);">Logout</a></span>
+              <a href="#" [routerLink]="['/login']" [queryParams]="{returnUrl: returnUrl}" *ngIf="!loggedIn">Login</a>
+          </div>
         <h2><a href="#">QNAP College</a></h2>
         <section id="sp_search" class="sp-search no-h3 ">
           <div>

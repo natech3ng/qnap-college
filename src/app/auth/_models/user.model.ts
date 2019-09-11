@@ -8,6 +8,7 @@ export class User {
   firstName: string;
   lastName: string;
   commentCount: number;
+  favorites: string [];
   role: {
     name: string;
     level: number;
@@ -17,5 +18,6 @@ export class User {
     this.email = email ? email: '';
     this.name = name ? name: '';
     this.commentCount = 0;
+    this.favorites = [];
   }
 }

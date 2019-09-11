@@ -11,6 +11,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { environment } from '../../../environments/environment';
 
 import * as ResCode from '../../_codes/response';
+import { User } from '../_models/user.model';
 
 @Injectable()
 export class AuthService {
@@ -21,6 +22,8 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {
     this._loggedIn = false;
   }
+
+  private updating = false;
 
   constructHeader() {
     const currUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -38,7 +41,7 @@ export class AuthService {
     };
     return this.httpClient.post<AuthResponse>(`${this.apiRoot}fbLogin`, body, options).pipe(
       map((response:any) => {
-        console.log("[fbLogin]: ", response);
+        // console.log("[fbLogin]: ", response);
         if (response.success === true) {
           if (response.payload.code === ResCode.PASSWORD_HAS_NOT_BEEN_CREATED) {
             return response.payload;
@@ -99,6 +102,7 @@ export class AuthService {
         // login successful if there's a jwt token in the response
         if (response.success === true) {
           const user = response.payload;
+          console.log(user)
           user.token = response.token;
           if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -223,7 +227,7 @@ export class AuthService {
     return this.httpClient.get<{success: boolean, message: string, payload: Object}>(`${this.apiRoot}forget-password/${seed}`, { headers: headers });
   }
 
-  postForgetPassword(tuid: string, token: string, email: string): Observable<{success: boolean, message: string, payload: Object}> {
+  postForgetPassword(tuid: string, token: string, email: string): Observable<{success: boolean, message: string, payload: Object}>{
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = JSON.stringify({token: token, email: email});
     return this.httpClient.post<{success: boolean, message: string, payload: Object}>(`${this.apiRoot}forget-password/${tuid}`, body, { headers: headers });
@@ -252,5 +256,15 @@ export class AuthService {
   getUser(): any {
     return JSON.parse(localStorage.getItem('currentUser'));
   } 
+
+  updateCurrentUser(currentUser: User) {
+    if (this.updating === false) {
+      this.updating = true;
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      this.updating = false;
+    } else {
+      console.error("You cannot updating the data - race condition");
+    }
+  }
 
 }

@@ -11,19 +11,43 @@ import { environment } from '../../environments/environment';
 export class CourseService {
   apiRoot: string = environment.apiUrl;
   public options;
+  public optionsMapping;
   constructor(private _httpClient: HttpClient, private _authService: AuthService) {
     this.options = [
       { name: 'Latest', value: 'publishedDate'},
       { name: 'Most Viewed', value: 'watched'},
       { name: 'Most Liked', value: 'like'}
     ];
+
+    this.optionsMapping = {
+      'Latest': 'publishedDate',
+      'Most Viewed': 'watched',
+      'Most Liked' : 'like',
+      'My Favorite': 'favorites'
+    }
   }
   all(limit?: number, getBy?: string, page?: number): Observable<CourseDoc> {
+    let api_query = this.constructParams(limit, getBy, page)
+    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+    return this._httpClient.get<CourseDoc>(api_query, {headers: headers});
+    // if (getBy === 'favorites') {}
+  }
+
+  getFavoritedCourses(limit: number = 6, page: number = 1): Observable<CourseDoc> {
+    let api_query = "";
+    api_query = this.apiRoot + 'courses/favorites?page=' + page;
+    // const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
+    return this._httpClient.get<CourseDoc>(api_query, this._authService.jwtHttpClient());
+  }
+
+  constructParams(limit?: number, getBy?: string,  page?: number, ifItsFavorite: boolean = false): string {
     let by = 'publishedDate';
+    let api_query = this.apiRoot + 'courses?orderBy=';
     if (getBy) {
       by = getBy;
     }
-    let api_query = this.apiRoot + 'courses?orderBy=' + by + ':desc';
+    api_query = api_query + by + ':desc';
+    
     if (limit) {
       api_query = api_query + '&limit=' + limit;
     }
@@ -32,9 +56,8 @@ export class CourseService {
     } else {
       api_query += '&page=1';
     }
-    // console.log(api_query);
-    const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
-    return this._httpClient.get<CourseDoc>(api_query, {headers: headers});
+
+    return api_query;
   }
 
   add(course: Course) {
@@ -92,11 +115,12 @@ export class CourseService {
     if (!query) {
       query = '';
     }
-    console.log('search');
+    // console.log('search');
     const api_query = this.apiRoot + 'courses/search?query=' + query;
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');
     return this._httpClient.get<Course []>(api_query, {headers: headers});
   }
+
   delete(id: String): Observable<any> {
     const api_query = this.apiRoot + 'courses/' + id;
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache');

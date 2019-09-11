@@ -353,6 +353,23 @@ button, html input[type="button"], input[type="reset"], input[type="submit"] {
   background: #fc1f8d;
 }
 
+.fav-button {
+  display: inline-block;
+  text-transform: capitalize;
+  padding: 10px;
+  border-radius: 3px;
+  margin: 5px;
+  line-height: 13px;
+  cursor: pointer;
+  padding: 6px;
+  color: #222 !important;
+  background-color: transparent;
+  font-size: 1.4em;
+  .fas {
+    color: #F4B400;
+  }
+}
+
 
 .comments {
   margin: 2.5rem auto 0;

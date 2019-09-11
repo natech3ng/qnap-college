@@ -17,6 +17,7 @@ import { environment } from '../../../environments/environment';
 import { ReCaptchaV3Service, InvisibleReCaptchaComponent } from 'ngx-captcha';
 import { ConfirmService } from '../../_services/confirm.service';
 import { AddScriptService } from '../../_services/addscript.service';
+import { FavService } from '../../_services/favorite.service';
 
 declare var gapi: any;
 
@@ -41,6 +42,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   returnUrl = '';
   currentUserAbbvName = 'JD';
   commentError: boolean = false;
+  favorited: boolean = false;
   commentErrorMessage: string = 'Please make sure the comment format is correct.';
   private cdr: ChangeDetectorRef;
 
@@ -87,6 +89,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     private _eventBroker: EventBrokerService, 
     private _confirmService: ConfirmService,
     private _addScript: AddScriptService,
+    private _favService: FavService,
     private _appRef: ApplicationRef,
     private _cdRef:ChangeDetectorRef) {
 
@@ -157,8 +160,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(err);
       }
     );
-    // console.log(this.loggedIn);
-    // console.log(this._authService.getUser());
+
     this.sub = this._route.params.subscribe(params => {
     });
 
@@ -194,6 +196,26 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
               this._toastr.error('Couldn\'t get comments')
             }
           );
+
+          this._favService.isFav(data.course._id).subscribe(
+            (res) => {
+              console.log(res);
+              if (res) {
+                if (res["payload"]["favorite"] === true){
+                  this.favorited = true;
+                }
+              }
+            },
+           (httpErrorRes) => { 
+              
+              // console.log(httpErrorRes.error)
+              if (httpErrorRes.error.status === 401){
+
+              } else {
+                this._toastr.error('Some errors.');
+              }
+            }
+          )
           // this._meta.setTitle(`${this.course.title}`);
           // this._meta.setTag('og:image', `//img.youtube.com/vi/${this.course.youtube_ref}/sddefault.jpg`);
           // let params: UIParams = {
@@ -236,6 +258,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     window.scrollTo(0, 0);
     this.addThisSub = this._addThis.initAddThis('ra-5a0dd7aa711366bd', false).subscribe();
 
+    // debugger
     this._meta.setTag('og:title', 'This is course of ' + this.course.title);
   }
 
@@ -570,4 +593,19 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log('User now: ', user);
     this.currentGUser = user;
   };
+  toggleFav(): void {
+    if(!this.loggedIn) {
+      this._router.navigate(['/login'], { queryParams: { returnUrl: this.returnUrl }})
+      return;
+    }
+    this._favService.toggleFav(this.course._id).subscribe(
+      (res) => {
+        if (res['success']) {
+          this.favorited = !this.favorited;
+          this._favService.ToggleFavAndupdateInLocalStorage(this.course._id);
+        }
+      }, (error) =>{
+      }
+    )
+  }
 };

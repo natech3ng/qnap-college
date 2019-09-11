@@ -146,7 +146,7 @@ export class AuthComponent implements OnInit, OnDestroy, AfterViewInit {
       // console.log('This is your token: ', token);
       this._authService.login(f.value.email, f.value.password, token).subscribe(
         (user: User) => {
-          console.log(user);
+          // console.log(user);
           if (user.role.level === 1 && this.returnUrl == '/admin') {
             this.returnUrl = '/profile';
           }

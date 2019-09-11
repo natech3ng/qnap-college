@@ -1,10 +1,11 @@
+import { AuthService } from './../auth/_services/auth.service';
 import { IEventListener, EventBrokerService } from './../_services/event.broker.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ModalService } from '../_services/modal.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { CategoryService } from '../_services/category.service';
 import { Category } from '../_models/category';
-import { Router, NavigationStart, NavigationEnd, NavigationCancel, RoutesRecognized, RouteConfigLoadEnd } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, RoutesRecognized, RouteConfigLoadEnd, ActivatedRoute } from '@angular/router';
 import { SearchComponent } from '../pages/search/search.component';
 import { SearchService } from '../_services/search.service';
 import { NgForm } from '@angular/forms';
@@ -16,8 +17,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { NgxScreensizeService } from '../modules/ngx-screensize/_services/ngx-screensize.service';
 import { HttpClient } from '@angular/common/http';
 import { AddThisService } from '../_services/addthis.service';
+import { Route } from '@angular/compiler/src/core';
 // import { ReCaptchaV3Service } from 'ngx-captcha';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-pages',
@@ -41,13 +42,15 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
   public modalOpen: boolean;
   public firstOpened: boolean;
 
+  private currentUser: any = false;
+  private loggedIn = false;
   private YT: any;
   private video: any;
   private player: any;
   private reframed = false;
   private youtubeVideoWidth = 853;
   private youtubeVideoHeight = 480;
-
+  private returnUrl = '/';
   deviceInfo: any = null;
 
   _headerHTML = '';
@@ -97,13 +100,15 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     private _sanitizer: DomSanitizer,
     private _addThis: AddThisService,
     // private reCaptchaV3Service: ReCaptchaV3Service,
-    private _eventBroker: EventBrokerService) {
+    private _eventBroker: EventBrokerService,
+    private _authService: AuthService,
+    private _route: ActivatedRoute) {
 
       this.deviceInfo = this._deviceService.getDeviceInfo();
       // console.log(this.deviceInfo);
       const url = this._router.url;
       this.checkBanner(url);
-      
+      this.returnUrl = this._route.snapshot['_routerState'].url;
 
       this._myEventListener = this._eventBroker.listen<boolean>("loading",(value:boolean)=>{
         // Waiting loading event in router-outlet, it's a workaround, because we don't have broker on router-outlet
@@ -117,6 +122,19 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
+    this._authService.verify().subscribe(
+      (res) => {
+        if (res && res.success) {
+          this.loggedIn = true;
+          this.currentUser = this._authService.getUser();
+          // console.log(this.currentUser);
+          // this.currentUserAbbvName = this.currentUser.name.split(" ").map((n)=>n[0]).join("")
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
     this.loading = true;
     this.goToTop = false;
     this.modalOpen = false;
@@ -322,6 +340,21 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
       case 101 || 150:
         break;
     }
+  }
+
+  onSignout(e) {
+    e.stopPropagation();
+    // remove user from local storage to log user out
+    this.loading =true;
+    this.loggedIn = false;
+    localStorage.removeItem('currentUser');
+    const url = this._route.snapshot['_routerState'].url;
+    setTimeout(() => {
+      this.loading = false;
+      this._router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this._router.navigate([url]));
+    }, 500)
+    // this._authService.logout();
   }
 
   public get headerHTML(): SafeHtml {
