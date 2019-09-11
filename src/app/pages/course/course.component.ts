@@ -18,6 +18,8 @@ import { ReCaptchaV3Service, InvisibleReCaptchaComponent } from 'ngx-captcha';
 import { ConfirmService } from '../../_services/confirm.service';
 import { AddScriptService } from '../../_services/addscript.service';
 
+declare var gapi: any;
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -34,6 +36,7 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   keywords;
   comments: any [];
   currentUser = null;
+  currentGUser = null;
   loggedIn:boolean = false;
   returnUrl = '';
   currentUserAbbvName = 'JD';
@@ -64,6 +67,10 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   // siteKey = '6LeVt3cUAAAAADO9qIyWsIHZOaiFUKr0PwWvVes9';
 
   loading: boolean = false;
+  GoogleAuth: any = null;
+  isGoogleSignedIn: boolean = false;
+  isAuthorized: boolean = false;
+  currentApiRequest: any = {};
 
   constructor(
     private _route: ActivatedRoute, 
@@ -101,12 +108,37 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
     );
 
     this.keywords = '';
+
+    gapi.load('client:auth2', () => {
+      console.log('client:auth2 loaded');
+
+      gapi.auth2.init({
+        'clientId': environment.GoogleClientID,
+        // 'apiKey': environment.GoogleYoutubeAPIKey,
+        'scope': 'profile email',
+        'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
+      }).then((onInit) => {
+        console.log('auth2 initialized')
+        this.GoogleAuth = gapi.auth2.getAuthInstance();
+        this.isGoogleSignedIn = this.GoogleAuth.isSignedIn.get();
+        // Listen for sign-in state changes.
+        this.GoogleAuth.isSignedIn.listen(this.signinChanged.bind(this));
+        // Listen for changes to current user.
+        this.GoogleAuth.currentUser.listen(this.userChanged.bind(this));
+
+        if (this.GoogleAuth.isSignedIn.get() == true) {
+          this.GoogleAuth.signIn();
+        }
+      }, (onError) => {
+        console.error(onError);
+      });
+    });
   }
 
   ngOnInit() {
     this.commentEnabled = environment.comment_enable;
 
-    this._meta.setTitle('Course Course Course');
+    this._meta.setTitle('QNAP College - Get the Most out of Your QNAP NAS');
     this._meta.setTag('og:image', '//img.youtube.com/vi/tcGIYGr4guA/sddefault.jpg');
     this._meta.setTag('og:type', 'video.other');
     this._meta.setTag('og:description', 'Course description');
@@ -424,4 +456,118 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
   handleReady(): void {
     this.captchaIsReady = true;
   }
+
+  onThumbup(): void {
+    console.log(this.GoogleAuth)
+    if (!this.isGoogleSignedIn) {
+      console.log('not siged in')
+    } else {
+      console.log('signed in')
+    }
+    // gapi.load('client:auth2', () => {  
+    //   this.GoogleAuth = gapi.auth2.getAuthInstance();
+    //   console.log('client:auth2 loaded');
+    //   gapi.auth2.init({
+    //     'clientId': environment.GoogleClientID,
+    //     // 'apiKey': environment.GoogleYoutubeAPIKey,
+    //     'scope': 'https://www.googleapis.com/auth/youtube.force-ssl',
+    //     'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
+    //   }).then((onInit) => {
+    //     this.GoogleAuth = gapi.auth2.getAuthInstance();
+    //     this.isSignedIn = this.GoogleAuth.isSignedIn.get();
+
+    //     if (!this.isSignedIn) {
+          
+    //       // this.GoogleAuth.signIn();
+    //       this.GoogleAuth.signIn();
+    //     }
+    //     else {
+    //       gapi.client.init({
+    //         'clientId': environment.GoogleClientID,
+    //         'apiKey': environment.GoogleYoutubeAPIKey,
+    //         'scope': 'https://www.googleapis.com/auth/youtube.force-ssl',
+    //         'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
+    //       }).then(() => {
+    //         // console.log(gapi.auth2.getAuthInstance().signIn())
+    //         gapi.client.youtube.videos.rate({
+    //           "id": "J5yhBpsPSFU",
+    //           "rating": "like"
+    //         })
+    //           .then(function(response) {
+    //             // Handle the results here (response.result has the parsed body).
+    //             console.log("Response", response);
+    //           },
+    //           function(err) { console.error("Execute error", err); });
+    //       });
+    //     }
+    //     this.GoogleAuth.isSignedIn.listen(this.updateSigninStatus.bind(this));
+    //   }, (onError) => {
+    //     console.log(onError);
+    //   });
+    // });
+  }
+
+  sendAuthorizedApiRequest(requestDetails) {
+    console.log('sendAuthorizedApiRequest')
+    this.currentApiRequest = requestDetails;
+    if (this.isAuthorized) {
+      // Make API request
+      // gapi.client.request(requestDetails)
+      gapi.client.init({
+        'clientId': environment.GoogleClientID,
+        'apiKey': environment.GoogleYoutubeAPIKey,
+        'scope': 'https://www.googleapis.com/auth/youtube.force-ssl',
+        'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest']
+      }).then(() => {
+        // console.log(gapi.auth2.getAuthInstance().signIn())
+        gapi.client.youtube.videos.rate({
+          "id": "J5yhBpsPSFU",
+          "rating": "like"
+        })
+            .then(function(response) {
+                    // Handle the results here (response.result has the parsed body).
+                    console.log("Response", response);
+                  },
+                  function(err) { console.error("Execute error", err); });
+      });
+      
+      // Reset currentApiRequest variable.
+      this.currentApiRequest = {};
+    } else {
+      this.GoogleAuth.signIn();
+    }
+  }
+
+  updateSigninStatus(isSignedIn) {
+    console.log('updateSigninStatus')
+    if (isSignedIn) {
+      console.log(this);
+      this.isAuthorized = true;
+      if (this.currentApiRequest) {
+        this.sendAuthorizedApiRequest(this.currentApiRequest);
+      }
+    } else {
+      this.isAuthorized = false;
+    }
+  }
+
+  /**
+   * Listener method for sign-out live value.
+   *
+   * @param {boolean} val the updated signed out state.
+   */
+  signinChanged = (val) => {
+    console.log('Signin state changed to ', val);
+  };
+
+
+  /**
+   * Listener method for when the user changes.
+   *
+   * @param {GoogleUser} user the updated user.
+   */
+  userChanged = (user) => {
+    console.log('User now: ', user);
+    this.currentGUser = user;
+  };
 };

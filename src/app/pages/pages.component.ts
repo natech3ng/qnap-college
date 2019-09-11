@@ -161,13 +161,13 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.popupOpenSubscription = this._ccService.popupOpen$.subscribe(
       () => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log('popupOpen');
+        // console.log('popupOpen');
       });
 
     this.popupCloseSubscription = this._ccService.popupClose$.subscribe(
       () => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log('popuClose');
+        // console.log('popuClose');
       });
 
     this.initializeSubscription = this._ccService.initialize$.subscribe(
@@ -179,13 +179,13 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.statusChangeSubscription = this._ccService.statusChange$.subscribe(
       (event: NgcStatusChangeEvent) => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log(`statusChange: ${JSON.stringify(event)}`);
+        // console.log(`statusChange: ${JSON.stringify(event)}`);
       });
 
     this.revokeChoiceSubscription = this._ccService.revokeChoice$.subscribe(
       () => {
         // you can use this._ccService.getConfig() to do stuff...
-        console.log(`revokeChoice: ${JSON.stringify(event)}`);
+        // console.log(`revokeChoice: ${JSON.stringify(event)}`);
       });
   }
   ngAfterViewInit() {
@@ -256,13 +256,13 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
     //   }
     // );
     // this.loadScript('//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a0dd7aa711366bd');
-    this._httpClient.get('https://www.qnap.com/i/_aid/footer.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
-      (data) => {
-        this._footerHTML = data;
-      },
-      (error) => {
-      }
-    );
+    // this._httpClient.get('https://www.qnap.com/i/_aid/footer.php?lang_set=en-us&lc_demo=/solution/virtualization-station-3/en/', {responseType: 'text'}).subscribe(
+    //   (data) => {
+    //     this._footerHTML = data;
+    //   },
+    //   (error) => {
+    //   }
+    // );
   }
 
   ngOnDestroy() {
