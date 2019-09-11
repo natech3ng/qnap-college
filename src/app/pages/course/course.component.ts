@@ -129,9 +129,9 @@ export class CourseComponent implements OnInit, OnDestroy, AfterViewInit {
         // Listen for changes to current user.
         this.GoogleAuth.currentUser.listen(this.userChanged.bind(this));
 
-        if (this.GoogleAuth.isSignedIn.get() == true) {
-          this.GoogleAuth.signIn();
-        }
+        // if (this.GoogleAuth.isSignedIn.get() == true) {
+        //   this.GoogleAuth.signIn();
+        // }
       }, (onError) => {
         console.error(onError);
       });

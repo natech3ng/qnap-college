@@ -69,7 +69,7 @@ export class AuthService {
     };
     return this.httpClient.post<AuthResponse>(`${this.apiRoot}googleLogin`, body, options).pipe(
       map((response:any) => {
-        console.log("[googleLogin]: ", response);
+        // console.log("[googleLogin]: ", response);
         if (response.success === true) {
           if (response.payload.code === ResCode.PASSWORD_HAS_NOT_BEEN_CREATED) {
             return response.payload;
