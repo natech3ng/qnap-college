@@ -91,6 +91,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {}
 
   setloading(value: boolean) {
+    console.log('setloading')
     this._eventBroker.emit<boolean>("loading", value);
   }
 

@@ -16,6 +16,7 @@ export class AuthGuard implements CanActivate {
     private _route: ActivatedRoute,
     private _authService: AuthService,
     private _toastr: ToastrService) {
+      console.log('guard constructor');
   }
 
   private getUrlParameter(url, name) {
@@ -31,10 +32,10 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let roles = route.data["roles"] as Array<string>;
-    console.log('[canActivate]: roles: ' + roles);
-    console.log('[canActivate]: user: ', currentUser);
+    // console.log('[canActivate]: roles: ' + roles);
+    // console.log('[canActivate]: user: ', currentUser);
     if (roles) {
-      console.log('into roles')
+      // console.log('into roles')
       if (!currentUser || !roles.includes(currentUser.role.name)) {
         this._toastr.error('You are not authorized. Redirected to Profile');
         this._router.navigate(['/profile']);

@@ -3,7 +3,6 @@ import { ClickStopPropagation } from './_directives/click.stop.propagation.direc
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxScreensizeModule } from './modules/ngx-screensize/index';
 import { AuthService } from './auth/_services/auth.service';
-import { AdminModule } from './admin/admin.module';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { ModalService } from './_services/modal.service';
@@ -21,15 +20,12 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { CategoryService } from './_services/category.service';
-import { IndexComponent } from './pages/index/index.component';
+// import { IndexComponent } from './pages/index/index.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CourseService } from './_services/course.service';
 import { CoursesResolver } from './pages/index/courses.resolver';
 import { CategoryResolver } from './pages/index/category.resolver';
-import { DurationToTimePipe } from './_pipes/moment.duration.pipe';
-import { CategoryComponent } from './pages/category/category.component';
 import { CatCourseResolver } from './pages/category/cat.course.resolver';
-import { SearchComponent } from './pages/search/search.component';
 import { SearchResolver } from './pages/search/search.resolver';
 import { SearchService } from './_services/search.service';
 import { MetaModule, MetaStaticLoader, PageTitlePositioning, MetaLoader } from '@ngx-meta/core';
@@ -48,6 +44,7 @@ import { EventBrokerService } from './_services/event.broker.service';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { AddScriptService } from './_services/addscript.service';
 import { FavService } from './_services/favorite.service';
+import { PipesModule } from './_pipes/pipes.module';
 
 
 const cookieConfig: NgcCookieConsentConfig = {
@@ -97,10 +94,6 @@ export function metaFactory(): MetaLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    IndexComponent,
-    DurationToTimePipe,
-    CategoryComponent,
-    SearchComponent,
     MaintenanceComponent,
     ClickStopPropagation
   ],
@@ -109,12 +102,12 @@ export function metaFactory(): MetaLoader {
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    PipesModule,
     NgPipesModule,
     MomentModule,
     NgcCookieConsentModule.forRoot(cookieConfig),
     AuthModule,
     PagesModule,
-    AdminModule,
     DeviceDetectorModule.forRoot(),
     NgxScreensizeModule,
     NgbModule.forRoot(),

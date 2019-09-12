@@ -251,7 +251,7 @@ export class PagesComponent implements OnInit, AfterViewInit, OnDestroy {
             event instanceof NavigationCancel
             ) {
             this.loading = false;
-            console.log(this._router.url);
+            // console.log(this._router.url);
             this.checkBanner(this._router.url);
             // console.log('Navigate end');
         } else if ( event instanceof RouteConfigLoadEnd) {

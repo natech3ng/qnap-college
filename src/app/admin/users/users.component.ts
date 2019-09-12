@@ -41,7 +41,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     private _roleService: RoleService,
     private _eventBroker: EventBrokerService,
     private _authService: AuthService,
-    private _commentsService: CommentsService) { }
+    private _commentsService: CommentsService) {
+     }
 
   ngOnInit() {
     this.sub = this._route.data.subscribe(

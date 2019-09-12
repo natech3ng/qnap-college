@@ -14,10 +14,10 @@ import { NgxScreensizeService } from './modules/ngx-screensize/_services/ngx-scr
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   loaded = false;
   constructor(private _ssService: NgxScreensizeService, private router: Router, private readonly _meta: MetaService) {
-    
-    
   }
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('app ng init')
+  }
 
   ngAfterViewInit() {
     this._meta.setTag('og:title', 'This is the home page of QNAP College');
@@ -25,6 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       this.loaded = true;
     }, 1000)
     this.router.events.subscribe(event => {
+      // console.log('siwth page')
       if (event instanceof NavigationEnd) {
         (<any>window).ga('set', 'page', event.urlAfterRedirects);
         (<any>window).ga('send', 'pageview');

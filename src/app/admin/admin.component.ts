@@ -23,7 +23,6 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
     private _authService: AuthService,
     private _location: Location,
     private _eventBroker: EventBrokerService) {
-
     this.loggedIn = this._authService.loggedIn;
     this._myEventListener = this._eventBroker.listen<boolean>("loading",(value:boolean)=>{
       // Waiting loading event in router-outlet, it's a workaround, because we don't have broker on router-outlet
@@ -44,13 +43,11 @@ export class AdminComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((event) => {
         if (event instanceof NavigationStart) {
           this.loading = true;
-          // console.log('Admin navigate start');
         } else if (
             event instanceof NavigationEnd ||
             event instanceof NavigationCancel
             ) {
           this.loading = false;
-          // console.log('Admin navigate end');
         }
     });
   }

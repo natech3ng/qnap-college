@@ -1,3 +1,5 @@
+import { CategoryComponent } from './category/category.component';
+import { IndexComponent } from './index/index.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { PagesComponent } from './pages.component';
@@ -15,6 +17,8 @@ import { MomentModule } from 'ngx-moment';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TermsOfUseComponent } from './termsofuse/termsofuse.component';
 import { SecurityModule } from '../admin/_directives/security.module';
+import { PipesModule } from '../_pipes/pipes.module';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   imports: [
@@ -26,14 +30,18 @@ import { SecurityModule } from '../admin/_directives/security.module';
     NgPipesModule,
     InfiniteScrollModule,
     NgxCaptchaModule,
-    SecurityModule
+    SecurityModule,
+    PipesModule
   ],
   declarations: [
     PagesComponent,
+    CategoryComponent,
+    SearchComponent,
     NotFoundComponent,
     RunScriptsDirective,
     CourseComponent,
     TermsOfUseComponent,
+    IndexComponent,
     SafePipe
   ]
 })
