@@ -77,7 +77,7 @@
     "ngx-pipes": "^2.1.7",
     "ngx-responsive": "^6.0.0",
     "ngx-toastr": "^8.6.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "reframe.js": "^2.2.1",
     "rxjs": "6.4.0",
     "youtube": "^0.1.0",
