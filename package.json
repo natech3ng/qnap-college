@@ -60,7 +60,7 @@
     "dotenv": "^5.0.1",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.13",
-    "moment": "^2.22.1",
+    "moment": "^2.29.4",
     "moment-duration-format": "^2.2.2",
     "morgan": "^1.9.0",
     "ng-bootstrap": "^1.6.3",
